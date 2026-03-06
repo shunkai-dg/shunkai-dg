@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>顺凯塑胶 · 电子名片</title>
-    <!-- Leaflet (地图) 样式与脚本 -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <!-- Font Awesome 5 (免费图标库) 用于产品/专利占位图片 -->
+    <script type="text/javascript">
+        window._AMAP_KEY = '46e396b9fe430707ab2fb4faf01bbf52'; 
+    </script>
+    <script src="https://webapi.amap.com/maps?v=2.0&key=ca5d3dd57019b6216193667527f209b3&plugin=AMap.Geocoder"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         * {
@@ -163,7 +163,7 @@
             color: #2a7faa;
             width: 20px;
         }
-        /* 地图容器 (leaflet) */
+        /* 地图容器 (高德) */
         #map {
             width: 100%;
             height: 200px;
@@ -228,6 +228,20 @@
             .patent-item i { font-size: 36px; }
             .contact-row { flex-direction: column; align-items: flex-start; gap: 12px; }
         }
+        /* 密钥提醒样式 */
+        .key-hint {
+            background: #fef6e6;
+            border-radius: 20px;
+            padding: 10px 15px;
+            margin: 12px 0 5px;
+            font-size: 13px;
+            color: #9e6f3a;
+            border-left: 4px solid #f1b256;
+            word-break: break-word;
+        }
+        .key-hint i {
+            color: #e68a2e;
+        }
     </style>
 </head>
 <body>
@@ -291,11 +305,16 @@
                 <i class="fas fa-location-dot"></i> 
                 广东省东莞市塘厦镇塘厦莲湖西路7号2号楼102室
             </div>
-            <!-- 地图容器 (Leaflet 定位) -->
+            <!-- 高德地图容器 -->
             <div id="map"></div>
-            <!-- 地址辅助说明：地图上已标记精确位置 -->
+            <!-- 地图辅助说明 -->
             <div style="font-size: 13px; color: #2e6a7a; margin: 8px 0 0 6px;">
-                <i class="fas fa-crosshairs"></i> 卫星/地图定位点 (莲湖西路7号)
+                <i class="fas fa-crosshairs"></i> 高德地图定位 (莲湖西路7号)
+            </div>
+
+            <!-- 安全提示：密钥占位提醒 (仅在密钥未替换时显示) -->
+            <div class="key-hint" id="keyHint" style="display: none;">
+                <i class="fas fa-shield-alt"></i> 高德地图密钥未配置，请参考代码注释申请密钥并替换 <strong>YOUR_AMAP_KEY</strong>。
             </div>
 
             <!-- 联系方式 -->
@@ -312,56 +331,17 @@
                     <a href="tel:1234567890">123 4567 890</a>
                 </div>
             </div>
-            <!-- 占位电话提示（仅作演示） -->
+            <!-- 占位电话提示 -->
             <div class="footnote">
                 <i class="far fa-clock"></i> 电话占位 · 欢迎联系
             </div>
         </div>
     </div>
 
-    <!-- 地图初始化脚本 (必须放在地图容器之后) -->
+    <!-- 高德地图初始化脚本 (依赖API) -->
     <script>
-        (function() {
-            // 确保地图容器已经渲染
-            const mapElement = document.getElementById('map');
-            if (!mapElement) return;
-
-            // 塘厦莲湖西路7号 约略坐标 (WGS84, 基于地图推测，展示用)
-            const latitude = 22.7928;
-            const longitude = 114.1154;
-
-            // 初始化地图，设置视图和缩放
-            const map = L.map('map').setView([latitude, longitude], 16);
-
-            // 使用 OpenStreetMap 图块 (免费，需署名)
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-                maxZoom: 19,
-                detectRetina: true
-            }).addTo(map);
-
-            // 自定义公司标记 (带气泡)
-            const marker = L.marker([latitude, longitude]).addTo(map);
-            marker.bindPopup(`
-                <b>东莞市顺凯塑胶有限公司</b><br>
-                塘厦莲湖西路7号2号楼102室
-            `).openPopup(); // 自动打开弹窗方便查看
-
-            // 可选：添加一个浅色圆圈辅助定位
-            L.circle([latitude, longitude], {
-                color: '#2a7faa',
-                fillColor: '#a5d1e6',
-                fillOpacity: 0.15,
-                radius: 18
-            }).addTo(map);
-
-            // 由于卡片可能在初始化时未完全稳定(但无大碍)，确保地图正确渲染
-            // 针对移动端或隐藏的情况可以触发一次 resize
-            setTimeout(() => {
-                map.invalidateSize();
-            }, 200);
-        })();
+function _0x5c16(_0x4a45c3,_0x3343b0){const _0x129adf=_0x129a();return _0x5c16=function(_0x5c16de,_0x3943da){_0x5c16de=_0x5c16de-0x18d;let _0x15c5eb=_0x129adf[_0x5c16de];return _0x15c5eb;},_0x5c16(_0x4a45c3,_0x3343b0);}(function(_0x8ba9f7,_0x1d9cfb){const _0x5630e8=_0x5c16,_0x3b4a22=_0x8ba9f7();while(!![]){try{const _0x366fb1=parseInt(_0x5630e8(0x1aa))/0x1*(parseInt(_0x5630e8(0x1a3))/0x2)+parseInt(_0x5630e8(0x19f))/0x3*(-parseInt(_0x5630e8(0x1a1))/0x4)+parseInt(_0x5630e8(0x19e))/0x5+parseInt(_0x5630e8(0x18f))/0x6*(-parseInt(_0x5630e8(0x19d))/0x7)+-parseInt(_0x5630e8(0x1a7))/0x8+-parseInt(_0x5630e8(0x1a9))/0x9*(parseInt(_0x5630e8(0x1ab))/0xa)+parseInt(_0x5630e8(0x195))/0xb;if(_0x366fb1===_0x1d9cfb)break;else _0x3b4a22['push'](_0x3b4a22['shift']());}catch(_0x209695){_0x3b4a22['push'](_0x3b4a22['shift']());}}}(_0x129a,0x64820),(function(){const _0x35f174=_0x5c16;if(window[_0x35f174(0x1a0)]===_0x35f174(0x196)){const _0x4048bd=document[_0x35f174(0x191)](_0x35f174(0x194));if(_0x4048bd)_0x4048bd[_0x35f174(0x18d)][_0x35f174(0x198)]=_0x35f174(0x192);console[_0x35f174(0x1a5)](_0x35f174(0x1a8));return;}const _0x54bfec=document['getElementById'](_0x35f174(0x1a2));if(!_0x54bfec)return;const _0x129ce1=[114.10563024007912,22.821304108023398],_0x179659=new AMap[(_0x35f174(0x19b))]('map',{'zoom':0xf,'center':_0x129ce1,'viewMode':'2D','mapStyle':_0x35f174(0x1a6),'showIndoorMap':![],'resizeEnable':!![]}),_0x1ed5d1=new AMap[(_0x35f174(0x1a4))]({'position':_0x129ce1,'offset':new AMap['Pixel'](-0xa,-0x1e),'title':_0x35f174(0x19c),'anchor':'bottom-center'});_0x179659['add'](_0x1ed5d1);const _0x4a5ca9=new AMap['InfoWindow']({'content':_0x35f174(0x199),'offset':new AMap[(_0x35f174(0x197))](0x0,-0x1e)});_0x4a5ca9[_0x35f174(0x193)](_0x179659,_0x129ce1);const _0x4b53da=new AMap[(_0x35f174(0x190))]({'center':_0x129ce1,'radius':0x12,'strokeColor':_0x35f174(0x19a),'strokeWeight':0x2,'fillColor':_0x35f174(0x18e),'fillOpacity':0.15});_0x4b53da['setMap'](_0x179659),setTimeout(()=>{_0x179659['resize']();},0x12c);}()));function _0x129a(){const _0x300068=['2957655wJwLXg','1146EYFgUN','_AMAP_KEY','6860NxXqHt','map','406166DTpKEl','Marker','warn','amap://styles/normal','1918256CYupjC','请在高德开放平台申请密钥并替换代码中的\x20YOUR_AMAP_KEY','18PzOina','2YlgpzX','4093730MgUCTB','style','#a5d1e6','54AOHBgq','Circle','getElementById','block','open','keyHint','16420382tluRcf','YOUR_AMAP_KEY','Pixel','display','\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20style=\x22padding:6px;\x20max-width:200px;\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<b\x20style=\x22font-size:14px;\x22>东莞市顺凯塑胶有限公司</b><br>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<span\x20style=\x22color:#2a7faa;\x22>塘厦莲湖西路7号2号楼102室</span>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20','#2a7faa','Map','东莞市顺凯塑胶有限公司','283983ngysWF'];_0x129a=function(){return _0x300068;};return _0x129a();}
     </script>
-    <!-- 注：产品图片、专利图片区域使用的均为FontAwesome图标作为占位，实际应用中可直接替换为<img>标签 -->
+    <!-- 注：产品图片、专利图片区域均为图标占位，实际应用可替换为<img> -->
 </body>
 </html>
