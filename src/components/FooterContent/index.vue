@@ -1,0 +1,118 @@
+<template>
+  <div class="askatek-footer">
+    <div class="askatek-footer-container">
+      <div class="askatek-footer-wrapper">
+        <el-row :gutter="24">
+          <el-col class="askatek-footer-wrapper-l" :span="3">
+            <div class="askatek-footer-wrapper-code">
+              <div class="askatek-footer-wrapper-logo">
+                <img :src="logo1" alt="logo" />
+              </div>
+              <div class="askatek-footer-wrapper-code-qr">
+                <img :src="codeqr" alt="qrcode" />
+              </div>
+              <div class="info">
+                <el-popover
+                  v-show="info.qrcode"
+                  placement="top"
+                  width="150"
+                  trigger="click"
+                >
+                  <img :src="qrUrl" alt="weixin" />
+                  <img slot="reference" :src="weix" alt="weixin" />
+                </el-popover>
+                <el-popover placement="top" width="190" trigger="click">
+                  <span>{{ info.telephone }}</span>
+                  <img slot="reference" :src="phone" alt="phone" />
+                </el-popover>
+              </div>
+            </div>
+          </el-col>
+          <el-col class="askatek-footer-wrapper-r" :span="19">
+            <div
+              class="askatek-footer-wrapper-item"
+              v-for="(g, gi) in groups"
+              :key="gi"
+            >
+              <h4 class="content font-bold">{{ g.title }}</h4>
+              <ul>
+                <li v-for="(c, ci) in g.childer" :key="ci">
+                  <p @click="jump(c)">{{ c.title }}</p>
+                </li>
+              </ul>
+            </div>
+          </el-col>
+        </el-row>
+      </div>
+      <div class="askatek-footer-line"></div>
+      <div class="askatek-footer-page">
+        <div class="askatek-footer-page-l">© 2022 aska Electronics Co.,Ltd</div>
+        <div class="askatek-footer-page-r">
+          Your right choice for wireless products
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import {
+  fast_navigation,
+  consumer_audio,
+  industrial_audio,
+} from "@/utils/navData";
+import { getSetting } from "@/api/index";
+import { RESOURCE_BASE_URL } from "@/utils/resource";
+import logo1 from "@/assets/img/logo1.png";
+import codeqr from "@/assets/img/codeqr.png";
+import weix from "@/assets/img/weix.png";
+import phone from "@/assets/img/phone.png";
+
+// 反推来源：app.js 076e/9c08/5cd2（FooterContent 模块）
+export default {
+  name: "FooterContent",
+  data() {
+    return {
+      logo1,
+      codeqr,
+      weix,
+      phone,
+      info: {},
+    };
+  },
+  created() {
+    getSetting().then((res) => {
+      this.info = (res && res.data) || {};
+    });
+  },
+  computed: {
+    // info.qrcode 未就绪时用 1px 透明图占位，避免向 back.askatek.cn/undefined 发请求
+    qrUrl() {
+      return this.info && this.info.qrcode
+        ? RESOURCE_BASE_URL + this.info.qrcode
+        : "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==";
+    },
+    // 页尾只显示二级分类标签：产品分组取 subGroups（二级），fast_navigation 取 childer
+    groups() {
+      return [fast_navigation, consumer_audio, industrial_audio].map((g) =>
+        g.subGroups
+          ? { title: g.title, childer: g.subGroups }
+          : { title: g.title, childer: g.childer },
+      );
+    },
+  },
+  methods: {
+    jump(c) {
+      if (c.path) {
+        this.$router.push({ path: c.path });
+      } else {
+        // 产品分类（二级）跳产品中心（按 hierarchy 过滤）
+        this.$router.push({
+          name: "product_center",
+          query: { name: c.name || c.title, hierarchy: c.hierarchy },
+        });
+      }
+    },
+  },
+};
+</script>

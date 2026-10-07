@@ -1,0 +1,39 @@
+{
+  "jobs": [
+    {
+      "id": 1,
+      "department": "R&D",
+      "position": "Senior Acoustics Engineer",
+      "quantity": "2",
+      "descr": "<h2>Responsibilities</h2><ul><li>Design and tune acoustic performance of TWS and headphones</li><li>Conduct acoustic simulation and measurements</li><li>Collaborate with ID and firmware teams</li></ul><h2>Requirements</h2><ol><li>5+ years consumer audio experience</li><li>Proficiency in soundcheck and chamber testing</li><li>Bachelor's degree or above in acoustics/electrical</li></ol><blockquote>Great opportunity to build flagship ANC products from scratch.</blockquote>"
+    },
+    {
+      "id": 2,
+      "department": "Sales",
+      "position": "Overseas Account Manager",
+      "quantity": "3",
+      "descr": "<h2>Responsibilities</h2><ul><li>Develop key accounts in Europe and America</li><li>Handle RFQ, samples and project follow-up</li><li>Prepare quotation and business reports</li></ul><h2>Requirements</h2><ol><li>Fluent English, overseas market experience</li><li>Strong negotiation and communication skills</li><li>Willing to travel</li></ol>"
+    },
+    {
+      "id": 3,
+      "department": "Manufacturing",
+      "position": "PE Engineer",
+      "quantity": "2",
+      "descr": "<h2>Responsibilities</h2><ul><li>Optimize SMT and assembly process yield</li><li>Setup and maintain automated production lines</li><li>Analyze defects and drive improvement</li></ul><h2>Requirements</h2><ol><li>Acoustic/ME background preferred</li><li>Experience with production equipment</li><li>Problem solving mindset</li></ol>"
+    },
+    {
+      "id": 4,
+      "department": "Quality",
+      "position": "QE Engineer",
+      "quantity": "1",
+      "descr": "<h2>Responsibilities</h2><ul><li>Establish and maintain quality standards</li><li>Drive supplier quality management</li><li>Handle customer complaints and 8D</li></ul><h2>Requirements</h2><ol><li>Quality system knowledge ISO9001/IATF16949</li><li>Excellent data analysis skills</li></ol>"
+    },
+    {
+      "id": 5,
+      "department": "Firmware",
+      "position": "BT Firmware Engineer",
+      "quantity": "2",
+      "descr": "<h2>Responsibilities</h2><ul><li>Develop Bluetooth firmware for headset products</li><li>Integrate ANC, voice and audio DSP</li><li>Performance tuning and issue fixing</li></ul><h2>Requirements</h2><ol><li>Experience with BT SoC (BES/Qualcomm/Realtek)</li><li>Strong C programming</li><li>Low power optimization experience</li></ol><pre><code>printf(\"init audio dsp\\n\");</code></pre>"
+    }
+  ]
+}

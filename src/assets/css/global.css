@@ -1,0 +1,762 @@
+.over-flow {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  word-break: break-all;
+}
+
+.over-flows {
+  text-overflow: -o-ellipsis-lastline;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+  word-break: break-all;
+  overflow: hidden;
+  white-space: normal;
+}
+
+.isGesture {
+  cursor: pointer;
+}
+
+.askatek-head {
+  width: 100%;
+  z-index: 9;
+}
+
+.comp-block {
+  position: relative;
+}
+
+.scroll-top {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  -webkit-transition: background-color 0.4s;
+  transition: background-color 0.4s;
+  -webkit-transition-property: background-color;
+  transition-property: background-color;
+  -webkit-transition-duration: 0.4s;
+  transition-duration: 0.4s;
+  -webkit-transition-timing-function: ease;
+  transition-timing-function: ease;
+  -webkit-transition-delay: 0s;
+  transition-delay: 0s;
+}
+
+.header-btn-icon {
+  padding: 0 !important;
+}
+
+.header-btn-icon .el-input__inner {
+  border: 0 !important;
+}
+
+.header-btn-icon .popper__arrow {
+  display: none !important;
+}
+
+.header-btn-icon .el-input-group__append {
+  background: #fff !important;
+  color: #006ab9 !important;
+  border: 0 solid #dcdfe6 !important;
+}
+
+.shading-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: #000;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+  padding: 0 10px;
+}
+
+.shading-menu .shading-menu-login {
+  padding: 40px 20px 20px 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+}
+
+.shading-menu .shading-menu-login .shading-menu-logo {
+  width: 58.8%;
+  text-align: left;
+}
+
+.shading-menu .shading-menu-login .shading-menu-logo img {
+  max-width: 60%;
+  height: auto;
+}
+
+.shading-menu .shading-menu-login .menu-close {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 5px 0 5px 10px;
+  color: #fff;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.shading-menu .shading-menu-login .menu-close i {
+  font-size: 30px;
+}
+
+.shading-center-menu{
+  overflow: hidden;
+}
+.shading-center-menu,
+.shading-menu-container,
+.shading-menu-warp {
+  height: 100%;
+}
+
+.shading-menu-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.shading-center-menu {
+  overflow: hidden;
+  /* overflow-y: scroll; */
+}
+
+.shading-center-menu .el-menu {
+  text-align: left;
+  background: none;
+  border-right: 0;
+}
+
+.shading-center-menu .el-menu .el-menu-item,
+.shading-center-menu .el-menu .el-submenu__title {
+  color: #fff;
+  padding-top: 5px;
+  margin-bottom: 5px;
+  border-top: 1px solid rgba(238, 243, 247, 0.13);
+  font-size: 14px;
+}
+
+.shading-center-menu .el-menu .el-menu-item a,
+.shading-center-menu .el-menu .el-submenu__title a {
+  color: #fff;
+  -webkit-text-decoration-line: none;
+  text-decoration-line: none;
+}
+
+.shading-center-menu .el-menu .el-menu-item:focus,
+.shading-center-menu .el-menu .el-menu-item:hover,
+.shading-center-menu .el-menu .el-submenu__title:hover {
+  background: none !important;
+}
+
+@media (max-width: 767px) {
+  .askatek-footer {
+    padding: 0 80px !important;
+  }
+
+  .askatek-footer-wrapper-r {
+    display: none !important;
+  }
+
+  .askatek-footer-wrapper-l.el-col-3 {
+    width: 100% !important;
+  }
+
+  .askatek-footer-page {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .askatek-footer-page-l,
+  .askatek-footer-page-r {
+    padding: 5px 0;
+  }
+}
+
+.askatek-footer {
+  background: #fff;
+  color: #000;
+  font-family: PingFang SC;
+  font-size: 14px;
+  line-height: 1.5;
+  padding: 0 60px 0 60px;
+}
+
+.askatek-footer .el-row {
+  margin: 0 !important;
+}
+
+.askatek-footer .el-col {
+  padding: 0 15px !important;
+}
+
+.askatek-footer .askatek-footer-wrapper {
+  padding-top: 60px;
+}
+
+.askatek-footer .askatek-footer-wrapper-l .askatek-footer-wrapper-code {
+  width: 100%;
+  padding: 5px 0;
+}
+
+.askatek-footer .askatek-footer-wrapper-l .askatek-footer-wrapper-code img {
+  width: 100%;
+}
+
+.askatek-footer .askatek-footer-wrapper-l .askatek-footer-wrapper-code .info {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.askatek-footer
+  .askatek-footer-wrapper-l
+  .askatek-footer-wrapper-code
+  .info
+  img {
+  width: 65%;
+}
+
+.askatek-footer
+  .askatek-footer-wrapper-l
+  .askatek-footer-wrapper-code
+  .info
+  span:first-child {
+  margin-right: 5px;
+}
+
+.askatek-footer
+  .askatek-footer-wrapper-l
+  .askatek-footer-wrapper-code
+  .info
+  span:last-child {
+  margin-left: 5px;
+}
+
+.askatek-footer
+  .askatek-footer-wrapper-l
+  .askatek-footer-wrapper-code
+  .askatek-footer-wrapper-code-qr {
+  margin: 30px 0;
+}
+
+.askatek-footer .askatek-footer-wrapper-r {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  text-align: left;
+  margin-left: 50px;
+}
+
+.askatek-footer .askatek-footer-wrapper-item {
+  padding: 13px;
+  width: 33.33%;
+}
+
+.askatek-footer .askatek-footer-wrapper-item .font-bold {
+  border-left: 2px solid #000;
+  color: #333;
+  font-size: 18px;
+  line-height: 1.5;
+  text-align: inherit;
+  padding-left: 10px;
+  list-style-type: none;
+}
+
+.askatek-footer .askatek-footer-wrapper-item ul {
+  margin-top: 20px !important;
+  list-style-type: none;
+}
+
+.askatek-footer .askatek-footer-wrapper-item ul li {
+  padding: 4px;
+}
+
+.askatek-footer .askatek-footer-wrapper-item ul li p {
+  padding-left: 10px;
+  color: grey;
+  font-size: 14px;
+  line-height: 1.5;
+  text-align: inherit;
+  cursor: pointer;
+}
+
+.askatek-footer .askatek-footer-line {
+  height: 10px;
+  border-bottom: 10px solid #000;
+  margin-top: 40px;
+}
+
+.askatek-footer .askatek-footer-page {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  text-align: left;
+  color: #666;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  margin: 30px 0;
+}
+
+.el-popover img {
+  width: 100%;
+  height: 100%;
+}
+
+#app {
+  font-family: Microsoft YaHei;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  position: relative;
+  background: #f8f8f8;
+}
+
+.is-circle .el-icon-caret-top {
+  color: #000;
+}
+
+.page-component__scroll {
+  width: 40px;
+  height: 40px;
+  background-color: #fff;
+  text-align: center;
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  font-size: 20px;
+  -webkit-box-shadow: 0 0 6px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.12);
+  cursor: pointer;
+  z-index: 5;
+  border-radius: 50%;
+}
+
+body {
+  font-family:
+    Open Sans,
+    sans-serif;
+  color: #444;
+  font-family: Microsoft YaHei;
+  font-size: 14px !important;
+  line-height: 1.5 !important;
+}
+
+a {
+  color: #e03a3c;
+  text-decoration: none !important;
+}
+
+p {
+  padding: 0;
+  margin: 0 !important;
+}
+
+a:hover {
+  color: #e76668;
+  text-decoration: none !important;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: Raleway, sans-serif;
+  padding: 0;
+  margin: 0 !important;
+}
+
+ol,
+ul {
+  padding: 0 !important;
+  margin: 0;
+}
+
+.askatek-head {
+  position: relative;
+}
+
+.header-btn {
+  margin-left: auto;
+  width: 20%;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.askatek-header,
+.header-btn {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.askatek-header {
+  width: 100%;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  min-height: auto;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  z-index: 2;
+  position: relative;
+}
+
+.askatek-header .askatek-nav {
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  height: auto;
+}
+
+.askatek-header .askatek-logo {
+  max-height: 48px;
+}
+
+.askatek-header .askatek-logo1 {
+  max-height: 30px;
+}
+
+.el-menu.el-menu--horizontal {
+  border-bottom: 0;
+  top: 0 !important;
+  background-color: #000 !important;
+}
+
+.el-menu.el-menu--horizontal .el-menu-item,
+.el-menu.el-menu--horizontal .el-submenu__title,
+.el-menu.el-menu--horizontal .el-submenu__title a {
+  border-bottom: 0;
+  background-color: #000 !important;
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: #fff !important;
+  font-size: 16px;
+  text-decoration: none;
+}
+
+.el-menu.el-menu--horizontal .el-menu-item .el-icon-arrow-down:before,
+.el-menu.el-menu--horizontal .el-submenu__title .el-icon-arrow-down:before,
+.el-menu.el-menu--horizontal .el-submenu__title a .el-icon-arrow-down:before {
+  content: " ";
+}
+
+.el-menu--horizontal {
+  display: block;
+  top: 75px !important;
+}
+
+.el-menu--horizontal .el-menu--popup {
+  background-color: #000 !important;
+  z-index: 100;
+  border: none;
+  padding: 5px 0 !important;
+  border-radius: 3px;
+  min-width: 140px;
+  max-width: 280px;
+}
+
+.el-menu--horizontal .el-menu-item {
+  background-color: #000 !important;
+}
+
+.zz-col-sm-3 {
+  width: 25%;
+  height: 100%;
+}
+
+.zz-col-sm-2 {
+  width: 16.6666%;
+}
+
+.btn-icon {
+  color: #fff;
+}
+
+.btn-icon svg {
+  font-size: 20px;
+}
+
+@media (max-width: 576px) {
+  .askatek-header {
+    background: #fff;
+    -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.1019607843);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1019607843);
+  }
+
+  .askatek-header .askatek-nav {
+    display: none;
+  }
+
+  .header-btn {
+    margin-left: auto;
+    width: 20%;
+    display: block;
+    -webkit-box-pack: right;
+    -ms-flex-pack: right;
+    justify-content: right;
+    text-align: right;
+  }
+
+  /* .list-ul {
+        width: 30%
+    } */
+
+  .askatek-logo {
+    display: none;
+  }
+
+  .askatek-logo1 {
+    display: block;
+  }
+
+  .zz-col-sm-2 {
+    width: 30%;
+  }
+
+  .home_product .product_item {
+    min-height: auto;
+    background-position: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .home_product .product_item {
+    min-height: auto !important;
+    background-position: 0 !important;
+  }
+
+  .askatek-header {
+    padding: 5px 20px 5px 20px;
+  }
+
+  .askatek-logo {
+    display: none;
+  }
+
+  .loop-container {
+    display: none !important;
+    list-style-type: none;
+  }
+
+  .product_bg_min_img {
+    display: block;
+  }
+
+  .btn-icon {
+    color: #006ab9;
+    text-align: right;
+    display: inline-block;
+  }
+
+  .askatek-nav {
+    display: none;
+  }
+
+  .list-ul {
+    padding: 0 0 0 25px;
+  }
+
+  .list-ul,
+  .zz-col-sm-2 {
+    width: 30%;
+  }
+}
+
+@media (min-width: 576px) {
+  .askatek-header {
+    background: #fff;
+  }
+
+  .askatek-logo {
+    display: none;
+  }
+
+  .askatek-logo1 {
+    display: block;
+  }
+
+  .product_bg_min_img {
+    display: none;
+  }
+
+  .askatek-nav {
+    display: none !important;
+  }
+
+  /* .list-ul {
+        width: 30%
+    } */
+}
+
+@media (min-width: 768px) {
+  .askatek-header {
+    min-height: 75px;
+    background: #000;
+  }
+
+  .askatek-logo {
+    display: block;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+  }
+
+  .askatek-logo1 {
+    display: none;
+  }
+
+  .product_bg_max_img {
+    display: block;
+  }
+
+  .loop-container_comp {
+    display: none !important;
+  }
+
+  .list-ul {
+    display: none;
+  }
+
+  .askatek-nav {
+    display: -webkit-box !important;
+    display: -ms-flexbox !important;
+    display: flex !important;
+    -webkit-box-pack: right;
+    -ms-flex-pack: right;
+    justify-content: right;
+  }
+}
+
+.warp,
+.warp_2 {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  text-align: left;
+}
+
+.warp .container,
+.warp_2 .container {
+  max-width: 1200px;
+}
+
+.warp .container,
+.warp .container_2,
+.warp_2 .container,
+.warp_2 .container_2 {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: right;
+  -ms-flex-pack: right;
+  justify-content: right;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.warp .container .askatek-title,
+.warp .container_2 .askatek-title,
+.warp_2 .container .askatek-title,
+.warp_2 .container_2 .askatek-title {
+  margin: 60px 0 0 0;
+  max-height: 56px;
+  line-height: 56px;
+  color: #000;
+  font-size: 30px;
+  font-weight: 700;
+  position: relative;
+}
+
+.warp .container .askatek-title:after,
+.warp .container_2 .askatek-title:after,
+.warp_2 .container .askatek-title:after,
+.warp_2 .container_2 .askatek-title:after {
+  content: "";
+  width: 60px;
+  height: 2px;
+  background-color: #094b7c;
+  display: inline-block;
+  bottom: 0;
+  position: absolute;
+}
+
+.svg-icon {
+  width: 1.2em;
+  height: 1.2em;
+  fill: currentColor;
+  overflow: hidden;
+}
+
+.svg-external-icon {
+  background-color: currentColor;
+  -webkit-mask-size: cover !important;
+  mask-size: cover !important;
+  display: inline-block;
+}
+
+.page-component__scroll {
+  width: 40px;
+  height: 40px;
+  background-color: #fff;
+  text-align: center;
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.12);
+  cursor: pointer;
+  z-index: 5;
+  border-radius: 50%;
+}
+.is-circle .el-icon-caret-top {
+  color: #000;
+}

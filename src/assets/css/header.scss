@@ -1,0 +1,389 @@
+/* ============================================================
+   Product Center 下拉分类菜单
+   实际 DOM（HeaderContent/index.vue）：
+     .subNav > .subNav_warp > .subnav-section（每个一级） >
+       .subnav-top                            （一级标题，居中）
+       .subnav-mid                            （二级三列）
+         .subsubnav-midsubnav-mid-item（图标+名称）
+         .subnav-col > .subnav-list > li （全部子项扁平列表）
+   数据：consumer_audio / industrial_audio 两个一级，各 3 个二级分组
+   本文件为 .subNav 唯一样式来源
+   ============================================================ */
+
+.subNav {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  z-index: 1;
+  background: #fff;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+
+  .subNav_warp {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    padding: 20px 24px 24px;
+  }
+
+  /* ---------------- 顶部：两个一级居中并排，点击切换 ---------------- */
+  .subnav-top {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    border-bottom: 1px solid #ebeef5;
+    padding-bottom: 12px;
+    margin-bottom: 16px;
+  }
+
+  .subnav-top-item {
+    color: #666;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    padding: 4px 8px;
+    transition: color 0.2s;
+    user-select: none;
+
+    &:hover,
+    &.active {
+      color: #094b7c;
+    }
+
+    &.active {
+      position: relative;
+
+      &::after {
+        content: "";
+        position: absolute;
+        left: 8px;
+        right: 8px;
+        bottom: -13px;
+        height: 2px;
+        background: #094b7c;
+      }
+    }
+  }
+
+  /* ---------------- 二级三列 ---------------- */
+  .subnav-mid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+  }
+
+  .subnav-col {
+    box-sizing: border-box;
+    padding: 0 12px;
+
+    /* 列间竖向分隔线：每行第 2、3 列 */
+    &:nth-child(3n + 2),
+    &:nth-child(3n) {
+      border-left: 1px solid #ebeef5;
+    }
+  }
+  .subnav-col ul {
+    list-style-type: none;
+  }
+
+  /* ---------------- 二级标题行（左图右名，不做切换） ---------------- */
+  .subnav-mid-item {
+    display: flex;
+    align-items: center;
+    padding: 4px 0 8px;
+  }
+
+  .subnav-mid-icon {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+    margin-right: 10px;
+    flex-shrink: 0;
+  }
+
+  .subnav-mid-name {
+    color: #1a1a1a;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.5;
+  }
+
+  .subnav-mid-desc {
+    color: #888;
+    font-weight: 400;
+    margin-left: 2px;
+  }
+
+  /* ---------------- 二级下全部子项扁平列表 ---------------- */
+  .subnav-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    li {
+      text-align: left;
+      font-weight: 700;
+      list-style: none;
+      padding: 3px 0 3px 12px;
+      color: #555;
+      font-size: 12px;
+      line-height: 1.6;
+      cursor: pointer;
+      transition: color 0.2s;
+      word-break: break-word;
+      // position: relative;
+
+      &::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 12px;
+        width: 4px;
+        height: 4px;
+        background-color: #5f5f5f;
+        border-radius: 50%;
+        transform: translateY(-50%);
+      }
+
+      &:hover {
+        color: #094b7c;
+
+        &::before {
+          background-color: #094b7c;
+        }
+      }
+      &.is-deep {
+        font-weight: 400;
+        // list-style: none;
+        position: relative;
+        padding-left: 26px;
+
+        &::before {
+          left: 12px;
+        }
+      }
+    }
+  }
+}
+
+/* ============================================================
+   响应式：窄屏时竖排
+   ============================================================ */
+@media (max-width: 768px) {
+  .subNav {
+    .subNav_warp {
+      padding: 12px 16px 16px;
+    }
+
+    .subnav-mid {
+      grid-template-columns: 1fr;
+    }
+
+    .subnav-col {
+      padding: 12px 0;
+
+      &:nth-child(3n + 2),
+      &:nth-child(3n) {
+        border-left: 0;
+      }
+      &:not(:first-child) {
+        border-top: 1px solid #ebeef5;
+      }
+    }
+  }
+}
+
+/* ============================================================
+   导航搜索框：默认折叠为图标，点击展开输入框（全屏宽通用）
+   ============================================================ */
+.header-search-toggle {
+  font-size: 20px;
+  cursor: pointer;
+  color: #006ab9;
+  flex-shrink: 0;
+  padding: 0 4px;
+
+  &:hover {
+    color: #0a8fd6;
+  }
+}
+
+.header-search-box {
+  width: 0;
+  min-width: 0;
+  overflow: hidden;
+  display: inline-block;
+  vertical-align: middle;
+  transition: width 0.3s ease;
+
+  .el-input {
+    width: 100%;
+  }
+
+  /* 统一圆角描边容器：在白色/黑色头部背景上都清晰可见 */
+  .el-input-group {
+    border: 1px solid #dcdfe6;
+    border-radius: 4px;
+    overflow: hidden;
+    background: #fff;
+  }
+
+  .el-input-group__append {
+    border-left: 0;
+    background: #f5f7fa;
+    color: #006ab9;
+  }
+
+  .el-input__inner {
+    border: 0 !important;
+    background: #fff;
+    width: 100%;
+  }
+}
+
+/* 展开时隐藏外层切换图标，仅保留输入框内的提交按钮，避免两个放大镜并存 */
+.header-btn.is-search-open .header-search-toggle {
+  display: none;
+}
+
+.header-btn.is-search-open .header-search-box {
+  width: 320px;
+  max-width: 100%;
+}
+
+/* ============================================================
+   移动端抽屉菜单（<750px）：导航列表 + 产品分类树
+   ============================================================ */
+.shadingFade-enter-active,
+.shadingFade-leave-active {
+  transition: opacity 0.25s ease;
+}
+
+.shadingFade-enter,
+.shadingFade-leave-to {
+  opacity: 0;
+}
+
+.shading-menu {
+  .shading-center-menu {
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .shading-nav {
+    list-style-type: none;
+    text-align: left;
+  }
+
+  .shading-nav-item {
+    border-top: 1px solid rgba(238, 243, 247, 0.13);
+  }
+
+  .shading-nav-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: #fff;
+    font-size: 15px;
+    line-height: 1.5;
+    padding: 12px 4px;
+    cursor: pointer;
+
+    &:hover {
+      color: #4da3e0;
+    }
+
+    i {
+      font-size: 14px;
+      transition: transform 0.2s;
+    }
+
+    i.is-open {
+      transform: rotate(180deg);
+    }
+  }
+
+  .shading-nav-sub {
+    list-style-type: none;
+    padding-left: 16px !important;
+
+    li {
+      color: rgba(255, 255, 255, 0.75);
+      font-size: 14px;
+      padding: 8px 4px;
+      cursor: pointer;
+
+      &:hover {
+        color: #4da3e0;
+      }
+    }
+  }
+
+  /* 产品多级分类树（ProductTreeMenu 深色适配） */
+  .shading-nav-product {
+    padding: 4px 0 14px;
+  }
+
+  .shading-nav-product .ptree-row {
+    color: #fff;
+    font-size: 14px;
+    border-bottom-color: rgba(238, 243, 247, 0.13);
+  }
+
+  .shading-nav-product .ptree-row:hover {
+    background: rgba(255, 255, 255, 0.06);
+  }
+
+  .shading-nav-product .ptree-row:hover .ptree-label,
+  .shading-nav-product .ptree-row.is-open .ptree-label,
+  .shading-nav-product .ptree-row.is-active .ptree-label {
+    color: #4da3e0;
+  }
+
+  .shading-nav-product .ptree-arrow {
+    color: #4da3e0;
+  }
+}
+
+/* 桌面端深色导航栏上用浅色图标，保证对比度 */
+@media (min-width: 768px) {
+  .header-search-toggle {
+    color: #fff;
+  }
+}
+
+@media (max-width: 750px) {
+  .header-btn {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  .header-btn.is-search-open .header-search-box {
+    width: 230px;
+  }
+}
+
+@media (max-width: 400px) {
+  .header-btn.is-search-open .header-search-box {
+    width: 230px;
+  }
+}
+
+/* ≤576px：头部强制单行
+   此档 header-btn(50%) + list-ul(30%) 已占 80%，logo1 只有 20% 可用；
+   视口 <540px 时 logo1（160x48 + max-height:30px = 100px 宽）放不下，
+   会被 global.css 的 .askatek-header{flex-wrap:wrap} 挤到第二行造成位移。
+   用更高特异性覆盖为 nowrap，并允许 logo1 收缩（min-width:0），
+   替代方案是改 global.css，但那里是原产物转写文件，尽量不动。 */
+@media (max-width: 576px) {
+  .askatek-head .askatek-header {
+    flex-wrap: nowrap;
+  }
+
+  .askatek-head .askatek-header .askatek-logo1 {
+    flex: 0 1 auto;
+    min-width: 0;
+  }
+}

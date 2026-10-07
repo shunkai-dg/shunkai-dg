@@ -1,0 +1,64 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "title": "ASK-1000 Active Noise Cancelling Bluetooth Headset",
+      "sub_title": "Hybrid ANC, multipoint pairing, 40h playtime",
+      "cat_one": 1,
+      "cat_two": 10,
+      "cat_three": 100,
+      "cat_four": 1000,
+      "imgs": ["img_data/products/p1.svg", "img_data/products/p1-1.svg", "img_data/products/p1-2.svg"],
+      "descr": "<p>This active noise cancelling headset delivers <strong>hybrid ANC</strong> that reduces ambient noise up to <span style=\"background-color: #ffff00;\">35dB</span>. The <u>40-hour</u> playtime covers multi-day travel. It supports <em>multipoint</em> pairing across two devices.</p><ul><li>Hybrid ANC up to 35dB</li><li>Bluetooth 5.3, low latency</li><li>40h battery, USB-C fast charge</li></ul><blockquote>The flagship ANC series for business and travel users.</blockquote>",
+      "params": "<table><thead><tr><th>Spec</th><th>Value</th></tr></thead><tbody><tr><td>Driver</td><td>40mm dynamic</td></tr><tr><td>Codec</td><td>AAC, SBC</td></tr><tr><td>Battery</td><td>500mAh</td></tr></tbody></table><p><strong>Note:</strong> Charging time <s>4h</s> <u>2h</u> with fast charge adapter.</p>"
+    },
+    {
+      "id": 2,
+      "title": "ASK-250 Industrial Two-Way Radio Headset",
+      "sub_title": "Noise immune, PTT control, IP54 rated",
+      "cat_one": 1,
+      "cat_two": 12,
+      "cat_three": 121,
+      "cat_four": 1210,
+      "imgs": ["img_data/products/p2.svg"],
+      "descr": "<p>Engineered for <strong>noisy industrial environments</strong>, the ASK-250 uses a noise immune microphone and delivers crystal clear two-way communication.</p><ol><li>PTT one-touch transmit</li><li>IP54 dust and splash resistant</li><li>Wearable boom mic</li></ol><pre><code>PTT_MODES = [\"push\", \"voice\"]\nradio.connect(device=\"ASK-250\")</code></pre>",
+      "params": "<table><tbody><tr><td>Protection</td><td>IP54</td></tr><tr><td>Frequency</td><td>VHF/UHF</td></tr><tr><td>Mic</td><td>Noise-immune electret</td></tr></tbody></table>"
+    },
+    {
+      "id": 3,
+      "title": "ASK-300 E-Sports Wireless Headset",
+      "sub_title": "2.4GHz low latency, surround sound, RGB",
+      "cat_one": 1,
+      "cat_two": 11,
+      "cat_three": 110,
+      "cat_four": 1100,
+      "imgs": ["img_data/products/p3.svg"],
+      "descr": "<p>The <strong>ASK-300</strong> is built for competitive gaming with <em>2.4GHz low-latency</em> connection and virtual surround sound.</p><ul><li>17ms ultra-low latency</li><li>42mm drivers</li><li>Detachable noise-cancelling mic</li></ul>",
+      "params": "<table><tbody><tr><td>Latency</td><td>17ms</td></tr><tr><td>Impedance</td><td>32Ω</td></tr><tr><td>RGB</td><td>Aura sync</td></tr></tbody></table>"
+    },
+    {
+      "id": 4,
+      "title": "ASK-500 TWS Smart Earphones",
+      "sub_title": "Touch control, wireless charging, IPX5",
+      "cat_one": 1,
+      "cat_two": 13,
+      "cat_three": 130,
+      "cat_four": 1300,
+      "imgs": ["img_data/products/p4.svg"],
+      "descr": "<p>True wireless earphones with <strong>touch control</strong> and <span style=\"color: #e03a3c;\">crystal clear</span> sound. <span style=\"background-color: #00ff00;\">IPX5</span> sweat resistant.</p>",
+      "params": "<table><tbody><tr><td>Driver</td><td>10mm</td></tr><tr><td>Playtime</td><td>6h + 24h case</td></tr><tr><td>Rating</td><td>IPX5</td></tr></tbody></table>"
+    },
+    {
+      "id": 5,
+      "title": "ASK-600 Smart Wearable Neckband",
+      "sub_title": "AI assistant, 30h battery, lightweight",
+      "cat_one": 1,
+      "cat_two": 14,
+      "cat_three": 141,
+      "cat_four": 1410,
+      "imgs": ["img_data/products/p5.svg"],
+      "descr": "<p>Wearable neckband with <strong>built-in AI assistant</strong> and a feather-light design at only <u>28g</u>.</p><blockquote>All-day comfort for calls and music.</blockquote>",
+      "params": "<table><tbody><tr><td>Weight</td><td>28g</td></tr><tr><td>Battery</td><td>30h</td></tr><tr><td>Blooth</td><td>5.3</td></tr></tbody></table>"
+    }
+  ]
+}

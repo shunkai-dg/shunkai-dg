@@ -1,0 +1,44 @@
+{
+  "news": [
+    {
+      "id": 1,
+      "title": "aska Launches New Hybrid ANC Headset Series",
+      "descr": "Our flagship active noise cancelling headset series now ships with hybrid ANC and multipoint pairing.",
+      "cover": "img_data/news/n1.svg",
+      "push_at_str": "2026-09-15",
+      "content": "<h2>Product Launch</h2><p>We are excited to announce the new <strong>ASK-1000 ANC</strong> series, offering <u>hybrid noise cancelling</u> up to 35dB.</p><ol><li><em>Hybrid ANC</em> architecture</li><li>Multipoint Bluetooth 5.3</li><li>40 hour battery life</li></ol><blockquote>Designed for travelers who demand silence and clarity.</blockquote><table><thead><tr><th>Feature</th><th>Benefit</th></tr></thead><tbody><tr><td>ANC</td><td>35dB reduction</td></tr><tr><td>Battery</td><td>40h playtime</td></tr></tbody></table>"
+    },
+    {
+      "id": 2,
+      "title": "aska Expands Smart Manufacturing in Dongguan",
+      "descr": "New automated production lines improve quality consistency across the Dongguan campus.",
+      "cover": "img_data/news/n2.svg",
+      "push_at_str": "2026-07-03",
+      "content": "<p>Our <strong>Dongguan factory</strong> has deployed new automated assembly lines, boosting <span style=\"background-color: #ffff00;\">yield rate</span> to 99.2%.</p><ul><li>Automated SMT lines</li><li>Inline acoustic testing</li><li>Batch traceability</li></ul>"
+    },
+    {
+      "id": 3,
+      "title": "aska Awarded 'Contract-Abiding Enterprise'",
+      "descr": "Guangdong Province recognizes aska for outstanding creditworthiness and reliability.",
+      "cover": "img_data/news/n3.svg",
+      "push_at_str": "2026-05-20",
+      "content": "<blockquote>A national high-tech enterprise awarded the \u201ccontract abiding and trustworthy\u201d title.</blockquote><p>This honor reflects our long-term commitment to <u>quality</u> and <u>trust</u> in the global wireless audio market.</p>"
+    },
+    {
+      "id": 4,
+      "title": "New Industrial Communication Headset for Noisy Sites",
+      "descr": "The ASK-250 delivers clear two-way radio communication in extreme industrial noise.",
+      "cover": "img_data/news/n4.svg",
+      "push_at_str": "2026-03-11",
+      "content": "<p>The <strong>ASK-250</strong> features a <em>noise-immune</em> microphone and IP54 protection, ideal for factories, warehouses and construction.</p><pre><code>setup() {\n  enableNoiseImmunity()\n  setProtection(\"IP54\")\n}</code></pre>"
+    },
+    {
+      "id": 5,
+      "title": "aska to Showcase at CES 2026",
+      "descr": "Preview our next-generation smart audio and wearable products at the annual show.",
+      "cover": "img_data/news/n5.svg",
+      "push_at_str": "2026-01-08",
+      "content": "<p>Join us at <strong>CES 2026</strong> to preview next-generation <span style=\"color: #e03a3c;\">smart audio</span> and wearables.</p><ul><li>ANC headline family</li><li>AI wearable neckband</li><li>Industrial comms lineup</li></ul>"
+    }
+  ]
+}

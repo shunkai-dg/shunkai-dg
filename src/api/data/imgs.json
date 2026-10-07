@@ -1,0 +1,45 @@
+{
+  "1": [
+    { "img_path": "img_data/banner/b1.svg" },
+    { "img_path": "img_data/banner/b2.svg" },
+    { "img_path": "img_data/banner/b3.svg" }
+  ],
+  "3": [
+    { "img_path": "img_data/equipment/e1.svg" },
+    { "img_path": "img_data/equipment/e2.svg" },
+    { "img_path": "img_data/equipment/e3.svg" },
+    { "img_path": "img_data/equipment/e4.svg" }
+  ],
+  "9": [
+    { "img_path": "img_data/qualification/q1.svg" },
+    { "img_path": "img_data/qualification/q2.svg" }
+  ],
+  "13": [
+    { "img_path": "img_data/honor/h1.svg" },
+    { "img_path": "img_data/honor/h2.svg" }
+  ],
+  "14": [
+    { "img_path": "img_data/certification/c1.svg" },
+    { "img_path": "img_data/certification/c2.svg" }
+  ],
+  "15": [
+    { "img_path": "img_data/factory/dongguan1.svg" },
+    { "img_path": "img_data/factory/dongguan2.svg" }
+  ],
+  "16": [
+    { "img_path": "img_data/factory/thailand1.svg" },
+    { "img_path": "img_data/factory/thailand2.svg" }
+  ],
+  "21": [
+    { "img_path": "img_data/patent/global1.svg" },
+    { "img_path": "img_data/patent/global2.svg" }
+  ],
+  "22": [
+    { "img_path": "img_data/patent/invention1.svg" },
+    { "img_path": "img_data/patent/invention2.svg" }
+  ],
+  "23": [
+    { "img_path": "img_data/patent/utility1.svg" },
+    { "img_path": "img_data/patent/utility2.svg" }
+  ]
+}

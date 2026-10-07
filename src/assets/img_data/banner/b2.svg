@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="500" viewBox="0 0 1200 500">
+  <rect width="100%" height="100%" fill="#4a6fa5"/>
+  <rect x="48" y="30" width="1104" height="440" rx="12" fill="none" stroke="#ffffff" stroke-opacity="0.35" stroke-width="4"/>
+  <text x="50%" y="48%" text-anchor="middle" dominant-baseline="middle" font-family="Arial, sans-serif" font-size="36" fill="#ffffff" fill-opacity="0.92">Banner 2</text>
+  <text x="50%" y="62%" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" fill="#ffffff" fill-opacity="0.6">placeholder image</text>
+</svg>

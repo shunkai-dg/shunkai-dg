@@ -1,0 +1,401 @@
+/* ============================================================
+   富文本内容渲染样式
+   ------------------------------------------------
+   应用于以下通过 v-html 渲染富文本的容器：
+   - 新闻详情     .new_detail_center
+   - 产品详情     .procuct_detail_info .desc / .params
+   - 招聘详情     .join-detail-wrapper-text
+
+   支持富文本特性：字号、加粗、下划线、斜体、删除线、文字颜色、
+   文字背景色、表格、有序/无序列表、图片、视频、代码块、引用块、链接。
+   因 global.css 中定义了 p{margin:0!important}、ul,ol{padding:0!important}，
+   需在本文件中用 !important 覆盖以保证正文正常排版。
+   ============================================================ */
+
+.new_detail_center,
+.procuct_detail_info .desc,
+.procuct_detail_info .params,
+.join-detail-wrapper-text {
+  color: #333;
+  font-family: Microsoft YaHei, "PingFang SC", "Helvetica Neue", Arial,
+    sans-serif;
+  font-size: 16px;
+  line-height: 1.8;
+  text-align: left;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+/* ---------- 文本底背景色：放行编辑器内联背景，不允许页面样式覆盖 ---------- */
+.new_detail_center p,
+.new_detail_center span,
+.procuct_detail_info .desc p,
+.procuct_detail_info .desc span,
+.procuct_detail_info .params p,
+.procuct_detail_info .params span,
+.join-detail-wrapper-text p,
+.join-detail-wrapper-text span {
+  /* background-color: transparent !important; */
+}
+
+/* ---------- 段落 ---------- */
+.new_detail_center p,
+.procuct_detail_info .desc p,
+.procuct_detail_info .params p,
+.join-detail-wrapper-text p {
+  margin: 12px 0 !important;
+  text-align: left;
+}
+
+/* ---------- 标题 ---------- */
+.new_detail_center h1,
+.new_detail_center h2,
+.new_detail_center h3,
+.new_detail_center h4,
+.new_detail_center h5,
+.new_detail_center h6,
+.procuct_detail_info .desc h1,
+.procuct_detail_info .desc h2,
+.procuct_detail_info .desc h3,
+.procuct_detail_info .desc h4,
+.procuct_detail_info .desc h5,
+.procuct_detail_info .desc h6,
+.procuct_detail_info .params h1,
+.procuct_detail_info .params h2,
+.procuct_detail_info .params h3,
+.procuct_detail_info .params h4,
+.procuct_detail_info .params h5,
+.procuct_detail_info .params h6,
+.join-detail-wrapper-text h1,
+.join-detail-wrapper-text h2,
+.join-detail-wrapper-text h3,
+.join-detail-wrapper-text h4,
+.join-detail-wrapper-text h5,
+.join-detail-wrapper-text h6 {
+  margin: 1.2em 0 0.6em;
+  font-weight: bold;
+  color: #222;
+  font-family: inherit;
+  line-height: 1.4;
+  text-align: left;
+}
+.new_detail_center h1,
+.procuct_detail_info .desc h1,
+.procuct_detail_info .params h1,
+.join-detail-wrapper-text h1 {
+  font-size: 2em;
+}
+.new_detail_center h2,
+.procuct_detail_info .desc h2,
+.procuct_detail_info .params h2,
+.join-detail-wrapper-text h2 {
+  font-size: 1.7em;
+}
+.new_detail_center h3,
+.procuct_detail_info .desc h3,
+.procuct_detail_info .params h3,
+.join-detail-wrapper-text h3 {
+  font-size: 1.4em;
+}
+.new_detail_center h4,
+.procuct_detail_info .desc h4,
+.procuct_detail_info .params h4,
+.join-detail-wrapper-text h4 {
+  font-size: 1.2em;
+}
+
+/* ---------- 强调：粗体 / 下划线 / 斜体 / 删除线 ---------- */
+.new_detail_center strong,
+.new_detail_center b,
+.procuct_detail_info .desc strong,
+.procuct_detail_info .desc b,
+.procuct_detail_info .params strong,
+.procuct_detail_info .params b,
+.join-detail-wrapper-text strong,
+.join-detail-wrapper-text b {
+  font-weight: bold;
+  color: inherit;
+}
+.new_detail_center u,
+.procuct_detail_info .desc u,
+.procuct_detail_info .params u,
+.join-detail-wrapper-text u {
+  text-decoration: underline;
+}
+.new_detail_center em,
+.new_detail_center i,
+.procuct_detail_info .desc em,
+.procuct_detail_info .desc i,
+.procuct_detail_info .params em,
+.procuct_detail_info .params i,
+.join-detail-wrapper-text em,
+.join-detail-wrapper-text i {
+  font-style: italic;
+}
+.new_detail_center s,
+.new_detail_center del,
+.procuct_detail_info .desc s,
+.procuct_detail_info .desc del,
+.procuct_detail_info .params s,
+.procuct_detail_info .params del,
+.join-detail-wrapper-text s,
+.join-detail-wrapper-text del {
+  text-decoration: line-through;
+}
+
+/* ---------- 列表 ---------- */
+.new_detail_center ul,
+.new_detail_center ol,
+.procuct_detail_info .desc ul,
+.procuct_detail_info .desc ol,
+.procuct_detail_info .params ul,
+.procuct_detail_info .params ol,
+.join-detail-wrapper-text ul,
+.join-detail-wrapper-text ol {
+  margin: 12px 0 !important;
+  padding: 0 0 0 2em !important;
+  text-align: left;
+}
+.new_detail_center ul,
+.procuct_detail_info .desc ul,
+.procuct_detail_info .params ul,
+.join-detail-wrapper-text ul {
+  list-style: disc;
+}
+.new_detail_center ol,
+.procuct_detail_info .desc ol,
+.procuct_detail_info .params ol,
+.join-detail-wrapper-text ol {
+  list-style: decimal;
+}
+.new_detail_center li,
+.procuct_detail_info .desc li,
+.procuct_detail_info .params li,
+.join-detail-wrapper-text li {
+  margin: 4px 0;
+  line-height: 1.8;
+  text-align: left;
+}
+.new_detail_center li > ul,
+.new_detail_center li > ol,
+.procuct_detail_info .desc li > ul,
+.procuct_detail_info .desc li > ol,
+.procuct_detail_info .params li > ul,
+.procuct_detail_info .params li > ol,
+.join-detail-wrapper-text li > ul,
+.join-detail-wrapper-text li > ol {
+  margin: 4px 0 !important;
+}
+
+/* ---------- 图片 ---------- */
+.new_detail_center img,
+.procuct_detail_info .desc img,
+.procuct_detail_info .params img,
+.join-detail-wrapper-text img {
+  max-width: 100%;
+  height: auto !important;
+  display: block;
+  margin: 16px auto;
+  border-radius: 4px;
+}
+
+/* ---------- 视频 ---------- */
+.new_detail_center video,
+.procuct_detail_info .desc video,
+.procuct_detail_info .params video,
+.join-detail-wrapper-text video,
+.video-container video,
+.videoWrapper video,
+.w-e-video-container video {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 16px auto;
+  outline: none;
+}
+.new_detail_center .video-container,
+.new_detail_center .videoWrapper,
+.new_detail_center .w-e-video-container,
+.procuct_detail_info .desc .video-container,
+.procuct_detail_info .desc .videoWrapper,
+.procuct_detail_info .desc .w-e-video-container,
+.procuct_detail_info .params .video-container,
+.procuct_detail_info .params .videoWrapper,
+.procuct_detail_info .params .w-e-video-container,
+.join-detail-wrapper-text .video-container,
+.join-detail-wrapper-text .videoWrapper,
+.join-detail-wrapper-text .w-e-video-container {
+  max-width: 100%;
+  margin: 16px auto;
+}
+.new_detail_center .video-container video,
+.new_detail_center .videoWrapper video,
+.new_detail_center .w-e-video-container video,
+.procuct_detail_info .desc .video-container video,
+.procuct_detail_info .desc .videoWrapper video,
+.procuct_detail_info .desc .w-e-video-container video,
+.procuct_detail_info .params .video-container video,
+.procuct_detail_info .params .videoWrapper video,
+.procuct_detail_info .params .w-e-video-container video,
+.join-detail-wrapper-text .video-container video,
+.join-detail-wrapper-text .videoWrapper video,
+.join-detail-wrapper-text .w-e-video-container video {
+  width: 100%;
+}
+
+/* ---------- 表格 ---------- */
+.new_detail_center table,
+.procuct_detail_info .desc table,
+.procuct_detail_info .params table,
+.join-detail-wrapper-text table {
+  width: 100%;
+  max-width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  margin: 16px 0;
+  font-size: 15px;
+}
+.new_detail_center th,
+.new_detail_center td,
+.procuct_detail_info .desc th,
+.procuct_detail_info .desc td,
+.procuct_detail_info .params th,
+.procuct_detail_info .params td,
+.join-detail-wrapper-text th,
+.join-detail-wrapper-text td {
+  border: 1px solid #d8dade;
+  padding: 10px 12px;
+  text-align: left;
+  vertical-align: middle;
+  line-height: 1.6;
+}
+.new_detail_center th,
+.procuct_detail_info .desc th,
+.procuct_detail_info .params th,
+.join-detail-wrapper-text th {
+  background: #f0f0f0;
+  font-weight: bold;
+  color: #222;
+}
+.new_detail_center tr:nth-child(2n) td,
+.procuct_detail_info .desc tr:nth-child(2n) td,
+.procuct_detail_info .params tr:nth-child(2n) td,
+.join-detail-wrapper-text tr:nth-child(2n) td {
+  background: #fafafa;
+}
+
+/* ---------- 代码块 ---------- */
+.new_detail_center pre,
+.procuct_detail_info .desc pre,
+.procuct_detail_info .params pre,
+.join-detail-wrapper-text pre {
+  background: #282c34;
+  color: #abb2bf;
+  padding: 16px;
+  margin: 16px 0;
+  border-radius: 6px;
+  overflow-x: auto;
+  font-family: Consolas, Menlo, Monaco, "Courier New", monospace;
+  font-size: 14px;
+  line-height: 1.6;
+  text-align: left;
+  white-space: pre;
+  word-break: normal;
+}
+.new_detail_center pre code,
+.procuct_detail_info .desc pre code,
+.procuct_detail_info .params pre code,
+.join-detail-wrapper-text pre code {
+  display: block;
+  background: transparent;
+  color: inherit;
+  padding: 0;
+  font-family: inherit;
+  font-size: 14px;
+  border: none;
+  white-space: pre;
+}
+.new_detail_center code,
+.procuct_detail_info .desc code,
+.procuct_detail_info .params code,
+.join-detail-wrapper-text code {
+  background: #f1f1f1;
+  color: #c7254e;
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-family: Consolas, Menlo, Monaco, "Courier New", monospace;
+  font-size: 90%;
+}
+
+/* ---------- 引用块 ---------- */
+.new_detail_center blockquote,
+.procuct_detail_info .desc blockquote,
+.procuct_detail_info .params blockquote,
+.join-detail-wrapper-text blockquote {
+  margin: 16px 0;
+  padding: 12px 18px;
+  border-left: 4px solid #2b6cb0;
+  background: #f0f6fc;
+  color: #4a5568;
+  border-radius: 0 4px 4px 0;
+}
+.new_detail_center blockquote p,
+.procuct_detail_info .desc blockquote p,
+.procuct_detail_info .params blockquote p,
+.join-detail-wrapper-text blockquote p {
+  margin: 4px 0 !important;
+  background: transparent !important;
+}
+
+/* ---------- 链接 ---------- */
+.new_detail_center a,
+.procuct_detail_info .desc a,
+.procuct_detail_info .params a,
+.join-detail-wrapper-text a {
+  color: #2b6cb0;
+  text-decoration: none;
+}
+.new_detail_center a:hover,
+.procuct_detail_info .desc a:hover,
+.procuct_detail_info .params a:hover,
+.join-detail-wrapper-text a:hover {
+  text-decoration: underline;
+  color: #1a56a3;
+}
+
+/* ---------- 分隔线 ---------- */
+.new_detail_center hr,
+.procuct_detail_info .desc hr,
+.procuct_detail_info .params hr,
+.join-detail-wrapper-text hr {
+  border: none;
+  border-top: 1px solid #e0e0e0;
+  margin: 24px 0;
+}
+
+/* ---------- 特殊 inner 图片（编辑器常见）---------- */
+.new_detail_center .inner,
+.procuct_detail_info .desc .inner,
+.procuct_detail_info .params .inner,
+.join-detail-wrapper-text .inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ---------- 移动端适配 ---------- */
+@media (max-width: 767px) {
+  .new_detail_center,
+  .procuct_detail_info .desc,
+  .procuct_detail_info .params,
+  .join-detail-wrapper-text {
+    font-size: 14px;
+  }
+  .new_detail_center table,
+  .procuct_detail_info .desc table,
+  .procuct_detail_info .params table,
+  .join-detail-wrapper-text table {
+    display: block;
+    overflow-x: auto;
+  }
+}

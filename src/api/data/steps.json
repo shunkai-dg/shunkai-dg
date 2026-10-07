@@ -1,0 +1,9 @@
+{
+  "steps": [
+    { "title": "Concept & Acoustic Research", "year": "2008", "imgs": ["img_data/steps/s1.svg"] },
+    { "title": "Product Architecture Design", "year": "2012", "imgs": ["img_data/steps/s2.svg"] },
+    { "title": "TWS & ANC Prototype", "year": "2016", "imgs": ["img_data/steps/s3.svg"] },
+    { "title": "Industrial Audio Lineup", "year": "2019", "imgs": ["img_data/steps/s4.svg"] },
+    { "title": "Smart Wearables & AI", "year": "2023", "imgs": ["img_data/steps/s5.svg"] }
+  ]
+}
