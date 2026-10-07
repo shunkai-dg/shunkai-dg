@@ -1,7 +1,8 @@
 const path = require('path')
+import { defineConfig } from 'vite'
 
 module.exports = {
-  publicPath: '/',
+  publicPath: '/shunkai-dg/',
   productionSourceMap: false,
   // css.extract: true（cli-service 默认即为 true，显式声明与原产物一致）
   css: { extract: true },
