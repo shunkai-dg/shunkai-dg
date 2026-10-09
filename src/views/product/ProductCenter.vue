@@ -69,7 +69,7 @@ import Breadcrumb from "@/components/Breadcrumb";
 import ProductTreeMenu from "@/components/ProductTreeMenu/index.vue";
 import { getProductList } from "@/api/index";
 import { RESOURCE_BASE_URL } from "@/utils/resource";
-import { routers } from "@/utils/navData";
+import { categoryStore } from "@/utils/navData";
 
 export default {
   components: { Breadcrumb, ProductTreeMenu },
@@ -80,14 +80,13 @@ export default {
       page: 1,
       limit: 6,
       total: 0,
-      routers,
     };
   },
   computed: {
     ...mapGetters(["routersList"]),
-    // 完整层级树：一级（Consumer/Industrial） → 二级 subGroups → 三级/四级 childer
+    // 完整层级树：一级 → 二级 subGroups → 三级/四级 childer
     productTree() {
-      return [routers.consumer_audio, routers.industrial_audio].map((g) => ({
+      return categoryStore.roots.map((g) => ({
         title: g.title,
         name: g.name,
         hierarchy: g.hierarchy,

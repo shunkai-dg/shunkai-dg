@@ -233,29 +233,29 @@ export default {
       picturUrl: "",
       tabs: [
         {
-          icon: require("@/assets/img/CU1.png"),
+          icon: require("@/assets/img/Contact Us1.png"),
           title: "Company Address（China）",
           desc: "No.5 Puxin Road, Keyuancheng Industrial Park，Tangxia Town, Dongguan, Guangdong, PRC 523718",
         },
         {
-          icon: require("@/assets/img/CU2.png"),
+          icon: require("@/assets/img/Contact Us2.png"),
           title: "Telephone",
           desc: "+86.769.8989.0808",
         },
         {
-          icon: require("@/assets/img/CU3.png"),
+          icon: require("@/assets/img/Contact Us3.png"),
           title: "Mailbox",
           desc: "sales@askatek.cn",
         },
       ],
       tabs1: [
         {
-          icon: require("@/assets/img/CU4.png"),
+          icon: require("@/assets/img/Contact Us4.png"),
           title: "Company Address（Singapore）",
           desc: "12 Tannery Road #10-01 HB Centre 1 Singapore 347722 ",
         },
         {
-          icon: require("@/assets/img/CU5.png"),
+          icon: require("@/assets/img/Contact Us5.png"),
           title: "Mailbox",
           desc: "sales@askatek.cn",
         },
@@ -323,13 +323,9 @@ export default {
             this.submitting = false;
           });
       });
-    }, // <-- 这里必须有逗号
+    }, 
 
     locationSuccess(point, AddressComponent, marker) {
-      console.log("定位成功");
-      console.log(point, "point");
-      console.log(AddressComponent, "---AddressComponent");
-      console.log(marker, "---marker");
     },
 
     handler({ BMap, map }) {

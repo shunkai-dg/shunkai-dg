@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import { findHierarchyPath } from "@/utils/navData";
+import { findHierarchyPath, categoryStore } from "@/utils/navData";
 
 export default {
   name: "Breadcrumb",
@@ -35,6 +35,9 @@ export default {
       if (!route.path.startsWith("/redirect/")) {
         this.getBreadcrumb();
       }
+    },
+    "categoryStore.loaded"() {
+      this.getBreadcrumb();
     },
   },
   created() {

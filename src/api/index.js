@@ -7,6 +7,7 @@ import jobs from "./data/jobs.json";
 import steps from "./data/steps.json";
 import imgs from "./data/imgs.json";
 import setting from "./data/setting.json";
+import category from "./data/category.json";
 
 // 统一响应壳：与后端保持一致 { data: ... }
 const ok = (data) => Promise.resolve({ data });
@@ -35,7 +36,16 @@ export function getImg(data = {}) {
 
 // 资讯列表
 export function getInfoList(params = {}) {
-  return ok(paginate(news.news, params));
+  let list = news.news;
+  // 按 top 倒序、sort 正序重新排序
+  list = list
+  .slice()
+  .sort((a, b) => {
+    const topDiff = (Number(b.top) || 0) - (Number(a.top) || 0);
+    if (topDiff !== 0) return topDiff;
+    return (Number(a.sort) || 0) - (Number(b.sort) || 0);
+  });
+  return ok(paginate(list, params));
 }
 
 // 资讯详情
@@ -72,7 +82,9 @@ export function getProductList(params = {}) {
     );
   }
   // is_top 仅取前几条作为推荐
-  if (params.is_top) {
+  if (params.is_top === 1) {
+    list = list.filter((p) => p.is_top === 1);
+  }else if(params.is_top === 0){
     list = list.slice(0, 4);
   }
   return ok(paginate(list, params));
@@ -95,4 +107,9 @@ export function getStepList(params = {}) {
 // 站点设置
 export function getSetting(data = {}) {
   return ok(setting);
+}
+
+// 分类列表（平铺数据，含 id/parent_id/sort，对应原 /api/index/category）
+export function getCategory(params = {}) {
+  return ok(category.category);
 }

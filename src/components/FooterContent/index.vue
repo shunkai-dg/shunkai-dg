@@ -58,8 +58,7 @@
 <script>
 import {
   fast_navigation,
-  consumer_audio,
-  industrial_audio,
+  categoryStore,
 } from "@/utils/navData";
 import { getSetting } from "@/api/index";
 import { RESOURCE_BASE_URL } from "@/utils/resource";
@@ -92,12 +91,30 @@ export default {
         ? RESOURCE_BASE_URL + this.info.qrcode
         : "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==";
     },
-    // 页尾只显示二级分类标签：产品分组取 subGroups（二级），fast_navigation 取 childer
+    // 页尾产品分类平铺叶子列表（保留嵌套层级），fast_navigation 取 childer
     groups() {
-      return [fast_navigation, consumer_audio, industrial_audio].map((g) =>
-        g.subGroups
-          ? { title: g.title, childer: g.subGroups }
-          : { title: g.title, childer: g.childer },
+      const flat = (items, fallback) =>
+        (items || []).map((t) => {
+          const item = {
+            title: t.title,
+            name: t.name || t.title,
+            hierarchy: t.hierarchy != null ? t.hierarchy : fallback,
+          };
+          if (t.path) item.path = t.path;
+          if (t.childer && t.childer.length)
+            item.childer = flat(t.childer, t.hierarchy);
+          return item;
+        });
+      const productGroups = categoryStore.roots.map((g) => ({
+        title: g.title,
+        // 平铺该一级分类下所有二级分组的所有叶子
+        childer: (g.subGroups || []).reduce(
+          (arr, sg) => arr.concat(flat(sg.childer, sg.hierarchy)),
+          [],
+        ),
+      }));
+      return [{ title: fast_navigation.title, childer: fast_navigation.childer }].concat(
+        productGroups,
       );
     },
   },

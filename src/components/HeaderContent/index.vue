@@ -100,6 +100,7 @@
                   <li
                     v-for="(leaf, li) in flattenLeaves(sg)"
                     :key="li"
+                    :class="{ 'is-deep': leaf.deep }"
                     @click="jumpLeaf(leaf)"
                   >
                     {{ leaf.title }}
@@ -184,7 +185,7 @@
 <script>
 import NavMenu from "@/components/NavMenu/index.vue";
 import ProductTreeMenu from "@/components/ProductTreeMenu/index.vue";
-import { navMenus, consumer_audio, industrial_audio } from "@/utils/navData";
+import { navMenus, categoryStore } from "@/utils/navData";
 import logo from "@/assets/img/logo.png";
 import logo1 from "@/assets/img/logo1.png";
 import listUrl from "@/assets/img/list-ul.png";
@@ -204,7 +205,7 @@ export default {
       scrollEventTop: false,
       isSubNav: false,
       subNavTimer: null,
-      activeTopId: "consumer_audio",
+      activeTopId: null,
       // 移动端抽屉
       isShading: false,
       productOpen: true,
@@ -214,18 +215,21 @@ export default {
     };
   },
   computed: {
-    // 一级分类（两个，居中并排，点击切换）
+    // 一级分类（动态 categoryStore.roots，居中并排，点击切换）
     topLevelGroups() {
-      return [consumer_audio, industrial_audio];
+      return categoryStore.roots;
     },
-    // 当前选中一级分类下的二级分组
+    // 当前选中一级分类下的二级分组；首次打开尚未选中时回退到第一个一级分类
     currentSubGroups() {
-      const g = this.topLevelGroups.find((t) => t.id === this.activeTopId);
-      return g ? g.subGroups : [];
+      const groups = this.topLevelGroups;
+      if (!groups.length) return [];
+      const g =
+        groups.find((t) => t.id === this.activeTopId) || groups[0];
+      return g.subGroups || [];
     },
-    // 抽屉内产品分类树：一级（Consumer/Industrial）→ 二级 subGroups → 三级/四级 childer
+    // 抽屉内产品分类树：一级 → 二级 subGroups → 三级/四级 childer
     productTree() {
-      return [consumer_audio, industrial_audio].map((g) => ({
+      return categoryStore.roots.map((g) => ({
         title: g.title,
         name: g.name,
         hierarchy: g.hierarchy,
@@ -236,6 +240,13 @@ export default {
   watch: {
     $route(to) {
       this.activeMenu = to.path;
+    },
+    // 分类树（响应式）加载完成后，若尚未选中一级分类，则默认选中第一个，
+    // 展示该一级分类下的全部二/三/四级数据
+    topLevelGroups(groups) {
+      if (groups.length && this.activeTopId == null) {
+        this.activeTopId = groups[0].id;
+      }
     },
   },
   mounted() {
@@ -324,24 +335,25 @@ export default {
     selectTop(g) {
       this.activeTopId = g.id;
     },
-    // 扁平化某二级分类下全部子项（不分级别）
+    // 扁平化某二级分类下全部子项（不分级别），四级项标记 deep 供缩进
     flattenLeaves(sg) {
       if (!sg || !sg.childer) return [];
       const out = [];
-      const walk = (arr, fb) => {
+      const walk = (arr, fb, deep) => {
         arr.forEach((t) => {
           out.push({
             title: t.title,
             name: t.name || t.title,
             hierarchy: t.hierarchy != null ? t.hierarchy : fb,
             path: t.path,
+            deep,
           });
           if (t.childer && t.childer.length) {
-            walk(t.childer, t.hierarchy != null ? t.hierarchy : fb);
+            walk(t.childer, t.hierarchy != null ? t.hierarchy : fb, true);
           }
         });
       };
-      walk(sg.childer, sg.hierarchy);
+      walk(sg.childer, sg.hierarchy, false);
       return out;
     },
     // 点击叶子项：跳转产品页

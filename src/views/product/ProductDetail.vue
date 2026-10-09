@@ -157,7 +157,7 @@ import pathToRegexp from "path-to-regexp";
 import { mapGetters } from "vuex";
 import { getProductDetail } from "@/api/index";
 import { RESOURCE_BASE_URL } from "@/utils/resource";
-import { findHierarchyPath } from "@/utils/navData";
+import { findHierarchyPath, categoryStore } from "@/utils/navData";
 import Breadcrumb from "@/components/Breadcrumb";
 
 export default {
@@ -196,6 +196,9 @@ export default {
         this.getClientWidth();
       },
       immediate: true,
+    },
+    "categoryStore.loaded"() {
+      this.getBreadcrumb();
     },
   },
   created() {

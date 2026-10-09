@@ -1,0 +1,46 @@
+{
+  "category": [
+    { "id": 1, "title": "Consumer Audio", "parent_id": 0, "sort": 1 },
+    { "id": 2, "title": "Industrial Audio", "parent_id": 0, "sort": 2 },
+
+    { "id": 3, "title": "Headphone", "desc": "(On-ear/Overear)", "parent_id": 1, "sort": 1 },
+    { "id": 4, "title": "TWS", "parent_id": 1, "sort": 2 },
+    { "id": 5, "title": "Conference Audio", "parent_id": 1, "sort": 3 },
+
+    { "id": 9, "title": "BT HIFI Headphones", "parent_id": 3, "sort": 1 },
+    { "id": 10, "title": "Wireless ANC headphones", "parent_id": 3, "sort": 2 },
+    { "id": 11, "title": "Gaming Headphones", "parent_id": 3, "sort": 3 },
+    { "id": 12, "title": "USB Audio Headphones (SUPPORT TEAMS)", "parent_id": 3, "sort": 4 },
+    { "id": 28, "title": "FF/FB ANC headphones", "parent_id": 10, "sort": 1 },
+    { "id": 29, "title": "Hybrid ANC headphones", "parent_id": 10, "sort": 2 },
+    { "id": 30, "title": "2.4G/5.8G Gaming Headphones", "parent_id": 11, "sort": 1 },
+    { "id": 31, "title": "BT+2.4G ULL Gaming Headphones", "parent_id": 11, "sort": 2 },
+
+    { "id": 13, "title": "TWS HIFI Audio", "parent_id": 4, "sort": 1 },
+    { "id": 14, "title": "Hybrid ANC", "parent_id": 4, "sort": 2 },
+    { "id": 15, "title": "TWS Hearing Enhancement", "parent_id": 4, "sort": 3 },
+    { "id": 32, "title": "Dynamic spk version", "parent_id": 14, "sort": 1 },
+    { "id": 33, "title": "Balanced armature + Dynamic spk version", "parent_id": 14, "sort": 2 },
+
+    { "id": 16, "title": "With XMOS/Advanced 6 Mics", "parent_id": 5, "sort": 1 },
+
+    { "id": 6, "title": "Headphone", "desc": "(On-ear/Overear)", "parent_id": 2, "sort": 1 },
+    { "id": 7, "title": "In-ear Earphones", "parent_id": 2, "sort": 2 },
+    { "id": 8, "title": "Others", "parent_id": 2, "sort": 3 },
+
+    { "id": 17, "title": "Communications Headphones (With Mic Rod)", "parent_id": 6, "sort": 1 },
+    { "id": 18, "title": "Special type headphones", "parent_id": 6, "sort": 2 },
+    { "id": 19, "title": "Protection Headphones （NRR & SNR）", "parent_id": 6, "sort": 3 },
+    { "id": 20, "title": "ANC & ENC Headphones （Carbon Fiber ）", "parent_id": 6, "sort": 4 },
+    { "id": 34, "title": "Helmet headphones", "parent_id": 18, "sort": 1 },
+
+    { "id": 21, "title": "Protection in-ear Earphone （NRR & SNR）", "parent_id": 7, "sort": 1 },
+    { "id": 22, "title": "Protection TWS Earphone（NRR & SNR）", "name": "tws_ear", "path": "/tws-ear", "parent_id": 7, "sort": 2 },
+    { "id": 23, "title": "ANC & ENC in-ear Earphones（With Mic Rod）", "parent_id": 7, "sort": 3 },
+    { "id": 37, "title": "In-ear Earphones with ambient sound for hunting", "parent_id": 7, "sort": 4 },
+
+    { "id": 24, "title": "DECT headphones", "parent_id": 8, "sort": 1 },
+    { "id": 25, "title": "PTT function earbuds", "parent_id": 8, "sort": 2 }
+
+  ]
+}
