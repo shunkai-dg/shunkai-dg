@@ -2,13 +2,13 @@ export default {
   intro: {
     item1: {
       introduction: "INTRODUCTION",
-      title: "About aska design",
-      desc: "Aska Electronics Co.,Ltd was established in Dongguan, GuangDong province, China which owns a production base more than 20000 square meters.Aska is known as a high-tech Company which focuses on wireless audio products development and manufacturing. The main projects are Wireless headphone & Wireless ear buds & Wireless speaker etc.",
+      title: "About shunkai design",
+      desc: "shunkai Electronics Co.,Ltd was established in Dongguan, GuangDong province, China which owns a production base more than 20000 square meters.shunkai is known as a high-tech Company which focuses on wireless audio products development and manufacturing. The main projects are Wireless headphone & Wireless ear buds & Wireless speaker etc.",
     },
     item2: {
       introduction: "TO EXPLORE",
       title: "After-sales Services",
-      desc: "ASKA Electronics Co., Ltd. is one of the world's leading suppliers of wireless audio products. We are committed to developing lifestyle products with the latest technology and fashion trends. Our product range includes Wireless headsets, wireless sports earplugs, Wireless / WiFi speakers and wearable devices. Our products are welcomed by customers all over the world and are mainly sold to Europe, North America, Japan and other places",
+      desc: "shunkai Electronics Co., Ltd. is one of the world's leading suppliers of wireless audio products. We are committed to developing lifestyle products with the latest technology and fashion trends. Our product range includes Wireless headsets, wireless sports earplugs, Wireless / WiFi speakers and wearable devices. Our products are welcomed by customers all over the world and are mainly sold to Europe, North America, Japan and other places",
     },
     item3: {
       introduction: "ADVANTAGE",

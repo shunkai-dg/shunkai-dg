@@ -3,7 +3,7 @@
     <Breadcrumb />
     <div class="contact_us_warp warp">
       <div class="contact_us_container container">
-        <div class="askatek-title">
+        <div class="shunkai-title">
           <p>{{ $t("contact.title") }}</p>
         </div>
         <div class="contact_us_content">
@@ -340,8 +340,8 @@ export default {
     },
 
     handler({ BMap, map }) {
-      this.center.lng = 114.053332;
-      this.center.lat = 2.805705;
+      this.center.lng = 114.10509065644203;
+      this.center.lat = 22.820934021211876;
       this.zoom = 17;
     },
 

@@ -30,10 +30,10 @@ export const fast_navigation = {
       id: "fast_navigation",
     },
     {
-      title: "About aska",
-      i18nKey: "header.nav.aboutAska",
-      path: "/about-aska",
-      name: "about_aska",
+      title: "About shunkai",
+      i18nKey: "header.nav.aboutshunkai",
+      path: "/about-shunkai",
+      name: "about_shunkai",
       id: "fast_navigation",
     },
     {

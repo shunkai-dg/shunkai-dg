@@ -2,44 +2,59 @@
   "news": [
     {
       "id": 1,
-      "title": "aska Launches New Hybrid ANC Headset Series",
+      "title": "shunkai Launches New Hybrid ANC Headset Series",
+      "title_zh": "shunkai 发布全新混合降噪耳机系列",
       "descr": "Our flagship active noise cancelling headset series now ships with hybrid ANC and multipoint pairing.",
+      "descr_zh": "旗舰主动降噪耳机系列现已升级为混合式 ANC 降噪并支持多点连接。",
       "cover": "img_data/news/n1.svg",
       "push_at_str": "2026-09-15",
-      "content": "<h2>Product Launch</h2><p>We are excited to announce the new <strong>ASK-1000 ANC</strong> series, offering <u>hybrid noise cancelling</u> up to 35dB.</p><ol><li><em>Hybrid ANC</em> architecture</li><li>Multipoint Bluetooth 5.3</li><li>40 hour battery life</li></ol><blockquote>Designed for travelers who demand silence and clarity.</blockquote><table><thead><tr><th>Feature</th><th>Benefit</th></tr></thead><tbody><tr><td>ANC</td><td>35dB reduction</td></tr><tr><td>Battery</td><td>40h playtime</td></tr></tbody></table>"
+      "content": "<h2>Product Launch</h2><p>We are excited to announce the new <strong>ASK-1000 ANC</strong> series, offering <u>hybrid noise cancelling</u> up to 35dB.</p><ol><li><em>Hybrid ANC</em> architecture</li><li>Multipoint Bluetooth 5.3</li><li>40 hour battery life</li></ol><blockquote>Designed for travelers who demand silence and clarity.</blockquote><table><thead><tr><th>Feature</th><th>Benefit</th></tr></thead><tbody><tr><td>ANC</td><td>35dB reduction</td></tr><tr><td>Battery</td><td>40h playtime</td></tr></tbody></table>",
+      "content_zh": "<h2>产品发布</h2><p>我们很高兴推出全新的 <strong>ASK-1000 ANC</strong> 系列，<u>混合式降噪</u>深度可达 35dB。</p><ol><li><em>混合式 ANC</em> 架构</li><li>蓝牙 5.3 多点连接</li><li>40 小时续航</li></ol><blockquote>为追求静谧与清晰的出行者而设计。</blockquote><table><thead><tr><th>特性</th><th>优势</th></tr></thead><tbody><tr><td>ANC</td><td>降噪深度 35dB</td></tr><tr><td>电池</td><td>40 小时播放</td></tr></tbody></table>"
     },
     {
       "id": 2,
       "top": 1,
-      "title": "aska Expands Smart Manufacturing in Dongguan",
+      "title": "shunkai Expands Smart Manufacturing in Dongguan",
+      "title_zh": "shunkai 扩建东莞智能制造基地",
       "descr": "New automated production lines improve quality consistency across the Dongguan campus.",
+      "descr_zh": "新增自动化产线，全面提升东莞园区的品质一致性。",
       "cover": "img_data/news/n2.svg",
       "push_at_str": "2026-07-03",
-      "content": "<p>Our <strong>Dongguan factory</strong> has deployed new automated assembly lines, boosting <span style=\"background-color: #ffff00;\">yield rate</span> to 99.2%.</p><ul><li>Automated SMT lines</li><li>Inline acoustic testing</li><li>Batch traceability</li></ul>"
+      "content": "<p>Our <strong>Dongguan factory</strong> has deployed new automated assembly lines, boosting <span style=\"background-color: #ffff00;\">yield rate</span> to 99.2%.</p><ul><li>Automated SMT lines</li><li>Inline acoustic testing</li><li>Batch traceability</li></ul>",
+      "content_zh": "<p>我们的<strong>东莞工厂</strong>已投入使用新的自动化组装线，<span style=\"background-color: #ffff00;\">良率</span>提升至 99.2%。</p><ul><li>自动化 SMT 产线</li><li>在线声学测试</li><li>批次可追溯</li></ul>"
     },
     {
       "id": 3,
-      "title": "aska Awarded 'Contract-Abiding Enterprise'",
-      "descr": "Guangdong Province recognizes aska for outstanding creditworthiness and reliability.",
+      "title": "shunkai Awarded 'Contract-Abiding Enterprise'",
+      "title_zh": "shunkai 荣获“守合同重信用企业”称号",
+      "descr": "Guangdong Province recognizes shunkai for outstanding creditworthiness and reliability.",
+      "descr_zh": "广东省认可 shunkai 在信用与可靠性方面的突出表现。",
       "cover": "img_data/news/n3.svg",
       "push_at_str": "2026-05-20",
-      "content": "<blockquote>A national high-tech enterprise awarded the \u201ccontract abiding and trustworthy\u201d title.</blockquote><p>This honor reflects our long-term commitment to <u>quality</u> and <u>trust</u> in the global wireless audio market.</p>"
+      "content": "<blockquote>A national high-tech enterprise awarded the \u201ccontract abiding and trustworthy\u201d title.</blockquote><p>This honor reflects our long-term commitment to <u>quality</u> and <u>trust</u> in the global wireless audio market.</p>",
+      "content_zh": "<blockquote>国家高新技术企业，荣获“守合同重信用”称号。</blockquote><p>这项荣誉体现了我们在全球无线音频市场对<u>品质</u>与<u>信誉</u>的长期坚守。</p>"
     },
     {
       "id": 4,
       "title": "New Industrial Communication Headset for Noisy Sites",
+      "title_zh": "全新工业通讯耳机，专为高噪声场景打造",
       "descr": "The ASK-250 delivers clear two-way radio communication in extreme industrial noise.",
+      "descr_zh": "ASK-250 在极端工业噪声环境下依然保持清晰的双向对讲。",
       "cover": "img_data/news/n4.svg",
       "push_at_str": "2026-03-11",
-      "content": "<p>The <strong>ASK-250</strong> features a <em>noise-immune</em> microphone and IP54 protection, ideal for factories, warehouses and construction.</p><pre><code>setup() {\n  enableNoiseImmunity()\n  setProtection(\"IP54\")\n}</code></pre>"
+      "content": "<p>The <strong>ASK-250</strong> features a <em>noise-immune</em> microphone and IP54 protection, ideal for factories, warehouses and construction.</p><pre><code>setup() {\n  enableNoiseImmunity()\n  setProtection(\"IP54\")\n}</code></pre>",
+      "content_zh": "<p><strong>ASK-250</strong> 配备<em>抗噪</em>麦克风与 IP54 防护，适用于工厂、仓库与建筑工地。</p><pre><code>setup() {\n  enableNoiseImmunity()\n  setProtection(\"IP54\")\n}</code></pre>"
     },
     {
       "id": 5,
-      "title": "aska to Showcase at CES 2026",
+      "title": "shunkai to Showcase at CES 2026",
+      "title_zh": "shunkai 将亮相 CES 2026",
       "descr": "Preview our next-generation smart audio and wearable products at the annual show.",
+      "descr_zh": "在年度展会上抢先体验我们的新一代智能音频与穿戴产品。",
       "cover": "img_data/news/n5.svg",
       "push_at_str": "2026-01-08",
-      "content": "<p>Join us at <strong>CES 2026</strong> to preview next-generation <span style=\"color: #e03a3c;\">smart audio</span> and wearables.</p><ul><li>ANC headline family</li><li>AI wearable neckband</li><li>Industrial comms lineup</li></ul>"
+      "content": "<p>Join us at <strong>CES 2026</strong> to preview next-generation <span style=\"color: #e03a3c;\">smart audio</span> and wearables.</p><ul><li>ANC headline family</li><li>AI wearable neckband</li><li>Industrial comms lineup</li></ul>",
+      "content_zh": "<p>欢迎莅临 <strong>CES 2026</strong>，抢先体验新一代<span style=\"color: #e03a3c;\">智能音频</span>与穿戴产品。</p><ul><li>ANC 头戴系列</li><li>AI 穿戴颈挂耳机</li><li>工业通讯产品线</li></ul>"
     }
   ]
 }

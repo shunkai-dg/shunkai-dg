@@ -1,9 +1,9 @@
 ﻿<template>
-  <div class="askatek-first-picture">
+  <div class="shunkai-first-picture">
     <Breadcrumb />
     <div class="join-wrap warp">
       <div class="join-container container">
-        <div class="askatek-title">
+        <div class="shunkai-title">
           <p>{{ $t("join.title") }}</p>
         </div>
         <div class="join-table">
@@ -132,7 +132,7 @@ export default {
   justify-content: right;
   flex-direction: column;
 }
-.join-wrap .join-container .askatek-title {
+.join-wrap .join-container .shunkai-title {
   height: 56px;
   line-height: 56px;
   color: var(--text-strong);
@@ -140,7 +140,7 @@ export default {
   font-weight: 700;
   position: relative;
 }
-.join-wrap .join-container .askatek-title:after {
+.join-wrap .join-container .shunkai-title:after {
   content: "";
   width: 60px;
   height: 2px;

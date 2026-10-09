@@ -16,7 +16,7 @@ import { termStore, translateTerm } from "./terms";
 
 Vue.use(VueI18n);
 
-export const LOCALE_STORAGE_KEY = "aska-locale";
+export const LOCALE_STORAGE_KEY = "shunkai-locale";
 export const LOCALE_ZH = "zh-CN";
 export const LOCALE_EN = "en-US";
 export const LOCALE_AUTO = "auto";

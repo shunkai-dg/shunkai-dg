@@ -3,7 +3,7 @@
     <Breadcrumb />
     <div class="production_warp warp">
       <div class="production_container container">
-        <div class="askatek-title">
+        <div class="shunkai-title">
           <p>{{ $t("production.banner.title") }}</p>
         </div>
         <div class="production_tab">
@@ -144,7 +144,7 @@ export default {
     this.getImgData({ n: "img", type: 16, index: 1 });
   },
   methods: {
-    // 与 AboutAska 中一致的数据获取方式
+    // 与 Aboutshunkai 中一致的数据获取方式
     getImgData({ n, type, index }) {
       getImg({ type }).then((res) => {
         this.productionData[index][n] = res.data || [];

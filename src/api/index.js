@@ -1,10 +1,15 @@
 // 本地 API 服务（数据来自本地 JSON，取消对外部 /api 接口的依赖）
 // 保留与原先一致的 9 个导出函数名与签名，页面组件无需改动，透明生效。
 // 原始外部请求服务见 ./request.js（保留未使用，作为回退）。
-import products from "./data/products.json";
-import news from "./data/news.json";
-import jobs from "./data/jobs.json";
-import steps from "./data/steps.json";
+//
+// 产品/资讯/职位/流程四类数据的文案随语言切换：见 ./localizedData.js，
+// 它把 JSON 里的英文与 *_zh 中文合成响应式数据，切换语言时页面自动重渲染。
+import {
+  localizedProducts,
+  localizedNews,
+  localizedJobs,
+  localizedSteps,
+} from "./localizedData";
 import imgs from "./data/imgs.json";
 import setting from "./data/setting.json";
 import category from "./data/category.json";
@@ -25,7 +30,7 @@ function paginate(list, params = {}) {
 
 // 职位列表
 export function seoList(params = {}) {
-  return ok(paginate(jobs.jobs, params));
+  return ok(paginate(localizedJobs, params));
 }
 
 // 图片/轮播图（type: banner/设备/资质/荣誉/证书/工厂/专利）
@@ -36,7 +41,7 @@ export function getImg(data = {}) {
 
 // 资讯列表
 export function getInfoList(params = {}) {
-  let list = news.news;
+  let list = localizedNews;
   // 按 top 倒序、sort 正序重新排序
   list = list
   .slice()
@@ -51,7 +56,9 @@ export function getInfoList(params = {}) {
 // 资讯详情
 export function getInfoView(data = {}) {
   const item =
-    news.news.find((n) => String(n.id) === String(data.id)) || news.news[0] || {};
+    localizedNews.find((n) => String(n.id) === String(data.id)) ||
+    localizedNews[0] ||
+    {};
   return ok(item);
 }
 
@@ -62,7 +69,7 @@ export function setInfoContact(data) {
 
 // 产品列表（支持 keyword / cat_id / is_top）
 export function getProductList(params = {}) {
-  let list = products.products;
+  let list = localizedProducts;
   const keyword = (params.keyword || "").trim().toLowerCase();
   if (keyword) {
     list = list.filter(
@@ -93,15 +100,15 @@ export function getProductList(params = {}) {
 // 产品详情
 export function getProductDetail(data = {}) {
   const item =
-    products.products.find((p) => String(p.id) === String(data.id)) ||
-    products.products[0] ||
+    localizedProducts.find((p) => String(p.id) === String(data.id)) ||
+    localizedProducts[0] ||
     {};
   return ok(item);
 }
 
 // 流程步骤
 export function getStepList(params = {}) {
-  return ok(steps.steps);
+  return ok(localizedSteps);
 }
 
 // 站点设置

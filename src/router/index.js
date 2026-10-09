@@ -51,10 +51,10 @@ const routes = [
     meta: { title: "News Detail", titleKey: "common.page.newsDetail" },
   },
   {
-    path: "/about-aska",
-    name: "about_aska",
-    component: () => import("@/views/about/AboutAska.vue"),
-    meta: { title: "About Aska", titleKey: "common.page.aboutAska" },
+    path: "/about-shunkai",
+    name: "about_shunkai",
+    component: () => import("@/views/about/Aboutshunkai.vue"),
+    meta: { title: "About shunkai", titleKey: "common.page.aboutshunkai" },
   },
   {
     path: "/r-d-center",

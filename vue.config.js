@@ -17,9 +17,9 @@ module.exports = {
     },
     proxy: {
       '/api': {
-        tzfbdg:'https://haydee-dolichocranic-unadoringly.ngrok-free.dev ',
-        // target: 'https://www.askatek.cn',
-        target: 'http://127.0.0.1:3000/',
+        tzfbdg:'https://shunkai-dg.github.io/shunkai-dg/',
+        // target: 'https://www.shunkai-dg.cn',
+        target: 'http://127.0.0.1:8080/',
         // changeOrigin: true
       }
     }

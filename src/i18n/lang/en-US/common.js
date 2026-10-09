@@ -23,7 +23,7 @@ export default {
   /** Page / breadcrumb titles (mapped from router meta.titleKey) */
   page: {
     home: "Home",
-    aboutAska: "About aska",
+    aboutshunkai: "About shunkai",
     productCenter: "Product Center",
     productDetail: "Product Detail",
     products: "Products",
@@ -44,7 +44,7 @@ export default {
     auto: "Follow system",
   },
   brand: {
-    name: "aska",
+    name: "shunkai",
     slogan: "Your right choice for wireless products",
   },
 };

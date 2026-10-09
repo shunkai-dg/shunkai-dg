@@ -1,10 +1,10 @@
 <template>
-  <div class="askatek-head" :class="{ 'scroll-top': scrollEventTop }">
+  <div class="shunkai-head" :class="{ 'scroll-top': scrollEventTop }">
     <div class="comp-block">
-      <div class="askatek-header">
-        <div class="zz-col-sm-3 askatek-logo">
+      <div class="shunkai-header">
+        <div class="zz-col-sm-3 shunkai-logo">
           <img
-            class="askatek-logo"
+            class="shunkai-logo"
             :src="logo"
             fluid
             alt="Responsive image"
@@ -12,13 +12,13 @@
           />
         </div>
         <img
-          class="askatek-logo1"
+          class="shunkai-logo1"
           :src="logo1"
           fluid
           alt="Responsive image"
           @click="jumpHome"
         />
-        <div class="askatek-nav">
+        <div class="shunkai-nav">
           <nav-menu
             :menus="navMenus"
             :active-menu="activeMenu"
@@ -119,7 +119,7 @@
           <div class="shading-menu-container">
             <div class="shading-menu-login">
               <div class="shading-menu-logo">
-                <img :src="logo1" alt="aska" @click="jumpHome" />
+                <img :src="logo1" alt="shunkai" @click="jumpHome" />
               </div>
               <div class="menu-close" @click="isShading = false">
                 <i class="el-icon-close"></i>

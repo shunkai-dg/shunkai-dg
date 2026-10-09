@@ -1,6 +1,6 @@
-# shunkai-dg（aska 官网 · Vue 2 前端）
+# shunkai-dg（shunkai 官网 · Vue 2 前端）
 
-以 Vue 2.7 + vue-cli 4 反推重建的 aska 官网前端，数据由本地 JSON 模拟（无需后端即可运行）。
+以 Vue 2.7 + vue-cli 4 反推重建的 shunkai 官网前端，数据由本地 JSON 模拟（无需后端即可运行）。
 
 ## 快速开始
 
@@ -11,7 +11,7 @@ npm run build   # 生产构建，产物在 dist/
 npm run format  # prettier 格式化
 ```
 
-> 开发环境资源前缀由 `src/utils/resource.js` 的 `RESOURCE_BASE_URL`（`http://localhost:8080/`）决定；
+> 开发环境资源前缀由 `src/utils/resource.js` 的 `RESOURCE_BASE_URL`（`https://shunkai-dg.github.io/shunkai-dg/#/`）决定；
 > 若 devServer 顺延到其它端口，图片会 404，直接改这一处即可。
 
 ## 目录结构
@@ -26,7 +26,7 @@ src/
   i18n/                  国际化：index.js（实例与切换）、terms.js（分类术语词典）、lang/{zh-CN,en-US}/*.js
   utils/                 navData（分类树）、theme（主题「昼夜」）、resource、auth
   views/                 页面（home / about / product / news / join / contact / production / r-d）
-  api/                   本地数据服务（data/*.json）+ 原始请求实现（request.js，未启用）
+  api/                   本地数据服务（data/*.json + localizedData.js 中英文切换）+ 原始请求实现（request.js，未启用）
   router/                路由表（hash 模式）
   store/                 Vuex（含主题/语言选择）
 ```
@@ -35,7 +35,7 @@ src/
 
 ## 一、语言切换（vue-i18n@8）
 
-支持 **中文 / English / 跟随系统**，默认跟随系统；选择结果写入 `localStorage`（键 `aska-locale`），
+支持 **中文 / English / 跟随系统**，默认跟随系统；选择结果写入 `localStorage`（键 `shunkai-locale`），
 并同步 `<html lang>` 与 ElementUI 内置文案（分页、表单校验提示等）。
 
 ### 关键文件
@@ -46,6 +46,7 @@ src/
 | `src/i18n/terms.js` | 分类/术语词典（数据来自 JSON 的英文分类名 → 中文），查不到原样回退 |
 | `src/i18n/lang/zh-CN/*.js` | 中文文案，**文件名即命名空间** |
 | `src/i18n/lang/en-US/*.js` | 英文文案（站点原始文案，逐字保留） |
+| `src/api/localizedData.js` | 本地 JSON 数据（产品/资讯/职位/流程）的中英文切换 |
 
 语言模块由 `require.context` 自动装载：在 `lang/zh-CN/` 与 `lang/en-US/` 下同名的
 文件即同一命名空间，因此新增一个模块只需在两处各建一个同名文件：
@@ -75,10 +76,37 @@ export default { title: "News", detail: { prev: "Previous:" } };
 
 中文词条维护在 `src/i18n/terms.js`；漏译不会报错，只会显示英文原文。
 
+### 本地数据（产品 / 资讯 / 职位 / 流程）
+
+`src/api/data/*.json` 里的英文是基准文案，中文以 `_zh` 后缀并排存放，英文原字段一字不动：
+
+```json
+{
+  "title": "ASK-1000 Active Noise Cancelling Bluetooth Headset",
+  "title_zh": "ASK-1000 主动降噪蓝牙耳机",
+  "descr": "<p>This active noise cancelling headset …</p>",
+  "descr_zh": "<p>这款主动降噪耳机 …</p>"
+}
+```
+
+`src/api/localizedData.js` 负责切换：它为每条记录产出一个 `Vue.observable` 视图对象
+（页面拿到的就是它），并在 `termStore.locale` 变化时就地改写 `title / descr / params / content`
+等文案字段。视图字段是响应式的，所以**已渲染的列表与详情页会立刻重渲染**，
+不需要重新请求接口，也不需要改动任何页面组件。
+
+- 字段对应：`title→title_zh`、`sub_title→sub_title_zh`、`descr→descr_zh`、`params→params_zh`、
+  `content→content_zh`、`department→department_zh`、`position→position_zh`；
+- **按字段回退**：某个 `_zh` 没写或为空串时显示英文，漏译不会出现空白；
+- 只翻译文案：`id`、`imgs`、`cat_*` 分类 id、`top/sort`、日期、`year`、`quantity`
+  原样保留，数组顺序与条数也不变（`JoinUsDetail` 等按索引取数据）；
+- `category.json` 不在此列：分类标题与描述走 `src/i18n/terms.js` 词典 + `$tt/$label`，本来就是响应式的。
+
 ### 范围说明
 
-界面（导航、页脚、面包屑、按钮、表单、页面标题与正文）全部可切换；
-**接口/JSON 数据本身（产品名、新闻标题与正文、职位、地址）保持原文**，未做数据层翻译。
+界面（导航、页脚、面包屑、按钮、表单、页面标题与正文）与**本地接口数据**
+（产品名与详情、新闻标题与正文、职位、流程标题）全部可切换；
+仅 `push_at_str` 日期与 `year` 年份保持 `2026-09-15` 这类与语言无关的写法。
+分类标题沿用 `terms.js` 词典。
 
 ---
 
@@ -108,7 +136,7 @@ export default { title: "News", detail: { prev: "Previous:" } };
 - 切换时给 `<html>` 临时挂 `.theme-transition`，背景色与文字色 300ms 同步渐变，结束后移除，
   不影响常态 hover 手感；`prefers-reduced-motion` 下自动关闭。
 - 跟随系统时监听 `prefers-color-scheme`（主题）与 `languagechange`（语言），系统变化即时跟随。
-- 选择结果写入 `localStorage`（`aska-theme` / `aska-locale`）；可用 URL 参数临时预览、不污染偏好：
+- 选择结果写入 `localStorage`（`shunkai-theme` / `shunkai-locale`）；可用 URL 参数临时预览、不污染偏好：
   `?theme=night&locale=en-US`。
 
 ### 扩展一个主题

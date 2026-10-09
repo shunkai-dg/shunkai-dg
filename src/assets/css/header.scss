@@ -374,15 +374,15 @@
 /* ≤576px：头部强制单行
    此档 header-btn(50%) + list-ul(30%) 已占 80%，logo1 只有 20% 可用；
    视口 <540px 时 logo1（160x48 + max-height:30px = 100px 宽）放不下，
-   会被 global.css 的 .askatek-header{flex-wrap:wrap} 挤到第二行造成位移。
+   会被 global.css 的 .shunkai-header{flex-wrap:wrap} 挤到第二行造成位移。
    用更高特异性覆盖为 nowrap，并允许 logo1 收缩（min-width:0），
    替代方案是改 global.css，但那里是原产物转写文件，尽量不动。 */
 @media (max-width: 576px) {
-  .askatek-head .askatek-header {
+  .shunkai-head .shunkai-header {
     flex-wrap: nowrap;
   }
 
-  .askatek-head .askatek-header .askatek-logo1 {
+  .shunkai-head .shunkai-header .shunkai-logo1 {
     flex: 0 1 auto;
     min-width: 0;
   }
@@ -398,7 +398,7 @@
 }
 
 @media (min-width: 769px) {
-  .askatek-head .askatek-header .header-btn {
+  .shunkai-head .shunkai-header .header-btn {
     width: auto;
     -webkit-box-flex: 0;
     -ms-flex: 0 0 auto;
@@ -406,7 +406,7 @@
     padding-left: 8px;
   }
 
-  .askatek-head .askatek-header .header-btn .header-pref-bar {
+  .shunkai-head .shunkai-header .header-btn .header-pref-bar {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;

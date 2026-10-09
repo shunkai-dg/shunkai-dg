@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
   <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
   <link rel="icon" href="/logo.png">
-  <title>askatek.cn</title>
+  <title>shunkai-dg.cn</title>
   <script>
     /* 首屏前置脚本：在样式/脚本加载前确定「昼夜」主题与语言，
        避免先渲染浅色再跳深色（或反向）的闪烁。
@@ -18,7 +18,7 @@
       /* 预览用 URL 覆盖：?theme=day|night|auto（不写入偏好） */
       var urlTheme = /[?&]theme=(day|night|auto)\b/.exec(location.search);
       try {
-        var saved = window.localStorage.getItem("aska-theme");
+        var saved = window.localStorage.getItem("shunkai-theme");
         if (saved === "day" || saved === "night" || saved === "auto") mode = saved;
       } catch (e) {}
       if (urlTheme) mode = urlTheme[1];
@@ -36,7 +36,7 @@
 
       var lang = null;
       try {
-        lang = window.localStorage.getItem("aska-locale");
+        lang = window.localStorage.getItem("shunkai-locale");
       } catch (e) {}
       var urlLocale = /[?&]locale=(zh-CN|en-US|en|zh|auto)\b/.exec(location.search);
       if (urlLocale && urlLocale[1] !== "auto") {

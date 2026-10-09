@@ -23,7 +23,7 @@ export default {
   /** 页面/面包屑标题（与 router meta.titleKey 对应） */
   page: {
     home: "首页",
-    aboutAska: "关于 aska",
+    aboutshunkai: "关于 shunkai",
     productCenter: "产品中心",
     productDetail: "产品详情",
     products: "产品",
@@ -44,7 +44,7 @@ export default {
     auto: "跟随系统",
   },
   brand: {
-    name: "aska",
+    name: "shunkai",
     slogan: "您无线产品的正确选择",
   },
 };

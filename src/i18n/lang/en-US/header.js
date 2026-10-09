@@ -6,7 +6,7 @@ export default {
   themeLabel: "Theme",
   nav: {
     home: "Home",
-    aboutAska: "About aska",
+    aboutshunkai: "About shunkai",
     productCenter: "Product Center",
     rdCenter: "R&D Center",
     news: "News",

@@ -184,20 +184,20 @@ html.theme-transition *::after {
 /* ---------------------------------------------------------------------------
    4. 头部 / 导航
    ------------------------------------------------------------------------- */
-.askatek-head,
-.askatek-header {
+.shunkai-head,
+.shunkai-header {
   background-color: var(--header-bg);
   color: var(--header-text);
 }
 
 @media (min-width: 768px) {
-  .askatek-header {
+  .shunkai-header {
     background-color: var(--header-bg) !important;
   }
 }
 
 @media (max-width: 576px) {
-  .askatek-header {
+  .shunkai-header {
     background: var(--header-bg) !important;
     box-shadow: var(--shadow-sm);
   }
@@ -383,29 +383,29 @@ html.theme-transition *::after {
 /* ---------------------------------------------------------------------------
    5. 页脚
    ------------------------------------------------------------------------- */
-.askatek-footer {
+.shunkai-footer {
   background: var(--footer-bg) !important;
   color: var(--footer-text) !important;
 }
 
-.askatek-footer .askatek-footer-wrapper-item .font-bold {
+.shunkai-footer .shunkai-footer-wrapper-item .font-bold {
   border-left-color: var(--accent) !important;
   color: var(--text-strong) !important;
 }
 
-.askatek-footer .askatek-footer-wrapper-item ul li p {
+.shunkai-footer .shunkai-footer-wrapper-item ul li p {
   color: var(--text-muted) !important;
 }
 
-.askatek-footer .askatek-footer-wrapper-item ul li p:hover {
+.shunkai-footer .shunkai-footer-wrapper-item ul li p:hover {
   color: var(--accent-text) !important;
 }
 
-.askatek-footer .askatek-footer-line {
+.shunkai-footer .shunkai-footer-line {
   border-bottom-color: var(--border-strong) !important;
 }
 
-.askatek-footer .askatek-footer-page {
+.shunkai-footer .shunkai-footer-page {
   color: var(--text-muted) !important;
 }
 
@@ -736,17 +736,17 @@ html[data-theme] .breadcrumb_bg {
   color: var(--accent-text) !important;
 }
 
-/* 标题下划线（global.css 中的 .askatek-title:after） */
-.warp .container .askatek-title,
-.warp .container_2 .askatek-title,
-.warp_2 .container .askatek-title,
-.warp_2 .container_2 .askatek-title {
+/* 标题下划线（global.css 中的 .shunkai-title:after） */
+.warp .container .shunkai-title,
+.warp .container_2 .shunkai-title,
+.warp_2 .container .shunkai-title,
+.warp_2 .container_2 .shunkai-title {
   color: var(--text-strong) !important;
 }
 
-.warp .container .askatek-title:after,
-.warp .container_2 .askatek-title:after,
-.warp_2 .container .askatek-title:after,
-.warp_2 .container_2 .askatek-title:after {
+.warp .container .shunkai-title:after,
+.warp .container_2 .shunkai-title:after,
+.warp_2 .container .shunkai-title:after,
+.warp_2 .container_2 .shunkai-title:after {
   background-color: var(--accent) !important;
 }

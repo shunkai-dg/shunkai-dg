@@ -4,7 +4,7 @@
     separator-class="el-icon-arrow-right"
   >
     <transition-group name="breadcrumb">
-      <el-breadcrumb-item v-for="(item, index) in levelList" :key="index">
+      <el-breadcrumb-item v-for="(item, index) in levelList" :key="item._uid">
         <span
           v-if="
             item.redirect === 'noRedirect' || index === levelList.length - 1

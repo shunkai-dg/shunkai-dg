@@ -1,14 +1,14 @@
 <template>
-  <div class="askatek-footer">
-    <div class="askatek-footer-container">
-      <div class="askatek-footer-wrapper">
+  <div class="shunkai-footer">
+    <div class="shunkai-footer-container">
+      <div class="shunkai-footer-wrapper">
         <el-row :gutter="24">
-          <el-col class="askatek-footer-wrapper-l" :span="3">
-            <div class="askatek-footer-wrapper-code">
-              <div class="askatek-footer-wrapper-logo">
+          <el-col class="shunkai-footer-wrapper-l" :span="3">
+            <div class="shunkai-footer-wrapper-code">
+              <div class="shunkai-footer-wrapper-logo">
                 <img :src="logo1" alt="logo" />
               </div>
-              <div class="askatek-footer-wrapper-code-qr">
+              <div class="shunkai-footer-wrapper-code-qr">
                 <img :src="codeqr" alt="qrcode" />
               </div>
               <div class="info">
@@ -28,9 +28,9 @@
               </div>
             </div>
           </el-col>
-          <el-col class="askatek-footer-wrapper-r" :span="19">
+          <el-col class="shunkai-footer-wrapper-r" :span="19">
             <div
-              class="askatek-footer-wrapper-item"
+              class="shunkai-footer-wrapper-item"
               v-for="(g, gi) in groups"
               :key="gi"
             >
@@ -44,10 +44,10 @@
           </el-col>
         </el-row>
       </div>
-      <div class="askatek-footer-line"></div>
-      <div class="askatek-footer-page">
-        <div class="askatek-footer-page-l">{{ $t("footer.copyright") }}</div>
-        <div class="askatek-footer-page-r">{{ $t("footer.slogan") }}</div>
+      <div class="shunkai-footer-line"></div>
+      <div class="shunkai-footer-page">
+        <div class="shunkai-footer-page-l">{{ $t("footer.copyright") }}</div>
+        <div class="shunkai-footer-page-r">{{ $t("footer.slogan") }}</div>
       </div>
     </div>
   </div>
@@ -83,7 +83,7 @@ export default {
     });
   },
   computed: {
-    // info.qrcode 未就绪时用 1px 透明图占位，避免向 back.askatek.cn/undefined 发请求
+    // info.qrcode 未就绪时用 1px 透明图占位，避免向 back.shunkai-dg.cn/undefined 发请求
     qrUrl() {
       return this.info && this.info.qrcode
         ? RESOURCE_BASE_URL + this.info.qrcode

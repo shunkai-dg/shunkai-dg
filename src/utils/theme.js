@@ -10,7 +10,7 @@
  * 切换时给 <html> 临时挂 .theme-transition（300ms 缓动，背景与文字同步渐变）。
  */
 
-export const THEME_STORAGE_KEY = "aska-theme";
+export const THEME_STORAGE_KEY = "shunkai-theme";
 
 export const THEME_DAY = "day";
 export const THEME_NIGHT = "night";

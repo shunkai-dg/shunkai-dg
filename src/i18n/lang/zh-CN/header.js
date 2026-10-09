@@ -6,7 +6,7 @@ export default {
   themeLabel: "主题",
   nav: {
     home: "首页",
-    aboutAska: "关于 aska",
+    aboutshunkai: "关于 shunkai",
     productCenter: "产品中心",
     rdCenter: "研发中心",
     news: "新闻中心",

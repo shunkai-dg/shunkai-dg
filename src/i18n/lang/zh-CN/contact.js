@@ -7,7 +7,7 @@ export default {
     telephoneTitle: "电话",
     telephone: "+86.769.8989.0808",
     mailboxTitle: "邮箱",
-    mailbox: "sales@askatek.cn",
+    mailbox: "sales@shunkai-dg.cn",
     singaporeAddressTitle: "公司地址（新加坡）",
     singaporeAddress:
       "12 Tannery Road #10-01 HB Centre 1 Singapore 347722 ",

@@ -55,6 +55,6 @@ new Vue({
 // 启动时加载分类树（头部/页脚/产品中心等消费 categoryStore）
 loadCategories().catch(() => {});
 
-Vue.use(BaiduMap, {ak: "1087rYB27vvzdcVyDsiXAvKpKB3ufs0A",});
+Vue.use(BaiduMap, {ak: "iHQGprnI0bwcatMOA7R0Pk6FvcUG1ASy",});
 // ak 沿用产物中硬编码的 key（规格文档第五节）
-// Vue.use(preview, { ak: "1087rYB27vvzdcVyDsiXAvKpKB3ufs0A" });
+// Vue.use(preview, { ak: "iHQGprnI0bwcatMOA7R0Pk6FvcUG1ASy" });

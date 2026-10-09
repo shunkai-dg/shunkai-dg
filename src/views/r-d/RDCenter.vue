@@ -10,7 +10,7 @@
       <div class="img1">
         <div class="r_d_conter_warp warp">
           <div class="r_d_conter_container container">
-            <div class="askatek-title">
+            <div class="shunkai-title">
               <p>{{ $t('rd.development.title') }}</p>
             </div>
 
@@ -202,7 +202,7 @@
       <div class="img1">
         <div class="r_d_conter_warp warp">
           <div class="r_d_conter_container container">
-            <div class="askatek-title"><p>{{ $t('rd.equipment.title') }}</p></div>
+            <div class="shunkai-title"><p>{{ $t('rd.equipment.title') }}</p></div>
             <ul class="r_d_conter_equipment_list">
               <li v-for="(item, index) in equipment" :key="index">
                 <div class="r_d_conter_equipment_list_item">
@@ -222,7 +222,7 @@
       <div class="img1">
         <div class="warp">
           <div class="container">
-            <div class="askatek-title"><p>{{ $t('rd.property.title') }}</p></div>
+            <div class="shunkai-title"><p>{{ $t('rd.property.title') }}</p></div>
 
             <!-- 桌面端 -->
             <div class="r_d_conter_property_main">
@@ -300,7 +300,7 @@
       <div class="img1">
         <div class="r_d_conter_warp warp">
           <div class="r_d_conter_container container">
-            <div class="askatek-title"><p>{{ $t('rd.qualification.title') }}</p></div>
+            <div class="shunkai-title"><p>{{ $t('rd.qualification.title') }}</p></div>
             <ul class="r_d_conter_qualification_list">
               <li v-for="(item, index) in qualification" :key="index">
                 <div class="r_d_conter_qualification_list_item">
@@ -500,9 +500,9 @@ export default {
   .swiper-max {
     display: none;
   }
-  .r_d_conter_equipment .askatek-title,
-  .r_d_conter_property .askatek-title,
-  .r_d_conter_qualification .askatek-title {
+  .r_d_conter_equipment .shunkai-title,
+  .r_d_conter_property .shunkai-title,
+  .r_d_conter_qualification .shunkai-title {
     padding-left: 0 !important;
   }
 
@@ -554,9 +554,9 @@ export default {
   background-size: cover;
   color: #fff;
 }
-/* global.css 中 .warp .container .askatek-title（特异性 0,3,0）设了 max-height/line-height 56px 和
+/* global.css 中 .warp .container .shunkai-title（特异性 0,3,0）设了 max-height/line-height 56px 和
    margin:60px 0 0，这里用更高特异性覆盖：行高改 1.2 让白色下划线紧贴文字；顶部 60px 间距由 .img1 padding 承担 */
-.r_d_conter_equipment .warp .container .askatek-title {
+.r_d_conter_equipment .warp .container .shunkai-title {
   color: #fff !important;
   height: auto;
   max-height: none;
@@ -564,7 +564,7 @@ export default {
   margin: 0 0 7px;
   padding-bottom: 0;
 }
-.r_d_conter_equipment .warp .container .askatek-title:after {
+.r_d_conter_equipment .warp .container .shunkai-title:after {
   background-color: #fff !important;
 }
 
@@ -591,9 +591,9 @@ export default {
   background-size: cover;
   color: #fff;
 }
-/* global.css 中 .warp .container .askatek-title（特异性 0,3,0）设了 max-height/line-height 56px 和
+/* global.css 中 .warp .container .shunkai-title（特异性 0,3,0）设了 max-height/line-height 56px 和
    margin:60px 0 0，这里用更高特异性覆盖：行高改 1.2 让白色下划线紧贴文字；顶部 60px 间距由 .img1 padding 承担 */
-.r_d_conter_property .warp .container .askatek-title {
+.r_d_conter_property .warp .container .shunkai-title {
   color: #fff !important;
   height: auto;
   max-height: none;
@@ -601,7 +601,7 @@ export default {
   margin: 0 0 7px;
   padding-bottom: 0;
 }
-.r_d_conter_property .warp .container .askatek-title:after {
+.r_d_conter_property .warp .container .shunkai-title:after {
   background-color: #fff !important;
 }
 
@@ -696,7 +696,7 @@ export default {
   color: #fff;
 }
 
-.r_d_conter_qualification .warp .container .askatek-title {
+.r_d_conter_qualification .warp .container .shunkai-title {
   color: #fff !important;
   height: auto;
   max-height: none;
@@ -709,7 +709,7 @@ export default {
   padding: 60px 0 100px;
 }
 
-.r_d_conter_qualification .warp .container .askatek-title:after {
+.r_d_conter_qualification .warp .container .shunkai-title:after {
   background-color: #fff !important;
 }
 
@@ -721,9 +721,9 @@ export default {
   background-size: cover;
   color: #fff;
 }
-/* global.css 中 .warp .container .askatek-title（特异性 0,3,0）设了 max-height/line-height 56px 和
+/* global.css 中 .warp .container .shunkai-title（特异性 0,3,0）设了 max-height/line-height 56px 和
    margin:60px 0 0，这里用更高特异性覆盖：行高改 1.2 让白色下划线紧贴文字；顶部 60px 间距由 .img1 padding 承担 */
-.r_d_conter_development_course .warp .container .askatek-title {
+.r_d_conter_development_course .warp .container .shunkai-title {
   color: #fff !important;
   height: auto;
   max-height: none;
@@ -731,7 +731,7 @@ export default {
   margin: 0 0 7px;
   padding-bottom: 0;
 }
-.r_d_conter_development_course .warp .container .askatek-title:after {
+.r_d_conter_development_course .warp .container .shunkai-title:after {
   background-color: #fff !important;
 }
 
@@ -1077,9 +1077,9 @@ export default {
 }
 
 /* ============== 三个区块通用：标题 / 容器 / hover ============== */
-.r_d_conter_equipment .askatek-title,
-.r_d_conter_property .askatek-title,
-.r_d_conter_qualification .askatek-title {
+.r_d_conter_equipment .shunkai-title,
+.r_d_conter_property .shunkai-title,
+.r_d_conter_qualification .shunkai-title {
   padding-left: 9px;
   padding-bottom: 5px;
 }
