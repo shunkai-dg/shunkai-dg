@@ -1,5 +1,4 @@
 const path = require('path')
-import { defineConfig } from 'vite'
 
 module.exports = {
   publicPath: '/shunkai-dg/',
