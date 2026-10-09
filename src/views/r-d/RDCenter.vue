@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <div>
     <Breadcrumb />
     <!-- 1. Products development footprint -->
@@ -11,7 +11,7 @@
         <div class="r_d_conter_warp warp">
           <div class="r_d_conter_container container">
             <div class="askatek-title">
-              <p>Products development footprint</p>
+              <p>{{ $t('rd.development.title') }}</p>
             </div>
 
             <!-- 桌面端 -->
@@ -202,7 +202,7 @@
       <div class="img1">
         <div class="r_d_conter_warp warp">
           <div class="r_d_conter_container container">
-            <div class="askatek-title"><p>Equipments</p></div>
+            <div class="askatek-title"><p>{{ $t('rd.equipment.title') }}</p></div>
             <ul class="r_d_conter_equipment_list">
               <li v-for="(item, index) in equipment" :key="index">
                 <div class="r_d_conter_equipment_list_item">
@@ -222,7 +222,7 @@
       <div class="img1">
         <div class="warp">
           <div class="container">
-            <div class="askatek-title"><p>Intellectual Property</p></div>
+            <div class="askatek-title"><p>{{ $t('rd.property.title') }}</p></div>
 
             <!-- 桌面端 -->
             <div class="r_d_conter_property_main">
@@ -234,7 +234,7 @@
                   :class="[activeIndex === index && 'property_tabs_btn_active']"
                   @click="tabs(index)"
                 >
-                  {{ item.table }}
+                  {{ $t('rd.property.tabs.' + item.key) }}
                 </button>
               </div>
 
@@ -269,7 +269,7 @@
                 <el-collapse-item
                   v-for="(item, index) in propertyData"
                   :key="index"
-                  :title="item.table"
+                  :title="$t('rd.property.tabs.' + item.key)"
                   :name="index"
                 >
                   <div class="r_d_conter_property_list_item">
@@ -300,7 +300,7 @@
       <div class="img1">
         <div class="r_d_conter_warp warp">
           <div class="r_d_conter_container container">
-            <div class="askatek-title"><p>Company Qualification</p></div>
+            <div class="askatek-title"><p>{{ $t('rd.qualification.title') }}</p></div>
             <ul class="r_d_conter_qualification_list">
               <li v-for="(item, index) in qualification" :key="index">
                 <div class="r_d_conter_qualification_list_item">
@@ -341,10 +341,11 @@ import bgEquip from "@/assets/img/rd2.jpeg";
 import bgProperty from "@/assets/img/rd3.jpeg";
 import bgQualification from "@/assets/img/rd4.jpeg";
 
+// 知识产权分类：文案走 i18n（key 为 rd.property.tabs.* 的子键），type 为接口参数
 const PROPERTY_TABS = [
-  { table: "Global Patent", type: 21 },
-  { table: "Invention Patent", type: 22 },
-  { table: "Utility Model Patent", type: 23 },
+  { key: "globalPatent", type: 21 },
+  { key: "inventionPatent", type: 22 },
+  { key: "utilityModelPatent", type: 23 },
 ];
 
 export default {
@@ -406,8 +407,8 @@ export default {
     },
     getPropertyData() {
     Promise.all(
-      PROPERTY_TABS.map(({ table, type }) =>
-        this.getImgData({ type }).then((list) => ({ table, list }))
+      PROPERTY_TABS.map(({ key, type }) =>
+        this.getImgData({ type }).then((list) => ({ key, list }))
       )
     ).then((data) => {
       this.propertyData = data;
@@ -664,19 +665,19 @@ export default {
   margin-bottom: 29px;
 }
 .r_d_conter_property_collapse .el-collapse-item .el-collapse-item__header {
-  color: #000;
+  color: var(--text-strong);
   font-size: 14px;
   border-radius: 10px;
   padding: 8px 5px;
   border: 0;
-  background: #fafafa;
+  background: var(--surface-2);
   line-height: normal;
   height: auto;
   font-weight: 400;
 }
 .r_d_conter_property_collapse .el-collapse-item .is-active {
-  color: #fff;
-  background: #094b7c;
+  color: var(--btn-text);
+  background: var(--btn-bg);
 }
 .r_d_conter_property_collapse .el-collapse-item div[role="tab"] {
   margin-bottom: 20px;
@@ -765,10 +766,10 @@ export default {
 }
 .r_d_conter_development_course .swiper-max .gallery-top .gallery-top-conter {
   height: 100%;
-  box-shadow: 3px 3px 9px 2px rgba(0, 0, 0, 0.039);
+  box-shadow: var(--shadow-sm);
   border-radius: 10px;
   display: flex;
-  background: #fff;
+  background: var(--surface);
   flex-direction: column;
   text-align: center;
   width: 100%;
@@ -797,7 +798,7 @@ export default {
   .gallery-top-conter
   .gallery-top-title {
   padding: 20px 10px 30px;
-  color: #545353;
+  color: var(--text);
   font-size: 14px;
   line-height: 1.5;
   position: relative;
@@ -819,7 +820,7 @@ export default {
   .gallery-top
   .gallery-top-conter
   .active {
-  color: #00589f;
+  color: var(--accent-text);
 }
 
 .r_d_conter_development_course .gallery-thumbs {
@@ -840,7 +841,7 @@ export default {
   align-items: center;
   justify-content: center;
   color: var(--swiper-navigation-color, var(--swiper-theme-color));
-  background: #f8f8f8;
+  background: var(--bg-soft);
 }
 .r_d_conter_development_course
   .gallery-thumbs
@@ -898,7 +899,7 @@ export default {
   .content {
   width: 5px;
   height: 5px;
-  background-color: #333;
+  background-color: var(--text-muted);
   border-radius: 50%;
   margin: 20px !important;
   display: inline-block;
@@ -912,7 +913,7 @@ export default {
   content: "";
   width: 40%;
   height: 1px;
-  background: rgba(0, 0, 0, 0.1);
+  background: var(--border);
   display: inline-block;
   vertical-align: middle;
   position: absolute;
@@ -927,7 +928,7 @@ export default {
   content: "";
   width: 40%;
   height: 1px;
-  background: rgba(0, 0, 0, 0.1);
+  background: var(--border);
   display: inline-block;
   vertical-align: middle;
   position: absolute;
@@ -947,7 +948,7 @@ export default {
   .text-body
   .desc {
   margin-top: 0;
-  color: #404040;
+  color: var(--text);
   font-size: 14px;
   line-height: 1.5;
   text-align: center;
@@ -970,7 +971,7 @@ export default {
   .content
   p {
   margin-top: 0;
-  color: #404040;
+  color: var(--text);
   font-size: 14px;
   line-height: 1.5;
   text-align: center;
@@ -989,7 +990,7 @@ export default {
   content: "";
   width: 1px;
   height: 51px;
-  background: rgba(0, 0, 0, 0.1);
+  background: var(--border);
   display: inline-block;
   position: absolute;
   left: 50%;
@@ -1002,9 +1003,9 @@ export default {
   .content {
   width: 5px;
   height: 5px;
-  border: 2px solid #094b7c;
+  border: 2px solid var(--accent);
   padding: 9px;
-  background-color: #094b7c !important;
+  background-color: var(--accent) !important;
   border-radius: 50%;
 }
 
@@ -1039,8 +1040,8 @@ export default {
   display: flex;
   height: 100%;
   flex-direction: column;
-  background: #fff;
-  box-shadow: 3px 3px 9px 2px rgba(0, 0, 0, 0.039);
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
   border-radius: 10px;
   text-align: center;
 }
@@ -1070,7 +1071,7 @@ export default {
   .gallery-top-conter
   .gallery-top-title {
   padding: 20px 10px 15px;
-  color: #00589f;
+  color: var(--accent-text);
   font-size: 14px;
   line-height: 1.5;
 }
@@ -1144,12 +1145,12 @@ export default {
 .r_d_conter_qualification .property_tabs_btn {
   /* 设计稿实测：按钮高约 38px、圆角 8px */
   margin-right: 24px;
-  color: #999;
+  color: var(--text-muted);
   font-size: 14px;
   border-radius: 8px;
   padding: 9px 22px;
-  border: 1px solid #fafafa;
-  background: #fafafa;
+  border: 1px solid var(--border);
+  background: var(--surface-2);
   line-height: 1.2;
   display: inline-block;
 }
@@ -1159,9 +1160,9 @@ export default {
 .r_d_conter_property .property_tabs_btn_active,
 .r_d_conter_qualification .property_tabs_btn:hover,
 .r_d_conter_qualification .property_tabs_btn_active {
-  color: #fff;
-  background: #094b7c;
-  border: 1px solid #094b7c;
+  color: var(--btn-text);
+  background: var(--btn-bg);
+  border: 1px solid var(--btn-bg);
 }
 
 @keyframes slideInUp {

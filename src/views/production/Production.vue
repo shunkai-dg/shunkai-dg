@@ -1,9 +1,11 @@
-<template>
+﻿<template>
   <div>
     <Breadcrumb />
     <div class="production_warp warp">
       <div class="production_container container">
-        <div class="askatek-title"><p>Production Capacity</p></div>
+        <div class="askatek-title">
+          <p>{{ $t("production.banner.title") }}</p>
+        </div>
         <div class="production_tab">
           <div class="production_tabs">
             <button
@@ -34,7 +36,9 @@
           >
             <div class="production_center_l">
               <ul>
-                <li v-for="(text, i) in block.list" :key="i">{{ text }}</li>
+                <li v-for="(text, i) in productionLists[index]" :key="i">
+                  {{ text }}
+                </li>
               </ul>
             </div>
 
@@ -60,7 +64,7 @@
                 ></div>
               </swiper>
 
-              <p v-else class="img_tip">No image</p>
+              <p v-else class="img_tip">{{ $t("production.noImage") }}</p>
             </div>
           </div>
         </div>
@@ -90,30 +94,37 @@ export default {
       defaultIcon,
       hover: false,
       activeIndex: 0,
-      tabsList: ["Dongguan Factory", "Thailand Factory (On-going plan) "],
-      productionData: [
-        {
-          list: [
-            "Factory size : 25000 ㎡",
-            "Factory address: No.5 Puxin Road, Keyuancheng Industrial Park, Tangxia Town, Dongguan, Guangdong , China PRC. 523725",
-            "Total Capacity：800K/Month (Headphones+TWS Earphones)",
-          ],
-          img: [],
-        },
-        {
-          list: [
-            "Factory size: 50000 ㎡ （ Ground Size ）",
-            "Factory address:  Road G8 / 1, THAI-CHINESE Rayong Industrial Park, Rayong, Thailand",
-            "Workers：1200 people",
-            "Managerial staff: 40 people",
-            "Headcount: 1240 people",
-          ],
-          img: [],
-        },
-      ],
+      // 页签与工厂明细文案见 computed（走 i18n），images 由接口写入
+      productionData: [{ img: [] }, { img: [] }],
     };
   },
   computed: {
+    // 工厂页签文案（顺序与 productionData 一一对应）
+    tabsList() {
+      return [
+        this.$t("production.tabs.dongguan"),
+        this.$t("production.tabs.thailand"),
+      ];
+    },
+
+    // 各工厂明细文案，模板按索引取用：productionLists[index]
+    productionLists() {
+      return [
+        [
+          this.$t("production.factory.dongguan.size"),
+          this.$t("production.factory.dongguan.address"),
+          this.$t("production.factory.dongguan.capacity"),
+        ],
+        [
+          this.$t("production.factory.thailand.size"),
+          this.$t("production.factory.thailand.address"),
+          this.$t("production.factory.thailand.workers"),
+          this.$t("production.factory.thailand.managerialStaff"),
+          this.$t("production.factory.thailand.headcount"),
+        ],
+      ];
+    },
+
     // 每个 tab 使用独立的分页选择器，避免多实例互相抢元素
     swiperOptions() {
       return this.productionData.map((_, i) => ({
@@ -191,12 +202,12 @@ export default {
   display: flex;
 
   .production_tabs_btn {
-    color: #000;
+    color: var(--text-strong);
     font-size: 14px;
     border-radius: 0;
     padding: 8px 10px;
-    border: 1px solid #000;
-    background: #fff;
+    border: 1px solid var(--btn-bg);
+    background: var(--surface);
     margin-right: 10px;
     display: flex;
     justify-content: center;
@@ -211,15 +222,15 @@ export default {
 
     &:hover,
     &.production_tabs_btn_active {
-      color: #fff;
-      background: #000;
-      border: 1px solid #000;
+      color: var(--btn-text);
+      background: var(--btn-bg);
+      border: 1px solid var(--btn-bg);
     }
   }
 }
 .production_center {
   display: flex;
-  background: #fff;
+  background: var(--surface);
   padding: 20px;
 
   .production_center_l {
@@ -235,7 +246,7 @@ export default {
       li {
         position: relative;
         padding: 4px 4px 4px 25px;
-        color: #4e4d4d;
+        color: var(--text);
         font-size: 15px;
         line-height: 1.5;
 
@@ -244,8 +255,8 @@ export default {
           width: 14px;
           height: 14px;
           border-radius: 50%;
-          background-color: #094b7c;
-          border: 5px solid #d6d7d8;
+          background-color: var(--accent);
+          border: 5px solid var(--border);
           display: block;
           position: absolute;
           left: 0;
@@ -277,11 +288,11 @@ export default {
     .swiper-pagination {
       position: static;
       margin-top: 10px;
-      color: #333;
+      color: var(--text);
     }
 
     .img_tip {
-      color: #999;
+      color: var(--text-muted);
       font-size: 14px;
       text-align: center;
       margin: 20px 0;

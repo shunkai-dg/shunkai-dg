@@ -1,10 +1,10 @@
-<template>
+﻿<template>
   <div>
     <Breadcrumb />
     <div class="contact_us_warp warp">
       <div class="contact_us_container container">
         <div class="askatek-title">
-          <p>Contact Us</p>
+          <p>{{ $t("contact.title") }}</p>
         </div>
         <div class="contact_us_content">
           <ul class="contact_us_content_tab">
@@ -68,11 +68,10 @@
                         @close="infoWindowClose"
                         @open="infoWindowOpen"
                       >
-                        <p>aska</p>
-                        <p>Tel:86.769.8989.0808</p>
+                        <p>{{ $t("common.brand.name") }}</p>
+                        <p>{{ $t("contact.map.tel") }}</p>
                         <p style="word-wrap: break-word; max-width: 300px">
-                          No.5 Puxin Road, Keyuancheng Industrial Park，Tangxia
-                          Town, Dongguan, Guangdong, PRC 523718
+                          {{ $t("contact.info.chinaAddress") }}
                         </p>
                       </bm-info-window>
                     </bm-marker>
@@ -86,8 +85,7 @@
               <el-col :span="12">
                 <div class="contact_us_content_form">
                   <div class="contact_us_content_title">
-                    Please rest assured that we will not disclose your
-                    information
+                    {{ $t("contact.form.notice") }}
                   </div>
                   <el-form
                     ref="ruleForm"
@@ -99,7 +97,7 @@
                     <el-form-item label="" prop="name">
                       <el-input
                         v-model="ruleForm.name"
-                        placeholder="Please enter your name"
+                        :placeholder="$t('contact.form.name')"
                         autocomplete="off"
                         ,
                         maxlength="50"
@@ -110,7 +108,7 @@
                     <el-form-item label="" prop="mobile">
                       <el-input
                         v-model="ruleForm.mobile"
-                        placeholder="Please enter your mobile number"
+                        :placeholder="$t('contact.form.mobile')"
                         autocomplete="off"
                         maxlength="20"
                         clearable
@@ -125,7 +123,7 @@
                     <el-form-item label="" prop="email">
                       <el-input
                         v-model="ruleForm.email"
-                        placeholder="Please enter email address"
+                        :placeholder="$t('contact.form.email')"
                         maxlength="100"
                         clearable
                       />
@@ -134,7 +132,7 @@
                       <el-input
                         v-model="ruleForm.content"
                         type="textarea"
-                        placeholder="Please enter the content"
+                        :placeholder="$t('contact.form.content')"
                         maxlength="500"
                         show-word-limit
                         :autosize="{ minRows: 4, maxRows: 8 }"
@@ -148,7 +146,11 @@
                         :disabled="submitting"
                         @click="submitForm('ruleForm')"
                       >
-                        {{ submitting ? "Submitting..." : "Submit" }}
+                        {{
+                          submitting
+                            ? $t("contact.form.submitting")
+                            : $t("common.submit")
+                        }}
                       </el-button>
                     </el-form-item>
                   </el-form>
@@ -169,27 +171,6 @@ import { setInfoContact } from "@/api/index";
 export default {
   components: { Breadcrumb },
   data() {
-    const validateMobile = (rule, value, callback) => {
-      if (!value) {
-        callback(new Error("Please enter your mobile number"));
-      } else if (!/^[\d+\-\s()]{6,20}$/.test(value)) {
-        callback(new Error("Please enter a valid mobile number"));
-      } else {
-        callback();
-      }
-    };
-
-    // 邮箱校验：非必填，填了才校验格式
-    const validateEmail = (rule, value, callback) => {
-      if (!value) {
-        callback();
-      } else if (!/^[\w.+-]+@[\w-]+(\.[\w-]+)+$/.test(value)) {
-        callback(new Error("Please enter a valid email address"));
-      } else {
-        callback();
-      }
-    };
-
     return {
       center: { lng: 114.059284, lat: 22.798283 },
       mapZoom: 17,
@@ -197,17 +178,44 @@ export default {
       show: false,
       submitting: false,
       ruleForm: { name: "", email: "", mobile: "", content: "" },
-      rules: {
+      picturUrl: "",
+    };
+  },
+  computed: {
+    // 校验规则依赖当前语言，放入 computed 以便切换语言时同步生效
+    rules() {
+      const validateMobile = (rule, value, callback) => {
+        if (!value) {
+          callback(new Error(this.$t("contact.form.mobile")));
+        } else if (!/^[\d+\-\s()]{6,20}$/.test(value)) {
+          callback(new Error(this.$t("contact.form.mobileInvalid")));
+        } else {
+          callback();
+        }
+      };
+
+      // 邮箱校验：非必填，填了才校验格式
+      const validateEmail = (rule, value, callback) => {
+        if (!value) {
+          callback();
+        } else if (!/^[\w.+-]+@[\w-]+(\.[\w-]+)+$/.test(value)) {
+          callback(new Error(this.$t("contact.form.emailInvalid")));
+        } else {
+          callback();
+        }
+      };
+
+      return {
         name: [
           {
             required: true,
-            message: "Please enter your name",
+            message: this.$t("contact.form.name"),
             trigger: "blur",
           },
           {
             min: 2,
             max: 50,
-            message: "Name should be 2 to 50 characters",
+            message: this.$t("contact.form.nameLength"),
             trigger: "blur",
           },
         ],
@@ -218,58 +226,62 @@ export default {
         content: [
           {
             required: true,
-            message: "Please enter the content",
+            message: this.$t("contact.form.content"),
             trigger: "blur",
           },
           {
             min: 5,
             max: 500,
-            message: "Content should be 5 to 500 characters",
+            message: this.$t("contact.form.contentLength"),
             trigger: "blur",
           },
         ],
+        // 保持原有行为：同名字段 content 覆盖了上面的校验数组
         content: "",
-      },
-      picturUrl: "",
-      tabs: [
+      };
+    },
+    tabs() {
+      return [
         {
           icon: require("@/assets/img/Contact Us1.png"),
-          title: "Company Address（China）",
-          desc: "No.5 Puxin Road, Keyuancheng Industrial Park，Tangxia Town, Dongguan, Guangdong, PRC 523718",
+          title: this.$t("contact.info.chinaAddressTitle"),
+          desc: this.$t("contact.info.chinaAddress"),
         },
         {
           icon: require("@/assets/img/Contact Us2.png"),
-          title: "Telephone",
-          desc: "+86.769.8989.0808",
+          title: this.$t("contact.info.telephoneTitle"),
+          desc: this.$t("contact.info.telephone"),
         },
         {
           icon: require("@/assets/img/Contact Us3.png"),
-          title: "Mailbox",
-          desc: "sales@askatek.cn",
+          title: this.$t("contact.info.mailboxTitle"),
+          desc: this.$t("contact.info.mailbox"),
         },
-      ],
-      tabs1: [
+      ];
+    },
+    tabs1() {
+      return [
         {
           icon: require("@/assets/img/Contact Us4.png"),
-          title: "Company Address（Singapore）",
-          desc: "12 Tannery Road #10-01 HB Centre 1 Singapore 347722 ",
+          title: this.$t("contact.info.singaporeAddressTitle"),
+          desc: this.$t("contact.info.singaporeAddress"),
         },
         {
           icon: require("@/assets/img/Contact Us5.png"),
-          title: "Mailbox",
-          desc: "sales@askatek.cn",
+          title: this.$t("contact.info.mailboxTitle"),
+          desc: this.$t("contact.info.mailbox"),
         },
         { icon: "", title: "", desc: "" },
-      ],
-    };
+      ];
+    },
   },
   methods: {
     // 居中反馈弹窗，必须点击确认才关闭
-    showAlert(message, type = "info", title = "Tips") {
+    showAlert(message, type = "info", title = this.$t("contact.alert.tips")) {
       return this.$alert(message, title, {
         type,
         center: true,
-        confirmButtonText: "OK",
+        confirmButtonText: this.$t("common.confirm"),
         closeOnClickModal: false,
         closeOnPressEscape: false,
         closeOnHashChange: false,
@@ -284,9 +296,9 @@ export default {
       this.$refs["ruleForm"].validate((valid) => {
         if (!valid) {
           this.showAlert(
-            "Please complete the required fields correctly.",
+            this.$t("contact.alert.incomplete"),
             "warning",
-            "Incomplete Information",
+            this.$t("contact.alert.incompleteTitle"),
           );
           return;
         }
@@ -298,25 +310,24 @@ export default {
             if (res && res.code === 40000) {
               this.$refs.ruleForm.resetFields();
               this.showAlert(
-                "Submitted successfully. We will contact you as soon as possible.",
+                this.$t("contact.alert.success"),
                 "success",
-                "Success",
+                this.$t("contact.alert.successTitle"),
               );
             } else {
               this.showAlert(
-                (res && res.message) ||
-                  "Submission failed, please try again later.",
+                (res && res.message) || this.$t("contact.alert.failed"),
                 "error",
-                "Failed",
+                this.$t("contact.alert.failedTitle"),
               );
             }
           })
           .catch((err) => {
             console.error("submit error:", err);
             this.showAlert(
-              "Network error, please try again later.",
+              this.$t("contact.alert.network"),
               "error",
-              "Failed",
+              this.$t("contact.alert.failedTitle"),
             );
           })
           .finally(() => {
@@ -388,7 +399,7 @@ export default {
   width: 100%;
 }
 .contact_us_content_tab .contact_us_content_item .contact_us_content-tit {
-  color: #333;
+  color: var(--text);
   font-size: 17px;
   line-height: 1.5;
   text-align: inherit;
@@ -397,7 +408,7 @@ export default {
 .contact_us_content_tab .contact_us_content_item .contact_us_content-desc1,
 .contact_us_content_tab .contact_us_content_item .contact_us_content-desc {
   margin-top: 7px;
-  color: #999;
+  color: var(--text-muted);
   font-size: 13px;
   line-height: 1.5;
   text-align: inherit;
@@ -426,7 +437,7 @@ export default {
   font-size: 25px;
 }
 .contact_us_content_info {
-  background: #fff;
+  background: var(--surface);
   margin-top: 30px;
   margin-bottom: 60px;
 }
@@ -444,10 +455,10 @@ export default {
   margin: 30px 0 37px 0;
 }
 .contact_us_content_info .contact_us_content_form .contact_us_content_submit {
-  background-color: #000;
-  color: #fff;
+  background-color: var(--btn-bg);
+  color: var(--btn-text);
   font-size: 14px;
-  border: 1px solid #dcdfe6;
+  border: 1px solid var(--border);
   border-radius: 4px;
   padding: 12px 40px;
 }
@@ -459,9 +470,9 @@ export default {
 .contact_us_content_info .contact_us_content_form .el-input__inner,
 .contact_us_content_info .contact_us_content_form .el-textarea__inner {
   font-size: 14px;
-  background-color: #f8f8f8;
-  color: #666;
-  border: 1px solid #dcdfe6;
+  background-color: var(--bg-soft);
+  color: var(--text-muted);
+  border: 1px solid var(--border);
   border-radius: 4px;
 }
 .contact-alert {
@@ -474,7 +485,7 @@ export default {
 .contact-alert .el-message-box__title {
   font-size: 16px;
   font-weight: 700;
-  color: #333;
+  color: var(--text);
 }
 .contact-alert .el-message-box__content {
   padding: 20px 24px 24px;
@@ -483,13 +494,13 @@ export default {
   padding: 0 24px 22px;
 }
 .contact-alert .el-button--primary {
-  background-color: #000;
-  border-color: #000;
+  background-color: var(--btn-bg);
+  border-color: var(--btn-bg);
   padding: 10px 28px;
   border-radius: 4px;
 }
 .contact-alert .el-button--primary:hover {
-  background-color: #333;
-  border-color: #333;
+  background-color: var(--accent-strong);
+  border-color: var(--accent-strong);
 }
 </style>

@@ -17,7 +17,7 @@
     </div>
     <!-- 2. Star products 区：桌面端四列；移动端（<750px）单排横向滑动 -->
     <div class="home-container">
-      <h2 class="home-container_title">{{ productsData.title }}</h2>
+      <h2 class="home-container_title">{{ $t("home.starProducts") }}</h2>
       <p class="home-container_desc">{{ productsData.desc }}</p>
       <ul class="loop-container">
         <li class="loop-item" v-for="item in productsData.list" :key="item.id">
@@ -25,7 +25,7 @@
             <p class="loop-item_title">{{ item.title }}</p>
             <p class="loop-item_desc">{{ item.sub_title }}</p>
             <button class="loop-item_btn" @click="jumpProductDetail(item)">
-              MORE
+              {{ $t("common.more") }}
             </button>
             <div class="product_center_l_item_img">
               <img
@@ -62,7 +62,7 @@
             <p class="product_comp-content">{{ item.content }}</p>
             <p class="product_desc">{{ item.desc }}</p>
             <button class="product_button" @click="jumpProductDetail(item)">
-              MORE
+              {{ $t("common.more") }}
             </button>
           </div>
         </div>
@@ -71,7 +71,7 @@
             <p class="product_comp-content">{{ item.content }}</p>
             <p class="product_desc">{{ item.desc }}</p>
             <button class="product_button" @click="jumpProductDetail(item)">
-              MORE
+              {{ $t("common.more") }}
             </button>
           </div>
         </div>
@@ -106,9 +106,9 @@ export default {
       swiperLeft,
       swiperRight,
       dataList: [],
-      productsData: { title: "Star products", desc: "", list: [] },
-      // 硬编码产品介绍（原产物 id 17/16，url 对应 product1/2，minUrl 对应 product-min1/2）
-      productsIntroduce: [
+      productsData: { desc: "", list: [] },
+      // 硬编码产品介绍：图片与分类 id 常驻 data，文案走 i18n（computed productsIntroduce）
+      introImgs: [
         {
           id: 17,
           cat_four: 29,
@@ -117,8 +117,7 @@ export default {
           cat_two: 3,
           url: product1,
           minUrl: productMin1,
-          content: "CD sound quality for music fans",
-          desc: "Hybird active noise canceling model with Ultra-high speed with aska A²NC technology",
+          key: "cdSound",
         },
         {
           id: 16,
@@ -128,8 +127,7 @@ export default {
           cat_two: 3,
           url: product2,
           minUrl: productMin2,
-          content: "NC07 wireless noise reduction headset",
-          desc: "Extendable&rotation headband with metal frame/All day comfort using/Build iwt5h aska A²NC technology",
+          key: "nc07",
         },
       ],
       swiperOpenBanner: {
@@ -151,6 +149,14 @@ export default {
   computed: {
     swiper() {
       return this.$refs.mySwiper && this.$refs.mySwiper.swiper;
+    },
+    // 硬编码产品介绍：文案随语言切换即时更新（图片/分类 id 保持原值）
+    productsIntroduce() {
+      return this.introImgs.map((item) => ({
+        ...item,
+        content: this.$t("home.intro." + item.key + ".content"),
+        desc: this.$t("home.intro." + item.key + ".desc"),
+      }));
     },
   },
   created() {

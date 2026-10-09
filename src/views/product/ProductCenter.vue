@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <div>
     <Breadcrumb />
     <div class="product_center">
@@ -23,7 +23,7 @@
                       class="product_center_l_item_btn"
                       @click="jump(item)"
                     >
-                      MORE
+                      {{ $t('common.more') }}
                     </button>
                     <div class="product_center_l_item_img">
                       <img
@@ -214,7 +214,7 @@ export default {
 }
 .product_center .container .product_center_l .el-pagination .btn-next:disabled,
 .product_center .container .product_center_l .el-pagination .btn-prev:disabled {
-  background: #fff;
+  background: var(--surface);
 }
 .product_center
   .container
@@ -228,7 +228,7 @@ export default {
   .el-pagination
   .btn-prev:disabled
   i {
-  color: #c0c4cc;
+  color: var(--text-faint);
 }
 .product_center .container .product_center_l .el-pagination button {
   width: 28px;
@@ -239,8 +239,8 @@ export default {
 }
 .product_center .container .product_center_l .el-pagination .active,
 .product_center .container .product_center_l .el-pagination .el-pager li:hover {
-  color: #fff !important;
-  background-color: #000 !important;
+  color: var(--btn-text) !important;
+  background-color: var(--btn-bg) !important;
 }
 .product_center .container .product_center_l ul {
   display: flex;
@@ -259,7 +259,7 @@ export default {
   .product_center_l_item
   .product_center_l_item_wrapper {
   padding: 20px;
-  background: hsla(0, 0%, 50.2%, 0.22);
+  background: var(--surface-2);
   height: 100%;
 }
 .product_center
@@ -297,10 +297,10 @@ export default {
   margin-top: 10px !important;
   margin-bottom: 25px !important;
   font-size: 12px;
-  color: #606266;
+  color: var(--text-muted);
   background: transparent;
   margin: 0 15px 0 0;
-  border: 1px solid #000;
+  border: 1px solid var(--btn-bg);
   border-radius: 0;
   padding: 6px 20px;
   display: block;
@@ -336,18 +336,18 @@ export default {
   position: absolute;
   right: 0;
   height: 100%;
-  background: #fff;
-  border: 1px solid #eee;
+  background: var(--surface);
+  border: 1px solid var(--border);
   overflow: hidden;
   overflow: scroll;
 }
 .product_center .container .product_center_r .product_center_menu {
   overflow: scroll;
   overflow-x: hidden;
-  background: #fff;
+  background: var(--surface);
 }
 .product_center .container .product_center_r .product_center_menu .ptree {
-  background: #fff;
+  background: var(--surface);
   padding: 8px 0;
 }
 .empty-tip {

@@ -28,12 +28,13 @@
             @subnav-out="mouseoutSubNav"
           />
         </div>
-        <!-- 搜索：默认折叠为图标，点击展开输入框（全屏宽通用） -->
+        <!-- 搜索 + 外观/语言切换：默认折叠为图标，点击展开输入框（全屏宽通用） -->
         <div
           ref="headerBtn"
           class="header-btn"
           :class="{ 'is-search-open': searchOpen }"
         >
+          <preference-switch class="header-pref-bar" variant="bar" />
           <i
             class="el-icon-search header-search-toggle"
             @click="toggleSearch"
@@ -44,7 +45,7 @@
               v-model="keyword"
               class="header-btn-icon"
               size="small"
-              placeholder="Search"
+              :placeholder="$t('header.searchPlaceholder')"
               @keyup.enter.native="search"
             >
               <el-button
@@ -77,7 +78,7 @@
                 class="subnav-top-item"
                 :class="{ active: activeTopId === g.id }"
                 @click="selectTop(g)"
-                >{{ g.title }}</span
+                >{{ $tt(g.title) }}</span
               >
             </div>
             <!-- 当前一级下的二级三列，每列含二级标题 + 全部子项列表（不做切换） -->
@@ -90,9 +91,9 @@
                 <div class="subnav-mid-item">
                   <img v-if="sg.icon" :src="sg.icon" class="subnav-mid-icon" />
                   <span class="subnav-mid-name">
-                    {{ sg.title }}
+                    {{ $tt(sg.title) }}
                     <span v-if="sg.desc" class="subnav-mid-desc">{{
-                      sg.desc
+                      $tt(sg.desc)
                     }}</span>
                   </span>
                 </div>
@@ -103,7 +104,7 @@
                     :class="{ 'is-deep': leaf.deep }"
                     @click="jumpLeaf(leaf)"
                   >
-                    {{ leaf.title }}
+                    {{ $tt(leaf.title) }}
                   </li>
                 </ul>
               </div>
@@ -125,6 +126,8 @@
               </div>
             </div>
             <div class="shading-center-menu">
+              <!-- 移动端：外观（昼夜）与语言切换 -->
+              <preference-switch variant="drawer" />
               <ul class="shading-nav">
                 <li
                   v-for="(n, i) in navMenus"
@@ -134,7 +137,7 @@
                   <!-- Product Center：产品列用列表树展示多级分类 -->
                   <template v-if="n.isSubNav">
                     <div class="shading-nav-link" @click="toggleProduct">
-                      <span>{{ n.title }}</span>
+                      <span>{{ $label(n) }}</span>
                       <i
                         class="el-icon-arrow-down"
                         :class="{ 'is-open': productOpen }"
@@ -151,7 +154,7 @@
                   <template v-else-if="n.childer && n.childer.length">
                     <div class="shading-nav-link">
                       <span class="shading-nav-name" @click="jumpNav(n)">{{
-                        n.title
+                        $label(n)
                       }}</span>
                       <i
                         class="el-icon-arrow-down"
@@ -165,12 +168,12 @@
                         :key="ci"
                         @click="jumpNav(c)"
                       >
-                        {{ c.title }}
+                        {{ $label(c) }}
                       </li>
                     </ul>
                   </template>
                   <div v-else class="shading-nav-link" @click="jumpNav(n)">
-                    {{ n.title }}
+                    {{ $label(n) }}
                   </div>
                 </li>
               </ul>
@@ -185,6 +188,7 @@
 <script>
 import NavMenu from "@/components/NavMenu/index.vue";
 import ProductTreeMenu from "@/components/ProductTreeMenu/index.vue";
+import PreferenceSwitch from "@/components/PreferenceSwitch/index.vue";
 import { navMenus, categoryStore } from "@/utils/navData";
 import logo from "@/assets/img/logo.png";
 import logo1 from "@/assets/img/logo1.png";
@@ -193,7 +197,7 @@ import listUrl from "@/assets/img/list-ul.png";
 // 反推来源：app.js 71c2/6ded/2cae（HeaderContent 模块）
 export default {
   name: "HeaderContent",
-  components: { NavMenu, ProductTreeMenu },
+  components: { NavMenu, ProductTreeMenu, PreferenceSwitch },
   data() {
     return {
       logo,

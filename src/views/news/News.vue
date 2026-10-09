@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <div>
     <Breadcrumb />
     <div class="new_warp warp">
@@ -10,10 +10,10 @@
                 <img :src="item.cover" />
               </div>
               <div class="new_item_r">
-                <p class="new_item_news">News</p>
+                <p class="new_item_news">{{ $t('news.title') }}</p>
                 <p class="new_item_r_tit">{{ item.title }}</p>
                 <p class="new_item_r_desc">{{ item.descr }}</p>
-                <button class="new_item_r_btn" @click="jump(item)">more</button>
+                <button class="new_item_r_btn" @click="jump(item)">{{ $t('common.more') }}</button>
               </div>
             </div>
           </li>
@@ -91,11 +91,11 @@ export default {
 }
 .new_container .el-pagination .btn-next:disabled,
 .new_container .el-pagination .btn-prev:disabled {
-  background: #fff;
+  background: var(--surface);
 }
 .new_container .el-pagination .btn-next:disabled i,
 .new_container .el-pagination .btn-prev:disabled i {
-  color: #c0c4cc;
+  color: var(--text-faint);
 }
 .new_container .el-pagination button {
   width: 28px;
@@ -106,8 +106,8 @@ export default {
 }
 .new_container .el-pagination .active,
 .new_container .el-pagination .el-pager li:hover {
-  color: #fff !important;
-  background-color: #000 !important;
+  color: var(--btn-text) !important;
+  background-color: var(--btn-bg) !important;
 }
 .new_center .new_list {
   padding: 10px;
@@ -116,14 +116,14 @@ export default {
 }
 .new_center .new_item {
   display: flex;
-  background: #fff;
+  background: var(--surface);
 }
 .new_center .new_item_l {
   width: 25%;
   padding: 30px;
   align-items: flex-start;
   min-height: 256px;
-  background: hsla(0, 0%, 74.9%, 0.2);
+  background: var(--surface-2);
 }
 .new_center .new_item_l img {
   width: 100%;
@@ -143,7 +143,7 @@ export default {
   content: "";
   width: 1px;
   height: 21px;
-  background-color: #000;
+  background-color: var(--btn-bg);
   display: inline-block;
   left: 0;
   position: absolute;
@@ -156,18 +156,18 @@ export default {
 }
 .new_center .new_item_r .new_item_r_desc {
   padding: 5px 0;
-  color: grey;
+  color: var(--text-muted);
   margin-bottom: 20px !important;
 }
 .new_center .new_item_r .new_item_r_btn {
   font-size: 14px;
-  color: #fff;
-  background: #000;
-  border: 1px solid #000;
+  color: var(--btn-text);
+  background: var(--btn-bg);
+  border: 1px solid var(--btn-bg);
   padding: 2px 15px;
 }
 .new_center .new_item_r .new_item_r_btn:hover {
-  color: #333;
-  background: #fff;
+  color: var(--text);
+  background: var(--surface);
 }
 </style>

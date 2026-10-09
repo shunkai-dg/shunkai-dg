@@ -10,10 +10,10 @@
             item.redirect === 'noRedirect' || index === levelList.length - 1
           "
           class="no-redirect"
-          >{{ item.meta.title }}</span
+          >{{ breadcrumbLabel(item) }}</span
         >
         <a v-else class="parent" @click.prevent="handleLink(item)">{{
-          item.meta.title
+          breadcrumbLabel(item)
         }}</a>
       </el-breadcrumb-item>
     </transition-group>
@@ -44,6 +44,17 @@ export default {
     this.getBreadcrumb();
   },
   methods: {
+    /**
+     * 面包屑文案：路由 meta.titleKey 走 vue-i18n，
+     * meta.title 里带 i18n 标记的按 key 解析（产品详情页的用法），
+     * 其余（分类等）走术语词典，查不到原样显示英文。
+     */
+    breadcrumbLabel(item) {
+      const meta = (item && item.meta) || {};
+      if (meta.titleKey) return this.$t(meta.titleKey);
+      if (meta.i18n && meta.title) return this.$t(meta.title);
+      return this.$tt(meta.title);
+    },
     getBreadcrumb() {
       // 1) 走 $route.matched，过滤出有 meta.title 的项
       let matched = this.$route.matched.filter(
@@ -63,7 +74,9 @@ export default {
 
       // 3) 非 Home 补 Home
       if (!this.isDashboard(matched[0])) {
-        matched = [{ path: "/", meta: { title: "Home" } }].concat(matched);
+        matched = [
+          { path: "/", meta: { title: "Home", titleKey: "common.page.home" } },
+        ].concat(matched);
       }
 
       // 4) 过滤 breadcrumb === false

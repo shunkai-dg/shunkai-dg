@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <div>
     <Breadcrumb />
     <div class="new_detail_warp warp">
@@ -10,23 +10,23 @@
         <div class="new_detail_center" v-html="getInfoDetail.content"></div>
         <div class="new_detail_page">
           <p>
-            Previous:
+            {{ $t('news.detail.prev') }}
             <span v-if="previous" class="text" @click="jump('previous')">{{
               previous.title
             }}</span>
-            <span v-else>暂无数据</span>
+            <span v-else>{{ $t('common.noData') }}</span>
           </p>
           <p>
-            Next:
+            {{ $t('news.detail.next') }}
             <span v-if="next" class="text" @click="jump('next')">{{
               next.title
             }}</span>
-            <span v-else>暂无数据</span>
+            <span v-else>{{ $t('common.noData') }}</span>
           </p>
         </div>
         <div class="divide_line"></div>
         <div class="new_detail_btn">
-          <button @click="jumpGo">Back to list</button>
+          <button @click="jumpGo">{{ $t('news.detail.backToList') }}</button>
         </div>
       </div>
     </div>
@@ -106,14 +106,14 @@ export default {
 }
 .new_detail_title .tit {
   text-align: center;
-  color: #333;
+  color: var(--text);
   font-size: 24px;
   line-height: 1.5;
   margin-bottom: 30px;
 }
 .new_detail_title .new_detail_time {
   text-align: center;
-  color: #828282;
+  color: var(--text-muted);
   font-family: Microsoft YaHei;
   font-size: 12px;
   line-height: 1.5;
@@ -124,7 +124,7 @@ export default {
 }
 .new_detail_center p {
   text-align: left;
-  color: #333;
+  color: var(--text);
   font-family: Microsoft YaHei;
   font-size: 16px;
   line-height: 1.8;
@@ -135,7 +135,7 @@ export default {
   justify-content: space-between;
   line-height: 2.5;
   letter-spacing: 1px;
-  color: #333;
+  color: var(--text);
   font-size: 14px;
   display: flex;
 }
@@ -152,7 +152,7 @@ export default {
   white-space: nowrap;
 }
 .divide_line {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid var(--border);
   margin-top: 46px;
   margin-bottom: 46px;
 }
@@ -163,13 +163,13 @@ export default {
 }
 .new_detail_btn button {
   font-size: 14px;
-  color: #000;
+  color: var(--text-strong);
   background: transparent;
-  border: 1px solid #000;
+  border: 1px solid var(--btn-bg);
   padding: 9px 20px;
 }
 .new_detail_btn button:hover {
-  color: #fff;
-  background: #000;
+  color: var(--btn-text);
+  background: var(--btn-bg);
 }
 </style>

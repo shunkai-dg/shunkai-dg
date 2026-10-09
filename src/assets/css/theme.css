@@ -1,0 +1,752 @@
+/* ============================================================================
+   主题「昼夜」Day & Night
+   ----------------------------------------------------------------------------
+   浅蓝是白昼的呼吸，深蓝是夜晚的静默；同一片蓝，两种节奏。
+
+   白天（day）  #D6E8F5 页面底色 · #4A90C4 中蓝强调 · #1A2B3C 正文
+   黑夜（night）#0B1A2F 夜色底色 · #5AA9E6 亮蓝强调 · #E8F1F8 正文
+
+   生效方式：src/utils/theme.js 把解析后的主题写到 <html data-theme="day|night">，
+   本文件是所有色值的唯一来源（设计令牌见下方 :root）。
+   切换动画：切换瞬间给 <html> 加 .theme-transition，300ms 缓动同步渐变。
+   ========================================================================== */
+
+/* ---------------------------------------------------------------------------
+   1. 设计令牌
+   ------------------------------------------------------------------------- */
+:root {
+  /* 品牌双色（规范原值，其它令牌均由它们派生） */
+  --brand-day-bg: #d6e8f5;
+  --brand-day-accent: #4a90c4;
+  --brand-night-bg: #0b1a2f;
+  --brand-night-accent: #5aa9e6;
+  --brand-text-day: #1a2b3c;
+  --brand-text-night: #e8f1f8;
+}
+
+/* 白天：晴日天空的柔和浅蓝 */
+:root,
+:root[data-theme="day"] {
+  --bg: #d6e8f5; /* 页面背景 */
+  --bg-soft: #e4f0f9; /* 页脚 / 次级区块 */
+  --surface: #ffffff; /* 卡片、面板 */
+  --surface-2: #eaf3fa; /* 卡片内次级块、条纹 */
+  --surface-3: #dceaf6; /* 更弱的分区底色 */
+  --text: #1a2b3c; /* 正文、标题（对比度 > 7:1） */
+  --text-strong: #12202e;
+  --text-muted: #47607a; /* 次要文字（白底 6.5:1 / 浅蓝底 5.2:1） */
+  --text-faint: #4f657b; /* 更弱的辅助文字，仍满足 AA（浅蓝底 4.8:1） */
+  --text-invert: #ffffff; /* 深色底上的文字 */
+  --accent: #4a90c4; /* 品牌中蓝：大号文字、图标、描边、填充块 */
+  --accent-strong: #3579ab; /* hover / 填充按钮（白字 4.7:1） */
+  --accent-text: #2a6a96; /* 小字号强调文字与图标：白底 5.8:1、浅蓝底 4.6:1 */
+  --accent-soft: rgba(74, 144, 196, 0.12);
+  --accent-contrast: #ffffff; /* 强调色底上的文字 */
+  --border: rgba(26, 43, 60, 0.14);
+  --border-strong: rgba(26, 43, 60, 0.3);
+  --header-bg: #d6e8f5;
+  --header-text: #1a2b3c;
+  --header-border: rgba(26, 43, 60, 0.1);
+  --footer-bg: #e4f0f9;
+  --footer-text: #1a2b3c;
+  --hover-bg: #eaf3fa;
+  --overlay: rgba(11, 26, 47, 0.5);
+  --shadow-sm: 0 2px 8px rgba(26, 43, 60, 0.08);
+  --shadow: 0 8px 24px rgba(26, 43, 60, 0.12);
+  --focus-ring: 0 0 0 2px rgba(74, 144, 196, 0.35);
+  --scroll-track: #e4f0f9;
+  --scroll-thumb: #a9c9e2;
+  --logo-filter: none;
+  --btn-bg: #3579ab;
+  --btn-text: #ffffff;
+  --input-bg: #ffffff;
+}
+
+/* 黑夜：接近午夜天空的深蓝 */
+:root[data-theme="night"] {
+  --bg: #0b1a2f;
+  --bg-soft: #0e2038;
+  --surface: #12253f;
+  --surface-2: #162f4f;
+  --surface-3: #1b3a5e;
+  --text: #e8f1f8; /* 浅雾蓝，避免纯白眩光（页面底色 15.8:1） */
+  --text-strong: #ffffff;
+  --text-muted: #a8c0d6; /* 卡片底 7.9:1 */
+  --text-faint: #8299b0; /* 卡片底 5.2:1 */
+  --text-invert: #0b1a2f;
+  --accent: #5aa9e6; /* 亮蓝：深色底上形成温和的发光感（6.9:1） */
+  --accent-strong: #7fc0f2;
+  --accent-text: #7fc0f2; /* 小字号强调文字（深蓝底 8.9:1） */
+  --accent-soft: rgba(90, 169, 230, 0.16);
+  --accent-contrast: #06121f;
+  --border: rgba(232, 241, 248, 0.16);
+  --border-strong: rgba(232, 241, 248, 0.32);
+  --header-bg: #0b1a2f;
+  --header-text: #e8f1f8;
+  --header-border: rgba(232, 241, 248, 0.12);
+  --footer-bg: #091627;
+  --footer-text: #e8f1f8;
+  --hover-bg: #162f4f;
+  --overlay: rgba(4, 12, 24, 0.66);
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.4);
+  --shadow: 0 8px 26px rgba(0, 0, 0, 0.5);
+  --focus-ring: 0 0 0 2px rgba(90, 169, 230, 0.45);
+  --scroll-track: #0b1a2f;
+  --scroll-thumb: #2c4a6e;
+  --logo-filter: brightness(0) invert(1) opacity(0.92);
+  --btn-bg: #5aa9e6;
+  --btn-text: #06121f; /* 亮蓝底上用深色字（7.4:1），白字仅 2.5:1 */
+  --input-bg: #12253f;
+}
+
+/* ---------------------------------------------------------------------------
+   2. 基础层
+   ------------------------------------------------------------------------- */
+html {
+  background-color: var(--bg);
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+}
+
+#app {
+  background: var(--bg) !important;
+  color: var(--text);
+}
+
+#app a {
+  color: var(--accent-text);
+}
+
+#app a:hover {
+  color: var(--accent-strong);
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--accent-contrast);
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--scroll-track);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--scroll-thumb);
+  border-radius: 5px;
+}
+
+/* 夜间 logo：当前 logo.png / logo1.png 为自带浅底占位图，无需反相；
+   若替换为透明底的深色 logo，把 --logo-filter 用起来即可（令牌已备好）。 */
+:root[data-theme="night"] .header-logo img {
+  filter: var(--logo-filter);
+}
+
+/* 夜间：移动端抽屉入口图标（list-ul 为深色描边图）反相，保证可见 */
+:root[data-theme="night"] .list-ul img {
+  filter: brightness(0) invert(1);
+}
+
+/* ---------------------------------------------------------------------------
+   3. 切换过渡：仅切换瞬间挂 .theme-transition（300ms 缓动，背景与文字同步）
+   ------------------------------------------------------------------------- */
+html.theme-transition,
+html.theme-transition *,
+html.theme-transition *::before,
+html.theme-transition *::after {
+  transition:
+    background-color 300ms ease,
+    color 300ms ease,
+    border-color 300ms ease,
+    box-shadow 300ms ease,
+    fill 300ms ease,
+    stroke 300ms ease,
+    opacity 300ms ease !important;
+  transition-delay: 0s !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.theme-transition,
+  html.theme-transition *,
+  html.theme-transition *::before,
+  html.theme-transition *::after {
+    transition: none !important;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   4. 头部 / 导航
+   ------------------------------------------------------------------------- */
+.askatek-head,
+.askatek-header {
+  background-color: var(--header-bg);
+  color: var(--header-text);
+}
+
+@media (min-width: 768px) {
+  .askatek-header {
+    background-color: var(--header-bg) !important;
+  }
+}
+
+@media (max-width: 576px) {
+  .askatek-header {
+    background: var(--header-bg) !important;
+    box-shadow: var(--shadow-sm);
+  }
+}
+
+.scroll-top {
+  background-color: var(--header-bg);
+  box-shadow: var(--shadow-sm);
+}
+
+/* el-menu 横向导航（global.css 里写死了黑底白字，这里按令牌覆盖） */
+.el-menu.el-menu--horizontal,
+.el-menu.el-menu--horizontal .el-menu-item,
+.el-menu.el-menu--horizontal .el-submenu__title,
+.el-menu.el-menu--horizontal .el-submenu__title a,
+.el-menu--horizontal .el-menu--popup,
+.el-menu--horizontal .el-menu-item {
+  background-color: var(--header-bg) !important;
+  color: var(--header-text) !important;
+}
+
+.el-menu.el-menu--horizontal .el-menu-item:hover,
+.el-menu.el-menu--horizontal .el-submenu__title:hover,
+.el-menu--horizontal .el-menu-item:hover,
+.el-menu--horizontal .el-menu-item:focus {
+  background-color: var(--hover-bg) !important;
+  color: var(--accent-text) !important;
+}
+
+.el-menu--horizontal .el-menu-item.is-active {
+  color: var(--accent-text) !important;
+  border-bottom-color: var(--accent) !important;
+}
+
+.el-menu--horizontal .el-menu--popup .el-menu-item:hover {
+  background-color: var(--hover-bg) !important;
+}
+
+/* 搜索框 */
+.header-search-toggle,
+.header-btn-icon .el-input-group__append {
+  color: var(--accent-text) !important;
+  background: var(--surface) !important;
+}
+
+.header-search-toggle:hover {
+  color: var(--accent-strong) !important;
+}
+
+.header-search-box .el-input-group {
+  background: var(--input-bg);
+  border-color: var(--border) !important;
+}
+
+.header-search-box .el-input-group__append {
+  background: var(--surface-2) !important;
+  color: var(--accent-text) !important;
+  border-color: var(--border) !important;
+}
+
+.header-search-box .el-input__inner {
+  background: var(--input-bg) !important;
+  color: var(--text) !important;
+}
+
+.header-search-box .el-input__inner::placeholder {
+  color: var(--text-faint);
+}
+
+/* 产品中心悬浮面板 */
+.subNav {
+  background: var(--surface) !important;
+  box-shadow: var(--shadow) !important;
+  border: 1px solid var(--border);
+}
+
+.subNav .subnav-top {
+  border-bottom-color: var(--border);
+}
+
+.subNav .subnav-top-item {
+  color: var(--text-muted);
+}
+
+.subNav .subnav-top-item:hover,
+.subNav .subnav-top-item.active {
+  color: var(--accent-text);
+}
+
+.subNav .subnav-top-item.active::after {
+  background: var(--accent);
+}
+
+.subNav .subnav-col:nth-child(3n + 2),
+.subNav .subnav-col:nth-child(3n) {
+  border-left-color: var(--border);
+}
+
+.subNav .subnav-mid-name {
+  color: var(--text-strong);
+}
+
+.subNav .subnav-mid-desc {
+  color: var(--text-faint);
+}
+
+.subNav .subnav-list li {
+  color: var(--text-muted);
+}
+
+.subNav .subnav-list li::before {
+  background-color: var(--text-faint);
+}
+
+.subNav .subnav-list li:hover {
+  color: var(--accent-text);
+}
+
+.subNav .subnav-list li:hover::before {
+  background-color: var(--accent);
+}
+
+@media (max-width: 768px) {
+  .subNav .subnav-col:not(:first-child) {
+    border-top-color: var(--border);
+  }
+}
+
+/* 移动端抽屉 */
+.shading-menu {
+  background: var(--bg) !important;
+}
+
+.shading-menu .shading-menu-login .menu-close {
+  color: var(--text);
+}
+
+.shading-center-menu .el-menu .el-menu-item,
+.shading-center-menu .el-menu .el-submenu__title {
+  color: var(--text) !important;
+  border-top-color: var(--border);
+}
+
+.shading-menu .shading-nav-item {
+  border-top-color: var(--border);
+}
+
+.shading-menu .shading-nav-link,
+.shading-menu .shading-nav-product .ptree-row {
+  color: var(--text) !important;
+}
+
+.shading-menu .shading-nav-link:hover,
+.shading-menu .shading-nav-sub li:hover {
+  color: var(--accent-text) !important;
+}
+
+.shading-menu .shading-nav-sub li {
+  color: var(--text-muted) !important;
+}
+
+.shading-menu .shading-nav-product .ptree-row {
+  border-bottom-color: var(--border) !important;
+}
+
+.shading-menu .shading-nav-product .ptree-row:hover {
+  background: var(--hover-bg) !important;
+}
+
+.shading-menu .shading-nav-product .ptree-row:hover .ptree-label,
+.shading-menu .shading-nav-product .ptree-row.is-open .ptree-label,
+.shading-menu .shading-nav-product .ptree-row.is-active .ptree-label,
+.shading-menu .shading-nav-product .ptree-arrow {
+  color: var(--accent-text) !important;
+}
+
+@media (min-width: 768px) {
+  .header-search-toggle {
+    color: var(--accent-text) !important;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   5. 页脚
+   ------------------------------------------------------------------------- */
+.askatek-footer {
+  background: var(--footer-bg) !important;
+  color: var(--footer-text) !important;
+}
+
+.askatek-footer .askatek-footer-wrapper-item .font-bold {
+  border-left-color: var(--accent) !important;
+  color: var(--text-strong) !important;
+}
+
+.askatek-footer .askatek-footer-wrapper-item ul li p {
+  color: var(--text-muted) !important;
+}
+
+.askatek-footer .askatek-footer-wrapper-item ul li p:hover {
+  color: var(--accent-text) !important;
+}
+
+.askatek-footer .askatek-footer-line {
+  border-bottom-color: var(--border-strong) !important;
+}
+
+.askatek-footer .askatek-footer-page {
+  color: var(--text-muted) !important;
+}
+
+/* ---------------------------------------------------------------------------
+   6. 面包屑 & 回到顶部
+   注：Breadcrumb 组件自带 .breadcrumb_bg{background:#fff!important}，
+   组件样式在运行时注入、晚于主包，故这里用 html[data-theme] 提高一级特异性
+   ------------------------------------------------------------------------- */
+html[data-theme] .breadcrumb {
+  background: var(--bg) !important;
+  border-bottom-color: var(--border) !important;
+}
+
+html[data-theme] .breadcrumb_bg {
+  background: var(--bg-soft) !important;
+  border-color: transparent !important;
+}
+
+.breadcrumb .no-redirect,
+.breadcrumb .parent,
+.el-breadcrumb__inner {
+  color: var(--text-muted) !important;
+}
+
+.breadcrumb .no-redirect {
+  color: var(--accent-text) !important;
+}
+
+.breadcrumb .parent:hover {
+  color: var(--accent-text) !important;
+}
+
+.breadcrumb .el-breadcrumb__separator {
+  color: var(--text-faint) !important;
+}
+
+.page-component__scroll {
+  background-color: var(--surface) !important;
+  box-shadow: var(--shadow-sm) !important;
+  color: var(--text);
+}
+
+.is-circle .el-icon-caret-top,
+.page-component__scroll .el-icon-caret-top {
+  color: var(--accent-text) !important;
+}
+
+/* ---------------------------------------------------------------------------
+   7. ElementUI 组件适配
+   ------------------------------------------------------------------------- */
+.el-button {
+  transition:
+    background-color 0.25s ease,
+    border-color 0.25s ease,
+    color 0.25s ease;
+}
+
+.el-button--default {
+  background: var(--surface);
+  border-color: var(--border-strong);
+  color: var(--text);
+}
+
+.el-button--default:hover,
+.el-button--default:focus {
+  background: var(--hover-bg);
+  border-color: var(--accent);
+  color: var(--accent-text);
+}
+
+.el-button--primary {
+  background-color: var(--btn-bg);
+  border-color: var(--btn-bg);
+  color: var(--btn-text);
+}
+
+.el-button--primary:hover,
+.el-button--primary:focus {
+  background-color: var(--accent-strong);
+  border-color: var(--accent-strong);
+  color: var(--btn-text);
+}
+
+.el-button--text {
+  color: var(--accent-text);
+}
+
+.el-input__inner,
+.el-textarea__inner {
+  background-color: var(--input-bg);
+  border-color: var(--border);
+  color: var(--text);
+}
+
+.el-input__inner::placeholder,
+.el-textarea__inner::placeholder {
+  color: var(--text-faint);
+}
+
+.el-input__inner:hover,
+.el-textarea__inner:hover {
+  border-color: var(--border-strong);
+}
+
+.el-input__inner:focus,
+.el-textarea__inner:focus {
+  border-color: var(--accent);
+}
+
+.el-form-item__label {
+  color: var(--text) !important;
+}
+
+/* 字数统计（0/500）默认 #909399，白底仅 3.1:1，改用次要文字色 */
+.el-input__count,
+.el-input__count-inner {
+  background: transparent !important;
+  color: var(--text-muted) !important;
+}
+
+.el-dropdown-menu,
+.el-select-dropdown,
+.el-popper,
+.el-popover {
+  background-color: var(--surface) !important;
+  border-color: var(--border) !important;
+  color: var(--text) !important;
+}
+
+.el-dropdown-menu__item,
+.el-select-dropdown__item {
+  color: var(--text) !important;
+}
+
+.el-dropdown-menu__item:not(.is-disabled):hover,
+.el-dropdown-menu__item:focus,
+.el-select-dropdown__item.hover,
+.el-select-dropdown__item:hover {
+  background-color: var(--hover-bg) !important;
+  color: var(--accent-text) !important;
+}
+
+.el-dropdown-menu__item.is-active,
+.el-select-dropdown__item.selected {
+  color: var(--accent-text) !important;
+}
+
+.el-select-dropdown__item.selected::after,
+.el-popper .popper__arrow::after {
+  border-bottom-color: var(--surface) !important;
+}
+
+.el-popper[x-placement^="top"] .popper__arrow::after {
+  border-top-color: var(--surface) !important;
+}
+
+.el-popper[x-placement^="bottom"] .popper__arrow::after {
+  border-bottom-color: var(--surface) !important;
+}
+
+.el-card {
+  background-color: var(--surface);
+  border-color: var(--border);
+  color: var(--text);
+}
+
+.el-dialog,
+.el-message-box {
+  background: var(--surface);
+  color: var(--text);
+}
+
+.el-dialog__title,
+.el-message-box__title,
+.el-message-box__content {
+  color: var(--text);
+}
+
+.el-table,
+.el-table tr,
+.el-table th.el-table__cell,
+.el-table td.el-table__cell {
+  background-color: transparent;
+  color: var(--text);
+}
+
+.el-table th.el-table__cell {
+  background-color: var(--surface-2);
+  color: var(--text-strong);
+}
+
+.el-table--enable-row-hover .el-table__body tr:hover > td.el-table__cell {
+  background-color: var(--hover-bg);
+}
+
+.el-table::before,
+.el-table--group::after,
+.el-table--border::after,
+.el-table td.el-table__cell,
+.el-table th.el-table__cell.is-leaf {
+  border-color: var(--border);
+}
+
+.el-pagination,
+.el-pagination button,
+.el-pager li {
+  background-color: transparent !important;
+  color: var(--text-muted);
+}
+
+/* ElementUI 背景模式分页（is-background）特异性更高，单独覆盖 */
+.el-pagination.is-background .el-pager li,
+.el-pagination.is-background .btn-prev,
+.el-pagination.is-background .btn-next {
+  background-color: var(--surface-2) !important;
+  color: var(--text-muted) !important;
+}
+
+.el-pagination.is-background .el-pager li.active {
+  background-color: var(--btn-bg) !important;
+  color: var(--btn-text) !important;
+}
+
+.el-pagination .btn-next,
+.el-pagination .btn-prev {
+  background: transparent !important;
+  color: var(--text-muted) !important;
+}
+
+.el-pagination__total,
+.el-pagination__jump,
+.el-pagination__sizes {
+  color: var(--text-muted) !important;
+}
+
+.el-pager li.active,
+.el-pager li:hover,
+.el-pagination button:hover {
+  color: var(--accent-text) !important;
+}
+
+.el-tabs__item {
+  color: var(--text-muted);
+}
+
+.el-tabs__item.is-active,
+.el-tabs__item:hover {
+  color: var(--accent-text);
+}
+
+.el-tabs__nav-wrap::after,
+.el-tabs__active-bar {
+  background-color: var(--accent);
+}
+
+.el-tag {
+  background-color: var(--accent-soft);
+  border-color: var(--border);
+  color: var(--accent-text);
+}
+
+.el-loading-mask {
+  background-color: var(--overlay) !important;
+}
+
+/* ---------------------------------------------------------------------------
+   8. 页面通用容器（各视图共用的白底卡片/区块）
+   ------------------------------------------------------------------------- */
+/* 富文本里由数据自带的内联高亮（如 <span style="background-color:#ffff00">35dB</span>）：
+   高亮底色一律是浅色，夜间把文字压成深色，避免浅字压在亮块上 */
+:root[data-theme="night"] .new_detail_center [style*="background-color"],
+:root[data-theme="night"] .procuct_detail_info .desc [style*="background-color"],
+:root[data-theme="night"] .procuct_detail_info .params [style*="background-color"],
+:root[data-theme="night"] .join-detail-wrapper-text [style*="background-color"] {
+  color: var(--brand-text-day) !important;
+}
+/* 首页 */
+.home-container {
+  background: var(--bg) !important;
+  color: var(--text);
+}
+
+.home_product {
+  background: var(--bg) !important;
+}
+
+.home-container .home-container_desc,
+.home-container .loop-item__wrapper .loop-item_desc,
+.home-container .loop-container_comp .loop-item_wrapper_comp .loop-item_desc {
+  color: var(--text-muted) !important;
+}
+
+.home-container .loop-item__wrapper .loop-item_title,
+.home-container .loop-container_comp .loop-item_wrapper_comp .loop-item_title,
+.home-container .z-comp ul li .loop-item_title_comp {
+  color: var(--text-strong) !important;
+}
+
+.home-container .loop-item:nth-of-type(odd) .loop-item__wrapper,
+.home-container .loop-item_comp:nth-of-type(odd),
+.home-container .z-comp ul li:nth-of-type(odd) .loop-item__wrapper {
+  background: var(--surface) !important;
+}
+
+.home-container .loop-item:nth-of-type(2n) .loop-item__wrapper,
+.home-container .loop-item_comp:nth-of-type(2n),
+.home-container .z-comp ul li:nth-of-type(2n) .loop-item__wrapper {
+  background: var(--surface-2) !important;
+}
+
+.home-container .loop-item__wrapper .loop-item_btn,
+.home-container .loop-container_comp .loop-item_wrapper_comp .loop-item_btn {
+  color: var(--accent-text) !important;
+  border-color: var(--accent) !important;
+}
+
+.home-container .loop-item__wrapper:hover {
+  background: var(--surface-3) !important;
+}
+
+.home-container .loop-item__wrapper:hover .loop-item_desc,
+.home-container .loop-item__wrapper:hover .loop-item_title {
+  color: var(--text-strong) !important;
+}
+
+.home-container .loop-item__wrapper:hover .loop-item_btn {
+  border-color: var(--accent) !important;
+  color: var(--accent-text) !important;
+}
+
+/* 标题下划线（global.css 中的 .askatek-title:after） */
+.warp .container .askatek-title,
+.warp .container_2 .askatek-title,
+.warp_2 .container .askatek-title,
+.warp_2 .container_2 .askatek-title {
+  color: var(--text-strong) !important;
+}
+
+.warp .container .askatek-title:after,
+.warp .container_2 .askatek-title:after,
+.warp_2 .container .askatek-title:after,
+.warp_2 .container_2 .askatek-title:after {
+  background-color: var(--accent) !important;
+}

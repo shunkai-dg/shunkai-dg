@@ -11,10 +11,10 @@
               item.redirect === 'noRedirect' || index === levelList.length - 1
             "
             class="no-redirect"
-            >{{ item.meta.title }}</span
+            >{{ breadcrumbTitle(item) }}</span
           >
           <a v-else class="parent" @click.prevent="handleLink(item)">{{
-            item.meta.title
+            breadcrumbTitle(item)
           }}</a>
         </el-breadcrumb-item>
       </transition-group>
@@ -124,7 +124,7 @@
                     <div class="desc" v-html="detailData.descr"></div>
                     <div class="params" v-html="detailData.params"></div>
                     <button class="procuct_detail_info_btn" @click="jump">
-                      contact
+                      {{ $t('product.detail.contact') }}
                     </button>
                   </div>
                 </el-col>
@@ -139,7 +139,7 @@
                     <div class="desc" v-html="detailData.descr"></div>
                     <div class="params" v-html="detailData.params"></div>
                     <button class="procuct_detail_info_btn" @click="jump">
-                      contact
+                      {{ $t('product.detail.contact') }}
                     </button>
                   </div>
                 </el-col>
@@ -352,7 +352,10 @@ export default {
       }
       const first = matched[0];
       if (!this.isDashboard(first)) {
-        matched = [{ path: "/", meta: { title: "Home" } }].concat(matched);
+        // 根节点文案存 i18n key，模板经 breadcrumbTitle 渲染，保证语言切换响应
+        matched = [
+          { path: "/", meta: { title: "product.detail.home", i18n: true } },
+        ].concat(matched);
       }
       // 分类链：基于 subGroups 完整树解析（组级如 TWS/hierarchy=4 也能命中）
       this.path = findHierarchyPath(this.$route.query.hierarchy).map((n) => ({
@@ -371,6 +374,19 @@ export default {
       const name = route && route.name;
       if (!name) return false;
       return name.trim().toLocaleLowerCase() === "Home".toLocaleLowerCase();
+    },
+    /**
+     * 面包屑标题：
+     * - meta.i18n 标记的节点按 i18n key 解析（本页根节点用法）
+     * - router meta.titleKey 走 vue-i18n（产品中心/产品详情等路由标题）
+     * - 其余（分类树标题）走术语词典，查不到原样回退英文
+     * 全部在渲染期解析，语言切换即时生效。
+     */
+    breadcrumbTitle(item) {
+      const meta = (item && item.meta) || {};
+      if (meta.i18n && meta.title) return this.$t(meta.title);
+      if (meta.titleKey) return this.$t(meta.titleKey);
+      return this.$tt(meta.title);
     },
     handleLink(item) {
       const { redirect, path, meta, hierarchy } = item;
@@ -509,7 +525,7 @@ export default {
   .arrow-normal
   .arrow-normal-swiper {
   position: relative;
-  background: #fff;
+  background: var(--surface);
   height: 100%;
 }
 .procuct_detail
@@ -549,7 +565,7 @@ export default {
 .procuct_detail .procuct_detail_content .procuct_detail_l .arrow-normal .mask {
   width: 200px;
   height: 200px;
-  background: rgba(255, 255, 0, 0.4);
+  background: var(--accent-soft);
   position: absolute;
   top: 0;
   left: 0;
@@ -589,7 +605,7 @@ export default {
 .procuct_detail .procuct_detail_content .procuct_detail_l .swiper-pagination {
   margin-top: 20px;
   position: static;
-  background: #f8f8f8;
+  background: var(--bg-soft);
   z-index: 0;
   position: relative;
   width: 100%;
@@ -654,14 +670,14 @@ export default {
   i {
   font-size: 35px;
   font-weight: 800;
-  color: rgba(0, 0, 0, 0.549);
+  color: var(--text-muted);
 }
 .procuct_detail
   .procuct_detail_content
   .procuct_detail_l
   .swiper-pagination
   .swiper-pagination_list {
-  border: 2px solid rgba(0, 0, 0, 0.1);
+  border: 2px solid var(--border);
   margin: 0 6px;
   cursor: pointer;
 }
@@ -707,7 +723,7 @@ export default {
   .procuct_detail_info
   .title {
   text-align: left;
-  color: #333;
+  color: var(--text);
   font-size: 29px;
   line-height: 1.5;
 }
@@ -717,7 +733,7 @@ export default {
   .procuct_detail_info
   .sub_title {
   text-align: left;
-  color: #000;
+  color: var(--text-strong);
   font-size: 16px;
   line-height: 1.5;
 }
@@ -755,7 +771,7 @@ export default {
   box-sizing: inherit;
   margin: 12px 0 8px;
   overflow-wrap: break-word;
-  color: #333;
+  color: var(--text);
   font-family: Microsoft YaHei;
   font-size: 15px;
   line-height: 1.8;
@@ -769,9 +785,9 @@ export default {
   .procuct_detail_info_btn {
   margin-top: 34px;
   font-size: 16px;
-  color: #fff;
-  background: #000;
-  border: 1px solid #000;
+  color: var(--btn-text);
+  background: var(--btn-bg);
+  border: 1px solid var(--btn-bg);
   border-radius: 4px;
   padding: 8px 40px;
 }
@@ -780,7 +796,7 @@ export default {
   .procuct_detail_r
   .procuct_detail_info
   .procuct_detail_info_btn:hover {
-  color: #333;
+  color: var(--text);
   background: transparent;
 }
 .procuct_detail .procuct_detail_content .procuct_detail_r p,
@@ -797,7 +813,7 @@ export default {
 #big,
 #float {
   position: absolute;
-  border: 1px solid #ccc;
+  border: 1px solid var(--border-strong);
 }
 #big {
   top: 0;
@@ -805,7 +821,7 @@ export default {
   width: 500px;
   height: 500px;
   overflow: hidden;
-  background: #fff;
+  background: var(--surface);
   z-index: 1;
   visibility: hidden;
 }

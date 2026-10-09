@@ -1,34 +1,21 @@
-<template>
+﻿<template>
   <div class="join-detail">
     <Breadcrumb />
     <div class="join-detail-wrap warp">
       <div class="join-detail-container container">
         <div class="join-detail-wrapper-l">
-          <p>work</p>
+          <p>{{ $t("join.detail.work") }}</p>
           <p>{{ detailData.department }}</p>
-          <div>Salary Negotiable</div>
-          <button @click="jump">Return</button>
+          <div>{{ $t("join.detail.salary") }}</div>
+          <button @click="jump">{{ $t("join.detail.return") }}</button>
         </div>
         <div class="join-detail-wrapper-r">
           <div class="join-detail-wrapper-text" v-html="detailData.descr"></div>
           <div class="company-join">
-            aska Electronics. Co., Ltd, a national high-tech enterprise, and was
-            awarded the "contract abiding and trustworthy" enterprise in
-            Guangdong Province. The company focuses on the R & D, production and
-            sales of wireless intelligent audio products. Its main products
-            include high-tech intelligent audio products such as ordinary
-            Bluetooth wireless headset, intelligent noise reduction Bluetooth
-            headset, special industry Bluetooth communication headset, E-sports
-            wireless headset and intelligent wearable devices. The main sales
-            markets are Europe, America, Japan, South Korea, Latin America,
-            Southeast Asia and other global regions. The company is adjacent to
-            Shenzhen and located in the beautiful Tangxia, Dongguan. The
-            company's park environment is elegant, safe and comfortable, the
-            annual orders are saturated, and the salary and grain are paid on
-            time.
+            {{ $t("join.detail.companyIntro") }}
           </div>
           <div class="join-detail-return">
-            <button @click="jump">Return</button>
+            <button @click="jump">{{ $t("join.detail.return") }}</button>
           </div>
         </div>
       </div>
@@ -101,7 +88,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #f8f8f8;
+  background: var(--bg);
 }
 .join-detail .join-detail-wrap .join-detail-container {
   display: flex;
@@ -123,7 +110,7 @@ export default {
   .join-detail-wrapper-l
   div {
   padding: 5px 0;
-  color: grey;
+  color: var(--text-muted);
   margin-bottom: 60px;
 }
 .join-detail
@@ -132,10 +119,10 @@ export default {
   .join-detail-wrapper-l
   button {
   font-size: 14px;
-  color: #094b7c;
+  color: var(--accent-text);
   background: transparent;
   margin: 0 15px 0 0;
-  border: 1px solid #094b7c;
+  border: 1px solid var(--accent);
   border-radius: 40px;
   padding: 12px 40px;
 }
@@ -145,7 +132,7 @@ export default {
   .join-detail-wrapper-l
   p:first-child {
   text-align: left;
-  color: #094b7c;
+  color: var(--accent-text);
 }
 .join-detail
   .join-detail-wrap
@@ -169,7 +156,7 @@ export default {
   overflow: scroll;
   overflow-x: hidden;
   padding: 15px 5px;
-  background-color: #f8f8f8 !important;
+  background-color: var(--bg-soft) !important;
 }
 .join-detail
   .join-detail-wrap
@@ -185,9 +172,9 @@ export default {
   .join-detail-container
   .join-detail-wrapper-r
   .company-join {
-  color: #000;
+  color: var(--text-strong);
   padding: 15px 10px;
-  background: hsla(0, 0%, 50.2%, 0.21);
+  background: var(--surface-2);
 }
 .join-detail
   .join-detail-wrap
@@ -205,10 +192,10 @@ export default {
   .join-detail-return
   button {
   font-size: 14px;
-  color: #094b7c;
+  color: var(--accent-text);
   background: transparent;
   margin: 0 15px 0 0;
-  border: 1px solid #094b7c;
+  border: 1px solid var(--accent);
   border-radius: 40px;
   padding: 12px 40px;
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="">
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge chrome=1">
@@ -7,6 +7,51 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
   <link rel="icon" href="/logo.png">
   <title>askatek.cn</title>
+  <script>
+    /* 首屏前置脚本：在样式/脚本加载前确定「昼夜」主题与语言，
+       避免先渲染浅色再跳深色（或反向）的闪烁。
+       规范来源：主题色值与解析规则见 src/utils/theme.js、src/i18n/index.js */
+    (function () {
+      var THEME_BG = { day: "#D6E8F5", night: "#0B1A2F" };
+      var root = document.documentElement;
+      var mode = "auto";
+      /* 预览用 URL 覆盖：?theme=day|night|auto（不写入偏好） */
+      var urlTheme = /[?&]theme=(day|night|auto)\b/.exec(location.search);
+      try {
+        var saved = window.localStorage.getItem("aska-theme");
+        if (saved === "day" || saved === "night" || saved === "auto") mode = saved;
+      } catch (e) {}
+      if (urlTheme) mode = urlTheme[1];
+      var theme =
+        mode === "auto"
+          ? window.matchMedia &&
+            window.matchMedia("(prefers-color-scheme: dark)").matches
+            ? "night"
+            : "day"
+          : mode;
+      root.setAttribute("data-theme", theme);
+      root.setAttribute("data-theme-mode", mode);
+      root.style.colorScheme = theme === "night" ? "dark" : "light";
+      root.style.backgroundColor = THEME_BG[theme];
+
+      var lang = null;
+      try {
+        lang = window.localStorage.getItem("aska-locale");
+      } catch (e) {}
+      var urlLocale = /[?&]locale=(zh-CN|en-US|en|zh|auto)\b/.exec(location.search);
+      if (urlLocale && urlLocale[1] !== "auto") {
+        lang = urlLocale[1] === "zh" ? "zh-CN" : urlLocale[1] === "en" ? "en" : urlLocale[1];
+      }
+      if (lang !== "zh-CN" && lang !== "en-US") {
+        var nav =
+          (navigator.languages && navigator.languages[0]) ||
+          navigator.language ||
+          "";
+        lang = /^zh/i.test(nav) ? "zh-CN" : "en";
+      }
+      root.setAttribute("lang", lang);
+    })();
+  </script>
 </head>
 <body>
   <noscript>

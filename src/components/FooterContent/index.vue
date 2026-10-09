@@ -34,10 +34,10 @@
               v-for="(g, gi) in groups"
               :key="gi"
             >
-              <h4 class="content font-bold">{{ g.title }}</h4>
+              <h4 class="content font-bold">{{ $label(g) }}</h4>
               <ul>
                 <li v-for="(c, ci) in g.childer" :key="ci">
-                  <p @click="jump(c)">{{ c.title }}</p>
+                  <p @click="jump(c)">{{ $label(c) }}</p>
                 </li>
               </ul>
             </div>
@@ -46,10 +46,8 @@
       </div>
       <div class="askatek-footer-line"></div>
       <div class="askatek-footer-page">
-        <div class="askatek-footer-page-l">© 2022 aska Electronics Co.,Ltd</div>
-        <div class="askatek-footer-page-r">
-          Your right choice for wireless products
-        </div>
+        <div class="askatek-footer-page-l">{{ $t("footer.copyright") }}</div>
+        <div class="askatek-footer-page-r">{{ $t("footer.slogan") }}</div>
       </div>
     </div>
   </div>
@@ -113,9 +111,13 @@ export default {
           [],
         ),
       }));
-      return [{ title: fast_navigation.title, childer: fast_navigation.childer }].concat(
-        productGroups,
-      );
+      return [
+        {
+          title: fast_navigation.title,
+          i18nKey: fast_navigation.i18nKey,
+          childer: fast_navigation.childer,
+        },
+      ].concat(productGroups);
     },
   },
   methods: {

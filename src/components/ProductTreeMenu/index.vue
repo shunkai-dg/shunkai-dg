@@ -10,7 +10,7 @@
         }"
         :style="{ paddingLeft: level * 14 + 12 + 'px' }"
       >
-        <span class="ptree-label" @click="goProduct(n)">{{ n.title }}</span>
+        <span class="ptree-label" @click="goProduct(n)">{{ $label(n) }}</span>
         <span
           v-if="hasChildren(n)"
           class="ptree-chevron"
@@ -66,14 +66,15 @@ export default {
 </script>
 
 <style scoped>
+/* 色值统一走主题令牌（src/assets/css/theme.css）：抽屉内随昼夜切换 */
 .ptree-row {
   display: flex;
   align-items: center;
   min-height: 38px;
   cursor: pointer;
   font-size: 13px;
-  color: #000;
-  border-bottom: 1px solid #f5f5f5;
+  color: var(--text);
+  border-bottom: 1px solid var(--border);
   box-sizing: border-box;
 }
 .ptree-row.has-children {
@@ -82,7 +83,7 @@ export default {
 .ptree-row:hover .ptree-label,
 .ptree-row.is-open .ptree-label,
 .ptree-row.is-active .ptree-label {
-  color: #094b7c;
+  color: var(--accent);
 }
 .ptree-label {
   flex: 1;
@@ -100,13 +101,13 @@ export default {
   align-items: center;
   width: 100px;
   flex-shrink: 0;
-  color: #ffffffff;
+  color: var(--text-faint);
 }
 .ptree-chevron i {
   margin: auto;
   transition: transform 0.25s ease;
   font-size: 12px;
-  color: #ffffffff;
+  color: var(--text-faint);
 }
 .ptree-chevron i.is-open {
   transform: rotate(180deg);
@@ -128,11 +129,10 @@ export default {
 }
 .ptree-chevron {
   width: 100px;
-  color: #000000ff;
+  color: var(--text-faint);
 }
 .ptree-chevron i {
   font-size: 10px;
-  color: #000000ff;
+  color: var(--text-faint);
 }
-
 </style>

@@ -1,7 +1,7 @@
-<template>
+﻿<template>
   <div>
     <div class="product-list">
-      <p>Search Result</p>
+      <p>{{ $t('product.list.searchResult') }}</p>
     </div>
     <div class="product_center_list">
       <div class="container">
@@ -92,14 +92,14 @@ export default {
   }
 }
 .product-list {
-  background: #fff;
+  background: var(--surface);
   padding: 20px;
   text-align: center;
 }
 .product-list p {
   margin: 60px 0 !important;
   text-align: center;
-  color: #000;
+  color: var(--text-strong);
   font-family: Microsoft YaHei;
   font-size: 40px;
   font-weight: 700;
@@ -129,7 +129,7 @@ export default {
 }
 .product_center_list .product_center_l_item .product_center_l_item_wrapper {
   padding: 20px;
-  background: #fff;
+  background: var(--surface);
   height: 100%;
   position: relative;
 }
@@ -148,7 +148,7 @@ export default {
   margin-top: 20px;
   padding-bottom: 5px;
   margin-top: 0;
-  color: #094b7c;
+  color: var(--accent-text);
   font-size: 14px;
   line-height: 1.7;
   text-align: center;

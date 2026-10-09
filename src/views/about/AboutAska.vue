@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <div>
     <Breadcrumb class="breadcrumb_bg" />
     <div class="about_aska_warp">
@@ -20,7 +20,9 @@
 
       <div class="about_aska_company_honor">
         <div class="container">
-          <div class="askatek-title"><p>Company wall of fame</p></div>
+          <div class="askatek-title">
+            <p>{{ $t("about.honor.title") }}</p>
+          </div>
           <ul class="about_aska_company_honor_list">
             <li v-for="(item, index) in company_honor" :key="index">
               <img
@@ -34,7 +36,9 @@
 
       <div class="about_aska_certifications">
         <div class="container">
-          <div class="askatek-title"><p>Company Certifications</p></div>
+          <div class="askatek-title">
+            <p>{{ $t("about.certifications.title") }}</p>
+          </div>
           <ul class="about_aska_company_honor_list">
             <li v-for="(item, index) in certifications" :key="index">
               <img
@@ -49,18 +53,19 @@
       <div class="about_aska_service_advantage">
         <div class="img1">
           <div class="container">
-            <p class="title">Advantage</p>
+            <p class="title">{{ $t("about.advantage.title") }}</p>
             <ul>
               <li>
                 <div class="about_aska_service_advantage_t">
                   <div class="about_aska_service_advantage_img">
                     <img :src="advImg1" />
                   </div>
-                  <p class="about_aska_service_advantage_title">value</p>
+                  <p class="about_aska_service_advantage_title">
+                    {{ $t("about.advantage.value.title") }}
+                  </p>
                 </div>
                 <div class="about_aska_service_advantage_b">
-                  Focus On Lifestyle Fashionable& High Quality Wireless
-                  Bluetooth Acoustic Products
+                  {{ $t("about.advantage.value.desc") }}
                 </div>
               </li>
               <li>
@@ -68,12 +73,12 @@
                   <div class="about_aska_service_advantage_img">
                     <img :src="advImg2" />
                   </div>
-                  <p class="about_aska_service_advantage_title">Experience</p>
+                  <p class="about_aska_service_advantage_title">
+                    {{ $t("about.advantage.experience.title") }}
+                  </p>
                 </div>
                 <div class="about_aska_service_advantage_b">
-                  More Than 10 Years Experience Engineering Experts And
-                  Professional Acoustics Testing Equipment Like B&K Devices For
-                  The Independent Development
+                  {{ $t("about.advantage.experience.desc") }}
                 </div>
               </li>
               <li>
@@ -81,11 +86,12 @@
                   <div class="about_aska_service_advantage_img">
                     <img :src="advImg3" />
                   </div>
-                  <p class="about_aska_service_advantage_title">Professional</p>
+                  <p class="about_aska_service_advantage_title">
+                    {{ $t("about.advantage.professional.title") }}
+                  </p>
                 </div>
                 <div class="about_aska_service_advantage_b">
-                  Passionate Sales Team Standby To Support Our Worldwide
-                  Customers Businesses
+                  {{ $t("about.advantage.professional.desc") }}
                 </div>
               </li>
             </ul>
@@ -136,30 +142,28 @@ export default {
       advImg1,
       advImg2,
       advImg3,
-      list: [
-        {
-          url: aboutImg1,
-          minUrl: aboutMin1,
-          introduction: "INTRODUCTION",
-          title: "About aska design",
-          desc: "Aska Electronics Co.,Ltd was established in Dongguan, GuangDong province, China which owns a production base more than 20000 square meters.Aska is known as a high-tech Company which focuses on wireless audio products development and manufacturing. The main projects are Wireless headphone & Wireless ear buds & Wireless speaker etc.",
-        },
-        {
-          url: aboutImg2,
-          minUrl: aboutMin2,
-          introduction: "TO EXPLORE",
-          title: "After-sales Services",
-          desc: "ASKA Electronics Co., Ltd. is one of the world's leading suppliers of wireless audio products. We are committed to developing lifestyle products with the latest technology and fashion trends. Our product range includes Wireless headsets, wireless sports earplugs, Wireless / WiFi speakers and wearable devices. Our products are welcomed by customers all over the world and are mainly sold to Europe, North America, Japan and other places",
-        },
-        {
-          url: aboutImg3,
-          minUrl: aboutMin3,
-          introduction: "ADVANTAGE",
-          title: "Why are we special?",
-          desc: "Our key competence is new product innovation and quality control. Our experienced R&D team players served for lots of A Brand projects in EMS company before, they have in-depth industrial knowledge on acoustic and RF technology.We heavily invested on talents and devices such as in-house anechoic chamber and B&K testing Lab,excellent sound performance and product reliability makes us stand out from competition.",
-        },
+      // 图文介绍的图片（文案见 computed.list，走 i18n）
+      introImgs: [
+        { url: aboutImg1, minUrl: aboutMin1 },
+        { url: aboutImg2, minUrl: aboutMin2 },
+        { url: aboutImg3, minUrl: aboutMin3 },
       ],
     };
+  },
+  computed: {
+    // 图文介绍：图片取静态资源，文案取 about.intro.item*（语言切换时自动更新）
+    list() {
+      return this.introImgs.map((image, index) => {
+        const item = "about.intro.item" + (index + 1);
+        return {
+          url: image.url,
+          minUrl: image.minUrl,
+          introduction: this.$t(item + ".introduction"),
+          title: this.$t(item + ".title"),
+          desc: this.$t(item + ".desc"),
+        };
+      });
+    },
   },
   created() {
     this.getImgData({ n: "company_honor", type: 13 });
@@ -195,8 +199,8 @@ export default {
  * 断点 / 主题变量
  * ======================================================= */
 $bp-mobile: 768px;
-$theme-blue: #094b7c;
-$bg-gray: #f8f8f8;
+$theme-blue: var(--accent);
+$bg-gray: var(--bg);
 
 /* =========================================================
  * 一、图文介绍
@@ -276,7 +280,7 @@ $bg-gray: #f8f8f8;
     font-size: 14px;
     font-weight: 400;
     font-style: normal;
-    color: #666;
+    color: var(--text-muted);
     font-family: effra, sans-serif;
   }
 
@@ -307,7 +311,7 @@ $bg-gray: #f8f8f8;
  * 二、荣誉墙 / 认证
  * ======================================================= */
 .about_aska_company_honor {
-  background: #fff;
+  background: var(--surface);
 }
 .container ul {
   justify-content: center;
@@ -382,7 +386,7 @@ $bg-gray: #f8f8f8;
       padding: 10px 20px;
       box-sizing: border-box;
       border-radius: 10px;
-      background: #fff;
+      background: var(--surface);
 
       .about_aska_service_advantage_t {
         display: flex;
@@ -400,14 +404,14 @@ $bg-gray: #f8f8f8;
           font-size: 18px;
           font-weight: 700;
           line-height: 1.5;
-          color: #333;
+          color: var(--text);
         }
       }
 
       .about_aska_service_advantage_b {
         padding: 5px 10px;
         text-align: left;
-        color: rgba(64, 64, 64, 0.93);
+        color: var(--text-muted);
       }
     }
   }
@@ -423,7 +427,7 @@ $bg-gray: #f8f8f8;
   font-size: 30px;
   font-weight: 700;
   line-height: 56px;
-  color: #000;
+  color: var(--text-strong);
   text-align: left;
 
   &::after {

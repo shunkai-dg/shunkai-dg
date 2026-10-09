@@ -1,4 +1,4 @@
-/* ============================================================
+﻿/* ============================================================
    富文本内容渲染样式
    ------------------------------------------------
    应用于以下通过 v-html 渲染富文本的容器：
@@ -16,7 +16,7 @@
 .procuct_detail_info .desc,
 .procuct_detail_info .params,
 .join-detail-wrapper-text {
-  color: #333;
+  color: var(--text);
   font-family: Microsoft YaHei, "PingFang SC", "Helvetica Neue", Arial,
     sans-serif;
   font-size: 16px;
@@ -74,7 +74,7 @@
 .join-detail-wrapper-text h6 {
   margin: 1.2em 0 0.6em;
   font-weight: bold;
-  color: #222;
+  color: var(--text-strong);
   font-family: inherit;
   line-height: 1.4;
   text-align: left;
@@ -263,7 +263,7 @@
 .procuct_detail_info .params td,
 .join-detail-wrapper-text th,
 .join-detail-wrapper-text td {
-  border: 1px solid #d8dade;
+  border: 1px solid var(--border);
   padding: 10px 12px;
   text-align: left;
   vertical-align: middle;
@@ -273,15 +273,15 @@
 .procuct_detail_info .desc th,
 .procuct_detail_info .params th,
 .join-detail-wrapper-text th {
-  background: #f0f0f0;
+  background: var(--surface-2);
   font-weight: bold;
-  color: #222;
+  color: var(--text-strong);
 }
 .new_detail_center tr:nth-child(2n) td,
 .procuct_detail_info .desc tr:nth-child(2n) td,
 .procuct_detail_info .params tr:nth-child(2n) td,
 .join-detail-wrapper-text tr:nth-child(2n) td {
-  background: #fafafa;
+  background: var(--surface-2);
 }
 
 /* ---------- 代码块 ---------- */
@@ -319,8 +319,8 @@
 .procuct_detail_info .desc code,
 .procuct_detail_info .params code,
 .join-detail-wrapper-text code {
-  background: #f1f1f1;
-  color: #c7254e;
+  background: var(--surface-2);
+  color: var(--accent-text);
   padding: 2px 6px;
   border-radius: 3px;
   font-family: Consolas, Menlo, Monaco, "Courier New", monospace;
@@ -334,9 +334,9 @@
 .join-detail-wrapper-text blockquote {
   margin: 16px 0;
   padding: 12px 18px;
-  border-left: 4px solid #2b6cb0;
-  background: #f0f6fc;
-  color: #4a5568;
+  border-left: 4px solid var(--accent);
+  background: var(--surface-2);
+  color: var(--text-muted);
   border-radius: 0 4px 4px 0;
 }
 .new_detail_center blockquote p,
@@ -352,7 +352,7 @@
 .procuct_detail_info .desc a,
 .procuct_detail_info .params a,
 .join-detail-wrapper-text a {
-  color: #2b6cb0;
+  color: var(--accent-text);
   text-decoration: none;
 }
 .new_detail_center a:hover,
@@ -360,7 +360,7 @@
 .procuct_detail_info .params a:hover,
 .join-detail-wrapper-text a:hover {
   text-decoration: underline;
-  color: #1a56a3;
+  color: var(--accent-text);
 }
 
 /* ---------- 分隔线 ---------- */
@@ -369,7 +369,7 @@
 .procuct_detail_info .params hr,
 .join-detail-wrapper-text hr {
   border: none;
-  border-top: 1px solid #e0e0e0;
+  border-top: 1px solid var(--border);
   margin: 24px 0;
 }
 

@@ -1,7 +1,7 @@
-<template>
+﻿<template>
   <div class="placeholder-page">
     <h2>{{ $route.name }}</h2>
-    <p>该页面待阶段 3 按 dist chunk 反推实现。</p>
+    <p>{{ $t('placeholder.message') }}</p>
   </div>
 </template>
 
@@ -20,6 +20,6 @@ export default {
   color: #999;
 }
 h2 {
-  color: #333;
+  color: var(--text);
 }
 </style>

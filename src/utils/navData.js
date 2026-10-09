@@ -18,9 +18,11 @@ const GROUP_ICONS = [
 
 export const fast_navigation = {
   title: "Fast navigation",
+  i18nKey: "footer.fastNavigation",
   childer: [
     {
       title: "Home",
+      i18nKey: "header.nav.home",
       path: "/",
       name: "home",
       isMinNav: false,
@@ -29,31 +31,42 @@ export const fast_navigation = {
     },
     {
       title: "About aska",
+      i18nKey: "header.nav.aboutAska",
       path: "/about-aska",
       name: "about_aska",
       id: "fast_navigation",
     },
     {
       title: "Product-Center",
+      i18nKey: "header.nav.productCenter",
       path: "/product-center",
       isSubNav: true,
       id: "fast_navigation",
     },
     {
       title: "R&D Center",
+      i18nKey: "header.nav.rdCenter",
       path: "/r-d-center",
       name: "r_d_center",
       id: "fast_navigation",
     },
-    { title: "News", path: "/news", name: "news", id: "fast_navigation" },
+    {
+      title: "News",
+      i18nKey: "header.nav.news",
+      path: "/news",
+      name: "news",
+      id: "fast_navigation",
+    },
     {
       title: "Production",
+      i18nKey: "header.nav.production",
       path: "/production",
       name: "production",
       id: "fast_navigation",
     },
     {
       title: "Join Us",
+      i18nKey: "header.nav.joinUs",
       path: "/join-us",
       name: "join_us",
       isMinNav: false,
@@ -62,11 +75,19 @@ export const fast_navigation = {
     },
     {
       title: "Contact Us",
+      i18nKey: "header.nav.contactUs",
       path: "/contact-us",
       name: "contact_us",
       id: "fast_navigation",
       isMinNav: true,
-      childer: [{ title: "Join Us", path: "/join-us", name: "join_us" }],
+      childer: [
+        {
+          title: "Join Us",
+          i18nKey: "header.nav.joinUs",
+          path: "/join-us",
+          name: "join_us",
+        },
+      ],
     },
   ],
 };

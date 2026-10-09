@@ -15,12 +15,18 @@ import BaiduMap from "vue-baidu-map";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
+import i18n, { initLocale } from "./i18n";
+import { initTheme } from "./utils/theme";
 import SvgIcon from "@/components/SvgIcon/index.vue";
 import "./assets/css/global.css"; // 由 dist static/css/app.b8aeecf2.css 转写
 import "./assets/css/rich-content.css"; // 富文本内容渲染样式（新闻/产品/招聘详情）
+import "./assets/css/theme.css"; // 主题「昼夜」设计令牌与适配（必须最后引入以覆盖既有色值）
 import { loadCategories } from "@/utils/navData";
 
 Vue.config.productionTip = false;
+
+// 主题在挂载前应用，避免首屏闪烁（解析规则见 utils/theme.js）
+initTheme();
 
 // 注册顺序与原产物 app.js 56d7 一致
 Vue.use(ElementUI);
@@ -30,6 +36,9 @@ Vue.use(VueAwesomeSwiper);
 Vue.use(VueLazyload);
 Vue.use(VueJsonp);
 
+// 语言：需在 Vue.use(ElementUI) 之后应用，以便同步 ElementUI 内置文案
+initLocale();
+
 
 // SvgIcon 全局注册 + svg sprite（symbolId: icon-[name]）
 const req = require.context("@/assets/icons/svg", false, /\.svg$/);
@@ -37,6 +46,7 @@ req.keys().forEach(req);
 Vue.component("svg-icon", SvgIcon);
 
 new Vue({
+  i18n,
   router,
   store,
   render: (h) => h(App),
