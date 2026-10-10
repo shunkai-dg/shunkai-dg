@@ -1,4 +1,7 @@
 {
   "qrcode": "img_data/qrcode.svg",
+  "channels_qrcode": "img_data/channels-qrcode.svg",
+  "facebook": "https://www.facebook.com/",
+  "wechat_id": "shunkai-dg",
   "telephone": "+86 0769-8888-6666"
 }

@@ -1,49 +1,97 @@
 <template>
   <div class="shunkai-footer">
     <div class="shunkai-footer-container">
-      <div class="shunkai-footer-wrapper">
-        <el-row :gutter="24">
-          <el-col class="shunkai-footer-wrapper-l" :span="3">
-            <div class="shunkai-footer-wrapper-code">
-              <div class="shunkai-footer-wrapper-logo">
-                <img :src="logo1" alt="logo" />
-              </div>
-              <div class="shunkai-footer-wrapper-code-qr">
-                <img :src="codeqr" alt="qrcode" />
-              </div>
-              <div class="info">
-                <el-popover
-                  v-show="info.qrcode"
-                  placement="top"
-                  width="150"
-                  trigger="click"
-                >
-                  <img :src="qrUrl" alt="weixin" />
-                  <img slot="reference" :src="weix" alt="weixin" />
-                </el-popover>
-                <el-popover placement="top" width="190" trigger="click">
-                  <span>{{ info.telephone }}</span>
-                  <img slot="reference" :src="phone" alt="phone" />
-                </el-popover>
-              </div>
+      <!-- 居中 logo + 四个圆形入口图标（点击弹出图片 / 文字内容） -->
+      <div class="shunkai-footer-brand">
+        <div class="shunkai-footer-logo">
+          <img :src="logo1" alt="shunkai" @click="jumpHome" />
+        </div>
+        <div class="shunkai-footer-contact">
+          <!-- 微信：点击弹出二维码 -->
+          <el-popover placement="top" width="160" trigger="click">
+            <div class="shunkai-footer-pop">
+              <img :src="qrUrl" alt="wechat" />
+              <p>{{ $t("footer.scanQrcode") }}</p>
+              <span v-if="info.wechat_id">{{ info.wechat_id }}</span>
             </div>
-          </el-col>
-          <el-col class="shunkai-footer-wrapper-r" :span="19">
-            <div
-              class="shunkai-footer-wrapper-item"
-              v-for="(g, gi) in groups"
-              :key="gi"
+            <button
+              slot="reference"
+              type="button"
+              class="shunkai-footer-contact-btn"
+              :aria-label="$t('footer.contactWechat')"
+              :title="$t('footer.contactWechat')"
             >
-              <h4 class="content font-bold">{{ $label(g) }}</h4>
-              <ul>
-                <li v-for="(c, ci) in g.childer" :key="ci">
-                  <p @click="jump(c)">{{ $label(c) }}</p>
-                </li>
-              </ul>
+              <svg-icon icon-class="wechat" />
+            </button>
+          </el-popover>
+
+          <!-- Facebook：点击跳转外链 -->
+          <button
+            type="button"
+            class="shunkai-footer-contact-btn"
+            :aria-label="$t('footer.contactFacebook')"
+            :title="$t('footer.contactFacebook')"
+            @click="openFacebook"
+          >
+            <svg-icon icon-class="facebook" />
+          </button>
+
+          <!-- 视频号：点击弹出二维码 -->
+          <el-popover placement="top" width="160" trigger="click">
+            <div class="shunkai-footer-pop">
+              <img :src="channelsQrUrl" alt="channels" />
+              <p>{{ $t("footer.scanChannels") }}</p>
             </div>
-          </el-col>
-        </el-row>
+            <button
+              slot="reference"
+              type="button"
+              class="shunkai-footer-contact-btn"
+              :aria-label="$t('footer.contactChannels')"
+              :title="$t('footer.contactChannels')"
+            >
+              <svg-icon icon-class="channels" />
+            </button>
+          </el-popover>
+
+          <!-- 电话：点击弹出号码文字 -->
+          <el-popover placement="top" width="190" trigger="click">
+            <div class="shunkai-footer-pop shunkai-footer-pop--text">
+              <span>{{ info.telephone }}</span>
+            </div>
+            <button
+              slot="reference"
+              type="button"
+              class="shunkai-footer-contact-btn"
+              :aria-label="$t('footer.contactPhone')"
+              :title="$t('footer.contactPhone')"
+            >
+              <svg-icon icon-class="phone-icon" />
+            </button>
+          </el-popover>
+        </div>
       </div>
+
+      <!-- 导航：>750px 显示分组；<=750px 换成一行快速导航 -->
+      <div class="shunkai-footer-wrapper">
+        <div
+          class="shunkai-footer-wrapper-item"
+          v-for="(g, gi) in groups"
+          :key="gi"
+        >
+          <h4 class="content font-bold">{{ $label(g) }}</h4>
+          <ul>
+            <li v-for="(c, ci) in g.childer" :key="ci">
+              <p @click="jump(c)">{{ $label(c) }}</p>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <ul class="shunkai-footer-quicknav">
+        <li v-for="(n, ni) in quickNav" :key="ni">
+          <span @click="jump(n)">{{ $label(n) }}</span>
+        </li>
+      </ul>
+
       <div class="shunkai-footer-line"></div>
       <div class="shunkai-footer-page">
         <div class="shunkai-footer-page-l">{{ $t("footer.copyright") }}</div>
@@ -57,13 +105,15 @@
 import {
   fast_navigation,
   categoryStore,
+  secondLevelGroups,
 } from "@/utils/navData";
 import { getSetting } from "@/api/index";
 import { RESOURCE_BASE_URL } from "@/utils/resource";
 import logo1 from "@/assets/img/logo1.png";
-import codeqr from "@/assets/img/codeqr.png";
-import weix from "@/assets/img/weix.png";
-import phone from "@/assets/img/phone.png";
+
+// 1px 透明 gif：设置接口未就绪 / 未配置二维码时占位，避免请求 .../undefined
+const EMPTY_IMG =
+  "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==";
 
 // 反推来源：app.js 076e/9c08/5cd2（FooterContent 模块）
 export default {
@@ -71,9 +121,6 @@ export default {
   data() {
     return {
       logo1,
-      codeqr,
-      weix,
-      phone,
       info: {},
     };
   },
@@ -83,44 +130,54 @@ export default {
     });
   },
   computed: {
-    // info.qrcode 未就绪时用 1px 透明图占位，避免向 back.shunkai-dg.cn/undefined 发请求
+    // 微信二维码地址（未就绪时用透明图占位）
     qrUrl() {
       return this.info && this.info.qrcode
         ? RESOURCE_BASE_URL + this.info.qrcode
-        : "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==";
+        : EMPTY_IMG;
     },
-    // 页尾产品分类平铺叶子列表（保留嵌套层级），fast_navigation 取 childer
+    // 视频号二维码地址（未配置时回退微信二维码）
+    channelsQrUrl() {
+      const url = this.info && (this.info.channels_qrcode || this.info.qrcode);
+      return url ? RESOURCE_BASE_URL + url : EMPTY_IMG;
+    },
+    // >750px 的页尾导航分组：
+    // 第 1 组快速导航；产品部分只保留二级分类（隐藏一级分组列，不下钻三四级）
     groups() {
-      const flat = (items, fallback) =>
-        (items || []).map((t) => {
-          const item = {
-            title: t.title,
-            name: t.name || t.title,
-            hierarchy: t.hierarchy != null ? t.hierarchy : fallback,
-          };
-          if (t.path) item.path = t.path;
-          if (t.childer && t.childer.length)
-            item.childer = flat(t.childer, t.hierarchy);
-          return item;
-        });
-      const productGroups = categoryStore.roots.map((g) => ({
-        title: g.title,
-        // 平铺该一级分类下所有二级分组的所有叶子
-        childer: (g.subGroups || []).reduce(
-          (arr, sg) => arr.concat(flat(sg.childer, sg.hierarchy)),
-          [],
-        ),
-      }));
-      return [
+      const productItems = secondLevelGroups(categoryStore.roots).reduce(
+        (arr, g) => arr.concat(g.childer),
+        [],
+      );
+      const list = [
         {
           title: fast_navigation.title,
           i18nKey: fast_navigation.i18nKey,
           childer: fast_navigation.childer,
         },
-      ].concat(productGroups);
+      ];
+      if (productItems.length) {
+        list.push({
+          title: "Product Center",
+          i18nKey: "footer.productCenter",
+          childer: productItems,
+        });
+      }
+      return list;
+    },
+    // <=750px 的快速导航条：与「快速导航」分组同一份数据
+    quickNav() {
+      return fast_navigation.childer;
     },
   },
   methods: {
+    jumpHome() {
+      this.$router.push({ name: "home" });
+    },
+    // Facebook 外链（未配置时不响应，避免跳到 undefined）
+    openFacebook() {
+      const url = this.info && this.info.facebook;
+      if (url) window.open(url, "_blank", "noopener");
+    },
     jump(c) {
       if (c.path) {
         this.$router.push({ path: c.path });

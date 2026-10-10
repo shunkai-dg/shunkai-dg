@@ -1,4 +1,4 @@
-﻿.over-flow {
+.over-flow {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -163,17 +163,14 @@
   background: none !important;
 }
 
-@media (max-width: 767px) {
+/* 页尾窄屏（<=750px）：隐藏分组导航，改用一行快速导航 */
+@media (max-width: 750px) {
   .shunkai-footer {
-    padding: 0 80px !important;
+    padding: 0 20px !important;
   }
 
-  .shunkai-footer-wrapper-r {
+  .shunkai-footer-wrapper {
     display: none !important;
-  }
-
-  .shunkai-footer-wrapper-l.el-col-3 {
-    width: 100% !important;
   }
 
   .shunkai-footer-page {
@@ -207,80 +204,94 @@
   padding: 0 15px !important;
 }
 
-.shunkai-footer .shunkai-footer-wrapper {
-  padding-top: 60px;
+/* 品牌区：logo 居中，下方四个圆形入口图标（图例） */
+.shunkai-footer .shunkai-footer-brand {
+  padding-top: 40px;
+  text-align: center;
 }
 
-.shunkai-footer .shunkai-footer-wrapper-l .shunkai-footer-wrapper-code {
-  width: 100%;
-  padding: 5px 0;
+.shunkai-footer .shunkai-footer-logo img {
+  max-width: 160px;
+  height: auto;
+  cursor: pointer;
 }
 
-.shunkai-footer .shunkai-footer-wrapper-l .shunkai-footer-wrapper-code img {
-  width: 100%;
-}
-
-.shunkai-footer .shunkai-footer-wrapper-l .shunkai-footer-wrapper-code .info {
+.shunkai-footer .shunkai-footer-contact {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  margin-top: 30px;
 }
 
-.shunkai-footer
-  .shunkai-footer-wrapper-l
-  .shunkai-footer-wrapper-code
-  .info
-  img {
-  width: 65%;
-}
-
-.shunkai-footer
-  .shunkai-footer-wrapper-l
-  .shunkai-footer-wrapper-code
-  .info
-  span:first-child {
-  margin-right: 5px;
-}
-
-.shunkai-footer
-  .shunkai-footer-wrapper-l
-  .shunkai-footer-wrapper-code
-  .info
-  span:last-child {
-  margin-left: 5px;
-}
-
-.shunkai-footer
-  .shunkai-footer-wrapper-l
-  .shunkai-footer-wrapper-code
-  .shunkai-footer-wrapper-code-qr {
-  margin: 30px 0;
-}
-
-.shunkai-footer .shunkai-footer-wrapper-r {
+/* 颜色/边框随主题：由 theme.css 的令牌规则负责
+   （global.css 里 `button{background-color:transparent !important}` 会压过普通声明） */
+.shunkai-footer .shunkai-footer-contact-btn {
+  width: 48px;
+  height: 48px;
+  margin: 0 10px;
+  padding: 0;
+  border-radius: 50%;
+  border: 1px solid transparent;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  cursor: pointer;
+  line-height: 1;
+  -webkit-transition:
+    background-color 0.25s ease,
+    border-color 0.25s ease,
+    color 0.25s ease,
+    -webkit-transform 0.25s ease;
+  transition:
+    background-color 0.25s ease,
+    border-color 0.25s ease,
+    color 0.25s ease,
+    transform 0.25s ease;
+}
+
+/* 图标尺寸写在按钮上，避免依赖全局 .svg-icon 默认尺寸 */
+.shunkai-footer .shunkai-footer-contact-btn .svg-icon {
+  width: 22px;
+  height: 22px;
+}
+
+.shunkai-footer .shunkai-footer-contact-btn:hover,
+.shunkai-footer .shunkai-footer-contact-btn:focus {
+  -webkit-transform: translateY(-2px);
+  transform: translateY(-2px);
+}
+
+/* 导航分组：一行若干列（快速导航 + 产品中心二级分类） */
+.shunkai-footer .shunkai-footer-wrapper {
+  padding-top: 40px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: start;
+  -ms-flex-align: start;
+  align-items: flex-start;
   text-align: left;
-  margin-left: 50px;
 }
 
 .shunkai-footer .shunkai-footer-wrapper-item {
+  width: 260px;
+  max-width: 50%;
   padding: 13px;
-  width: 33.33%;
-}
-
-.shunkai-footer .shunkai-footer-wrapper-item .font-bold {
-  border-left: 2px solid var(--accent);
-  color: var(--text-strong);
-  font-size: 18px;
-  line-height: 1.5;
-  text-align: inherit;
-  padding-left: 10px;
-  list-style-type: none;
 }
 
 .shunkai-footer .shunkai-footer-wrapper-item ul {
@@ -299,6 +310,64 @@
   line-height: 1.5;
   text-align: inherit;
   cursor: pointer;
+}
+
+.shunkai-footer .shunkai-footer-wrapper-item .font-bold {
+  border-left: 2px solid var(--accent);
+  color: var(--text-strong);
+  font-size: 18px;
+  line-height: 1.5;
+  text-align: inherit;
+  padding-left: 10px;
+  list-style-type: none;
+}
+
+/* 快速导航条：仅窄屏（<=750px）展示，横向可滑动 */
+.shunkai-footer .shunkai-footer-quicknav {
+  display: none;
+  list-style-type: none;
+}
+
+.shunkai-footer .shunkai-footer-quicknav li {
+  -webkit-box-flex: 0;
+  -ms-flex: none;
+  flex: none;
+  padding: 4px 10px;
+}
+
+.shunkai-footer .shunkai-footer-quicknav li span {
+  color: var(--text-muted);
+  font-size: 14px;
+  line-height: 1.5;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.shunkai-footer .shunkai-footer-quicknav li span:hover {
+  color: var(--accent-text);
+}
+
+/* 窄屏快速导航条：一行横滑，替代分组导航。
+   必须排在上面 display:none 之后——两条规则特异性相同，靠源顺序决定胜负 */
+@media (max-width: 750px) {
+  .shunkai-footer .shunkai-footer-quicknav {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-top: 30px;
+    padding: 8px 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    overflow-x: auto;
+  }
 }
 
 .shunkai-footer .shunkai-footer-line {

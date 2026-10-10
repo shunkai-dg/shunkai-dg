@@ -8,9 +8,9 @@ export default {
     telephone: "+86.769.8989.0808",
     mailboxTitle: "Mailbox",
     mailbox: "sales@shunkai-dg.cn",
-    singaporeAddressTitle: "Company Address（Singapore）",
-    singaporeAddress:
-      "12 Tannery Road #10-01 HB Centre 1 Singapore 347722 ",
+    // singaporeAddressTitle: "Company Address（Singapore）",
+    // singaporeAddress:
+    //   "12 Tannery Road #10-01 HB Centre 1 Singapore 347722 ",
   },
   map: {
     tel: "Tel:86.769.8989.0808",

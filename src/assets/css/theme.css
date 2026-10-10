@@ -37,6 +37,7 @@
   --text-muted: #47607a; /* 次要文字（白底 6.5:1 / 浅蓝底 5.2:1） */
   --text-faint: #4f657b; /* 更弱的辅助文字，仍满足 AA（浅蓝底 4.8:1） */
   --text-invert: #ffffff; /* 深色底上的文字 */
+  --icon: #8f9aa6; /* 页尾圆形入口图标（浅灰描边图标） */
   --accent: #4a90c4; /* 品牌中蓝：大号文字、图标、描边、填充块 */
   --accent-strong: #3579ab; /* hover / 填充按钮（白字 4.7:1） */
   --accent-text: #2a6a96; /* 小字号强调文字与图标：白底 5.8:1、浅蓝底 4.6:1 */
@@ -74,6 +75,7 @@
   --text-muted: #a8c0d6; /* 卡片底 7.9:1 */
   --text-faint: #8299b0; /* 卡片底 5.2:1 */
   --text-invert: #0b1a2f;
+  --icon: #a8c0d6; /* 页尾圆形入口图标（夜间随主题变亮） */
   --accent: #5aa9e6; /* 亮蓝：深色底上形成温和的发光感（6.9:1） */
   --accent-strong: #7fc0f2;
   --accent-text: #7fc0f2; /* 小字号强调文字（深蓝底 8.9:1） */
@@ -407,6 +409,68 @@ html.theme-transition *::after {
 
 .shunkai-footer .shunkai-footer-page {
   color: var(--text-muted) !important;
+}
+
+/* 页尾圆形入口图标：浅灰描边图标，hover 走品牌强调色
+   注意 global.css 有 `button{background-color:transparent !important;color:var(--text-muted)}`，
+   这里必须带 !important 才能按主题令牌生效（否则夜间仍是白底灰字） */
+.shunkai-footer .shunkai-footer-contact-btn {
+  color: var(--icon) !important;
+  border-color: var(--border-strong) !important;
+  background: var(--surface) !important;
+}
+
+.shunkai-footer .shunkai-footer-contact-btn:hover,
+.shunkai-footer .shunkai-footer-contact-btn:focus {
+  color: var(--accent-text) !important;
+  border-color: var(--accent) !important;
+  background: var(--surface-2) !important;
+}
+
+/* 窄屏快速导航条 */
+.shunkai-footer .shunkai-footer-quicknav li span {
+  color: var(--text-muted);
+}
+
+.shunkai-footer .shunkai-footer-quicknav li span:hover {
+  color: var(--accent-text) !important;
+}
+
+/* 页尾四个入口的弹出内容（el-popover 渲染在 body 下，组件 scoped 样式够不到） */
+.shunkai-footer-pop {
+  text-align: center;
+  color: var(--text);
+}
+
+.shunkai-footer-pop img {
+  width: 100%;
+  max-width: 140px;
+  height: auto;
+}
+
+/* global.css 有一条通用的 .el-popover img{height:100%}，这里针对页尾二维码还原比例 */
+.shunkai-footer-pop img {
+  height: auto !important;
+}
+
+.shunkai-footer-pop p {
+  margin-top: 6px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text-muted);
+}
+
+.shunkai-footer-pop span {
+  display: block;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--accent-text);
+  word-break: break-all;
+}
+
+.shunkai-footer-pop--text span {
+  font-size: 15px;
+  color: var(--text-strong);
 }
 
 /* ---------------------------------------------------------------------------

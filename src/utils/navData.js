@@ -95,6 +95,22 @@ export const fast_navigation = {
 // 头部导航渲染顺序（原产物：isNav 项不在 el-menu 中显示）
 export const navMenus = fast_navigation.childer;
 
+// 页尾「产品中心」：按一级分组，只取二级分类（各一级根节点的直接子级），
+// 三级及以下不下钻（分级递归平铺见上方 flatChildren / 组件内扁平列表）
+export function secondLevelGroups(roots) {
+  return (roots || [])
+    .map((root) => ({
+      title: root.title,
+      name: root.name || root.title,
+      childer: (root.subGroups || []).map((g) => ({
+        title: g.title,
+        name: g.name || g.title,
+        hierarchy: g.hierarchy != null ? g.hierarchy : g.id,
+      })),
+    }))
+    .filter((g) => g.childer.length);
+}
+
 // 动态分类数据：loaded 标记是否加载完成，roots 为一级分类树
 export const categoryStore = Vue.observable({ loaded: false, roots: [] });
 

@@ -31,13 +31,13 @@
               class="contact_us_content_item"
             >
               <div class="contact_us_content_item_content">
-                <div class="contact_us_content_img">
+                <!-- <div class="contact_us_content_img">
                   <img :src="item.icon" alt="" />
                 </div>
                 <div class="contact_us_content_text">
                   <p class="contact_us_content-tit">{{ item.title }}</p>
                   <p class="contact_us_content-desc1">{{ item.desc }}</p>
-                </div>
+                </div> -->
               </div>
             </li>
           </ul>
@@ -263,8 +263,8 @@ export default {
       return [
         {
           icon: require("@/assets/img/Contact Us4.png"),
-          title: this.$t("contact.info.singaporeAddressTitle"),
-          desc: this.$t("contact.info.singaporeAddress"),
+          // title: this.$t("contact.info.singaporeAddressTitle"),
+          // desc: this.$t("contact.info.singaporeAddress"),
         },
         {
           icon: require("@/assets/img/Contact Us5.png"),

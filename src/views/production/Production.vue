@@ -79,9 +79,6 @@ import { Swiper, SwiperSlide } from "vue-awesome-swiper";
 import "swiper/css/swiper.css";
 import { getImg } from "@/api/index";
 
-// 原 chunk 资源映射：
-// 7d81 -> static/img/6.c839cceb.png（Highlight）
-// d297 -> static/img/5.2f829764.png（default）
 import HighlightIcon from "@/assets/img/Production1.png";
 import defaultIcon from "@/assets/img/Production2.png";
 
@@ -103,7 +100,7 @@ export default {
     tabsList() {
       return [
         this.$t("production.tabs.dongguan"),
-        this.$t("production.tabs.thailand"),
+        // this.$t("production.tabs.thailand"),
       ];
     },
 
@@ -139,7 +136,6 @@ export default {
     },
   },
   created() {
-    // type 15 -> 东莞工厂；type 16 -> 泰国工厂
     this.getImgData({ n: "img", type: 15, index: 0 });
     this.getImgData({ n: "img", type: 16, index: 1 });
   },
