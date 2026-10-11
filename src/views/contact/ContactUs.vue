@@ -172,9 +172,9 @@ export default {
   components: { Breadcrumb },
   data() {
     return {
-      center: { lng: 114.059284, lat: 22.798283 },
+      center: { lng: 114.111399, lat: 22.827118 },
       mapZoom: 17,
-      markerPoint: { lng: 114.059284, lat: 22.798283 },
+      markerPoint: { lng: 114.111399, lat: 22.827118 },
       show: false,
       submitting: false,
       ruleForm: { name: "", email: "", mobile: "", content: "" },

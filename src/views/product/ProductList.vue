@@ -6,19 +6,14 @@
     <div class="product_center_list">
       <div class="container">
         <ul>
-          <li
-            v-for="(item, index) in list"
-            :key="index"
-            class="product_center_l_item"
-            @click="jumpProductDetail(item)"
-          >
+          <li v-for="(item, index) in list" :key="index" class="product_center_l_item" @click="jumpProductDetail(item)">
             <div class="product_center_l_item_wrapper">
-              <div class="product_center_l_item_img">
-                <img :src="RESOURCE_BASE_URL + item.imgs[0]" />
-              </div>
               <div class="product_center_l_item_f">
                 <h4 class="product_center_l_item_title">{{ item.title }}</h4>
                 <p class="product_center_l_item_desc">{{ item.sub_title }}</p>
+                <div class="product_center_l_item_img">
+                  <img :src="RESOURCE_BASE_URL + item.imgs[0]" />
+                </div>
               </div>
             </div>
           </li>
@@ -76,26 +71,31 @@ export default {
     height: 200px !important;
   }
 }
+
 @media (min-width: 768px) {
   .product_center_l_item_img {
     height: 200px !important;
   }
 }
+
 @media (max-width: 576px) {
   .product_center_l_item_img {
     height: 80px !important;
   }
 }
+
 @media (max-width: 768px) {
   .product_center_l_item {
     width: 50% !important;
   }
 }
+
 .product-list {
   background: var(--surface);
   padding: 20px;
   text-align: center;
 }
+
 .product-list p {
   margin: 60px 0 !important;
   text-align: center;
@@ -105,46 +105,48 @@ export default {
   font-weight: 700;
   line-height: 1.5;
 }
+
 .product_center_list {
   padding: 30px 0 80px 0;
 }
+
 .product_center_list ul {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
 }
+
 .container ul {
   justify-content: center;
   list-style-type: none;
 }
+
 .product_center_list .product_center_l_item_f {
   display: flex;
   flex-direction: column;
   justify-content: center;
   width: 100%;
 }
+
 .product_center_list .product_center_l_item {
   width: 25%;
   padding: 10px;
 }
+
 .product_center_list .product_center_l_item .product_center_l_item_wrapper {
   padding: 20px;
   background: var(--surface);
   height: 100%;
   position: relative;
 }
-.product_center_list
-  .product_center_l_item
-  .product_center_l_item_wrapper
-  .product_center_l_item_title {
+
+.product_center_list .product_center_l_item .product_center_l_item_wrapper .product_center_l_item_title {
   padding: 5px 0 0 0;
   font-size: 20px;
   line-height: 1.5;
 }
-.product_center_list
-  .product_center_l_item
-  .product_center_l_item_wrapper
-  .product_center_l_item_desc {
+
+.product_center_list .product_center_l_item .product_center_l_item_wrapper .product_center_l_item_desc {
   margin-top: 20px;
   padding-bottom: 5px;
   margin-top: 0;
@@ -153,10 +155,8 @@ export default {
   line-height: 1.7;
   text-align: center;
 }
-.product_center_list
-  .product_center_l_item
-  .product_center_l_item_wrapper
-  .product_center_l_item_img {
+
+.product_center_list .product_center_l_item .product_center_l_item_wrapper .product_center_l_item_img {
   display: table;
   table-layout: fixed;
   width: 100%;
@@ -165,11 +165,8 @@ export default {
   display: flex;
   justify-content: center;
 }
-.product_center_list
-  .product_center_l_item
-  .product_center_l_item_wrapper
-  .product_center_l_item_img
-  img {
+
+.product_center_list .product_center_l_item .product_center_l_item_wrapper .product_center_l_item_img img {
   height: auto;
   width: 100%;
   object-fit: contain;

@@ -17,10 +17,9 @@ module.exports = {
     },
     proxy: {
       '/api': {
-        tzfbdg:'https://shunkai-dg.github.io/shunkai-dg/',
         // target: 'https://www.shunkai-dg.cn',
         target: 'http://127.0.0.1:8080/',
-        // changeOrigin: true
+        changeOrigin: true
       }
     }
   },

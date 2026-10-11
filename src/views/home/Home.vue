@@ -22,18 +22,14 @@
       <ul class="loop-container">
         <li class="loop-item" v-for="item in productsData.list" :key="item.id">
           <div class="loop-item__wrapper">
-            <p class="loop-item_title">{{ item.title }}</p>
-            <p class="loop-item_desc">{{ item.sub_title }}</p>
-            <button class="loop-item_btn" @click="jumpProductDetail(item)">
-              {{ $t("common.more") }}
-            </button>
             <div class="product_center_l_item_img">
-              <img
-                class="loop-item_img"
-                v-if="item.imgs && item.imgs[0]"
-                :src="RESOURCE_BASE_URL + item.imgs[0]"
-                alt=""
-              />
+              <p class="loop-item_title">{{ item.title }}</p>
+              <p class="loop-item_desc">{{ item.sub_title }}</p>
+              <img class="loop-item_img" v-if="item.imgs && item.imgs[0]" :src="RESOURCE_BASE_URL + item.imgs[0]"
+                alt="" />
+              <button class="loop-item_btn" @click="jumpProductDetail(item)">
+                {{ $t("common.more") }}
+              </button>
             </div>
           </div>
         </li>
@@ -41,20 +37,10 @@
     </div>
     <!-- 3. 产品介绍区（硬编码数据，非接口） -->
     <div class="home_product">
-      <div
-        class="product_item"
-        v-for="item in productsIntroduce"
-        :key="item.id"
-      >
+      <div class="product_item" v-for="item in productsIntroduce" :key="item.id">
         <div class="product_bg">
-          <div
-            class="product_bg_img product_bg_max_img"
-            :style="{ backgroundImage: 'url(' + item.url + ')' }"
-          ></div>
-          <div
-            class="product_bg_img product_bg_min_img"
-            :style="{ backgroundImage: 'url(' + item.minUrl + ')' }"
-          ></div>
+          <div class="product_bg_img product_bg_max_img" :style="{ backgroundImage: 'url(' + item.url + ')' }"></div>
+          <div class="product_bg_img product_bg_min_img" :style="{ backgroundImage: 'url(' + item.minUrl + ')' }"></div>
           <div class="product_bg_color"></div>
         </div>
         <div class="product_wrapper">
@@ -81,8 +67,6 @@
 </template>
 
 <script>
-// 反推来源：chunk-0a71ae93.0d3a92ef.js（模板结构/数据/方法名一致）
-// 样式：home.css（由 chunk-0a71ae93.fcfe289d.css 剥离 data-v 属性转写）
 import "./home.css";
 // v4.1.1 的 ESM 导出为 PascalCase（Swiper/SwiperSlide），Vue 会自动匹配 <swiper> 标签
 import { Swiper, SwiperSlide } from "vue-awesome-swiper";

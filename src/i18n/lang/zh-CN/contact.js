@@ -5,7 +5,7 @@ export default {
     chinaAddress:
       "东莞塘厦莲湖西路7号",
     telephoneTitle: "电话",
-    telephone: "+86.769.8989.0808",
+    telephone: "+86 13712578616",
     mailboxTitle: "邮箱",
     mailbox: "sales@shunkai-dg.cn",
     // singaporeAddressTitle: "公司地址（新加坡）",
@@ -13,7 +13,7 @@ export default {
     //   "12 Tannery Road #10-01 HB Centre 1 Singapore 347722 ",
   },
   map: {
-    tel: "电话：86.769.8989.0808",
+    tel: "电话：+86 13712578616",
   },
   form: {
     notice: "我们承诺不会泄露您的任何信息",
