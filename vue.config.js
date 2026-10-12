@@ -1,7 +1,7 @@
 const path = require('path')
 
 module.exports = {
-  publicPath: '/shunkai-dg/',
+  publicPath: '/',
   productionSourceMap: false,
   // css.extract: true（cli-service 默认即为 true，显式声明与原产物一致）
   css: { extract: true },
