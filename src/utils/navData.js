@@ -64,30 +64,30 @@ export const fast_navigation = {
       name: "production",
       id: "fast_navigation",
     },
-    {
-      title: "Join Us",
-      i18nKey: "header.nav.joinUs",
-      path: "/join-us",
-      name: "join_us",
-      isMinNav: false,
-      isNav: true,
-      id: "fast_navigation",
-    },
+    // {
+    //   title: "Join Us",
+    //   i18nKey: "header.nav.joinUs",
+    //   path: "/join-us",
+    //   name: "join_us",
+    //   isMinNav: false,
+    //   isNav: true,
+    //   id: "fast_navigation",
+    // },
     {
       title: "Contact Us",
       i18nKey: "header.nav.contactUs",
       path: "/contact-us",
       name: "contact_us",
       id: "fast_navigation",
-      isMinNav: true,
-      childer: [
-        {
-          title: "Join Us",
-          i18nKey: "header.nav.joinUs",
-          path: "/join-us",
-          name: "join_us",
-        },
-      ],
+      isMinNav: false,
+      // childer: [
+        // {
+        //   title: "Join Us",
+        //   i18nKey: "header.nav.joinUs",
+        //   path: "/join-us",
+        //   name: "join_us",
+        // },
+      // ],
     },
   ],
 };

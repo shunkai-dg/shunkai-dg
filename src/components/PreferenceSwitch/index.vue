@@ -105,7 +105,7 @@
 /**
  * 外观与语言切换控件（导航栏右侧 / 移动端抽屉共用）
  * - 语言：中文、English、跟随系统（vue-i18n@8，见 src/i18n/index.js）
- * - 主题：昼夜（白天浅蓝 / 黑夜深蓝 / 跟随系统，见 src/utils/theme.js）
+ * - 主题：黑白双模（浅色 / 深色 / 跟随系统，见 src/utils/theme.js）
  * 状态存于 Vuex（themeMode / localeSetting），持久化由两个 utils 负责。
  */
 import {

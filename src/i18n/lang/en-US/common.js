@@ -16,8 +16,8 @@ export default {
   total: "{total} in total",
   theme: {
     label: "Theme",
-    day: "Day",
-    night: "Night",
+    day: "Light",
+    night: "Dark",
     auto: "Follow system",
   },
   /** Page / breadcrumb titles (mapped from router meta.titleKey) */

@@ -1,10 +1,11 @@
 /* ============================================================================
-   主题「昼夜」Day & Night
+   主题「黑白双模」Black & White Dual Theme
    ----------------------------------------------------------------------------
-   浅蓝是白昼的呼吸，深蓝是夜晚的静默；同一片蓝，两种节奏。
+   黑白灰为骨架，工业蓝 / 安全橙为功能强调，设备与数据为视觉主角。
 
-   白天（day）  #D6E8F5 页面底色 · #4A90C4 中蓝强调 · #1A2B3C 正文
-   黑夜（night）#0B1A2F 夜色底色 · #5AA9E6 亮蓝强调 · #E8F1F8 正文
+   白模式（day）  #F4F6F8 页面底色 · #0A5BD6 工业蓝强调 · #0B0D10 正文
+   黑模式（night）#0B0D10 夜色底色 · #3B82F6 亮蓝强调 · #F2F5F7 正文
+                 安全橙 #FF6B1A / #FF7A1A 用于关键数据与询盘转化
 
    生效方式：src/utils/theme.js 把解析后的主题写到 <html data-theme="day|night">，
    本文件是所有色值的唯一来源（设计令牌见下方 :root）。
@@ -16,89 +17,97 @@
    ------------------------------------------------------------------------- */
 :root {
   /* 品牌双色（规范原值，其它令牌均由它们派生） */
-  --brand-day-bg: #d6e8f5;
-  --brand-day-accent: #4a90c4;
-  --brand-night-bg: #0b1a2f;
-  --brand-night-accent: #5aa9e6;
-  --brand-text-day: #1a2b3c;
-  --brand-text-night: #e8f1f8;
+  --brand-day-bg: #f4f6f8;
+  --brand-day-accent: #0a5bd6;
+  --brand-night-bg: #0b0d10;
+  --brand-night-accent: #3b82f6;
+  --brand-text-day: #0b0d10;
+  --brand-text-night: #f2f5f7;
 }
 
-/* 白天：晴日天空的柔和浅蓝 */
+/* 白模式：干净、明亮、专业，适合展会 / 白天办公场景 */
 :root,
 :root[data-theme="day"] {
-  --bg: #d6e8f5; /* 页面背景 */
-  --bg-soft: #e4f0f9; /* 页脚 / 次级区块 */
-  --surface: #ffffff; /* 卡片、面板 */
-  --surface-2: #eaf3fa; /* 卡片内次级块、条纹 */
-  --surface-3: #dceaf6; /* 更弱的分区底色 */
-  --text: #1a2b3c; /* 正文、标题（对比度 > 7:1） */
-  --text-strong: #12202e;
-  --text-muted: #47607a; /* 次要文字（白底 6.5:1 / 浅蓝底 5.2:1） */
-  --text-faint: #4f657b; /* 更弱的辅助文字，仍满足 AA（浅蓝底 4.8:1） */
-  --text-invert: #ffffff; /* 深色底上的文字 */
-  --icon: #8f9aa6; /* 页尾圆形入口图标（浅灰描边图标） */
-  --accent: #4a90c4; /* 品牌中蓝：大号文字、图标、描边、填充块 */
-  --accent-strong: #3579ab; /* hover / 填充按钮（白字 4.7:1） */
-  --accent-text: #2a6a96; /* 小字号强调文字与图标：白底 5.8:1、浅蓝底 4.6:1 */
-  --accent-soft: rgba(74, 144, 196, 0.12);
+  --bg: #f4f6f8; /* 页面背景 */
+  --bg-soft: #e8edf2; /* 页脚 / 次级区块（浅一级） */
+  --surface: #ffffff; /* 卡片、导航（surface-1） */
+  --surface-2: #f0f3f6; /* 表头、输入框（surface-2） */
+  --surface-3: #e6ebf0; /* 悬停、斑马纹（surface-3） */
+  --text: #0b0d10; /* 正文、标题（对比度 > 15:1） */
+  --text-strong: #000000;
+  --text-muted: #4a5560; /* 次要文字、说明（白底 7.1:1） */
+  --text-faint: #7a858f; /* 标签、辅助（白底 4.6:1，满足 AA） */
+  --text-invert: #ffffff; /* 反色文字 */
+  --icon: #7a858f; /* 页尾圆形入口图标（浅灰描边） */
+  --accent: #0a5bd6; /* 工业蓝：主按钮、链接、大号文字 */
+  --accent-strong: #0847a8; /* hover / 填充按钮 */
+  --accent-text: #0a5bd6; /* 小字号强调文字与图标 */
+  --accent-soft: rgba(10, 91, 214, 0.12);
   --accent-contrast: #ffffff; /* 强调色底上的文字 */
-  --border: rgba(26, 43, 60, 0.14);
-  --border-strong: rgba(26, 43, 60, 0.3);
-  --header-bg: #d6e8f5;
-  --header-text: #1a2b3c;
-  --header-border: rgba(26, 43, 60, 0.1);
-  --footer-bg: #e4f0f9;
-  --footer-text: #1a2b3c;
-  --hover-bg: #eaf3fa;
-  --overlay: rgba(11, 26, 47, 0.5);
-  --shadow-sm: 0 2px 8px rgba(26, 43, 60, 0.08);
-  --shadow: 0 8px 24px rgba(26, 43, 60, 0.12);
-  --focus-ring: 0 0 0 2px rgba(74, 144, 196, 0.35);
-  --scroll-track: #e4f0f9;
-  --scroll-thumb: #a9c9e2;
+  --accent-orange: #ff6b1a; /* 安全橙：关键数据、询盘转化 */
+  --success: #16a34a;
+  --warning: #d97706;
+  --error: #dc2626;
+  --border: #d6dee6;
+  --border-strong: #b6bec6;
+  --header-bg: #ffffff;
+  --header-text: #0b0d10;
+  --header-border: #e8edf2;
+  --footer-bg: #07090b; /* 页脚固定深色背景，双模一致 */
+  --footer-text: #a7b0b8;
+  --hover-bg: #e6ebf0;
+  --overlay: rgba(11, 13, 16, 0.5);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.06);
+  --shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  --focus-ring: 0 0 0 2px rgba(10, 91, 214, 0.4);
+  --scroll-track: #f0f3f6;
+  --scroll-thumb: #b6bec6;
   --logo-filter: none;
-  --btn-bg: #3579ab;
+  --btn-bg: #0a5bd6;
   --btn-text: #ffffff;
   --input-bg: #ffffff;
 }
 
-/* 黑夜：接近午夜天空的深蓝 */
+/* 黑模式：沉浸、硬核、设备感强，适合技术选型 / 夜间浏览 */
 :root[data-theme="night"] {
-  --bg: #0b1a2f;
-  --bg-soft: #0e2038;
-  --surface: #12253f;
-  --surface-2: #162f4f;
-  --surface-3: #1b3a5e;
-  --text: #e8f1f8; /* 浅雾蓝，避免纯白眩光（页面底色 15.8:1） */
+  --bg: #0b0d10;
+  --bg-soft: #12161b;
+  --surface: #12161b; /* 卡片、导航（surface-1） */
+  --surface-2: #1a2027; /* 表头、输入框（surface-2） */
+  --surface-3: #232b34; /* 悬停、斑马纹（surface-3） */
+  --text: #f2f5f7; /* 正文、标题（页面底色 15:1） */
   --text-strong: #ffffff;
-  --text-muted: #a8c0d6; /* 卡片底 7.9:1 */
-  --text-faint: #8299b0; /* 卡片底 5.2:1 */
-  --text-invert: #0b1a2f;
-  --icon: #a8c0d6; /* 页尾圆形入口图标（夜间随主题变亮） */
-  --accent: #5aa9e6; /* 亮蓝：深色底上形成温和的发光感（6.9:1） */
-  --accent-strong: #7fc0f2;
-  --accent-text: #7fc0f2; /* 小字号强调文字（深蓝底 8.9:1） */
-  --accent-soft: rgba(90, 169, 230, 0.16);
-  --accent-contrast: #06121f;
-  --border: rgba(232, 241, 248, 0.16);
-  --border-strong: rgba(232, 241, 248, 0.32);
-  --header-bg: #0b1a2f;
-  --header-text: #e8f1f8;
-  --header-border: rgba(232, 241, 248, 0.12);
-  --footer-bg: #091627;
-  --footer-text: #e8f1f8;
-  --hover-bg: #162f4f;
-  --overlay: rgba(4, 12, 24, 0.66);
-  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.4);
-  --shadow: 0 8px 26px rgba(0, 0, 0, 0.5);
-  --focus-ring: 0 0 0 2px rgba(90, 169, 230, 0.45);
-  --scroll-track: #0b1a2f;
-  --scroll-thumb: #2c4a6e;
+  --text-muted: #a7b0b8; /* 次要文字（卡片底 8.2:1） */
+  --text-faint: #6b7680; /* 标签、辅助（卡片底 4.5:1） */
+  --text-invert: #0b0d10;
+  --icon: #6b7680; /* 页尾圆形入口图标（夜间保持低调） */
+  --accent: #3b82f6; /* 工业蓝：深色底上的功能强调（7.2:1） */
+  --accent-strong: #60a5fa; /* hover */
+  --accent-text: #60a5fa; /* 小字号强调文字 */
+  --accent-soft: rgba(59, 130, 246, 0.16);
+  --accent-contrast: #0b0d10; /* 品牌蓝底上用深色字，保证对比度 */
+  --accent-orange: #ff7a1a; /* 安全橙：关键数据 */
+  --success: #22c55e;
+  --warning: #f59e0b;
+  --error: #ef4444;
+  --border: #2a333d;
+  --border-strong: #3a4550;
+  --header-bg: #0b0d10;
+  --header-text: #f2f5f7;
+  --header-border: #1f262e;
+  --footer-bg: #07090b; /* 页脚固定深色背景，双模一致 */
+  --footer-text: #a7b0b8;
+  --hover-bg: #232b34;
+  --overlay: rgba(0, 0, 0, 0.66);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  --focus-ring: 0 0 0 2px rgba(96, 165, 250, 0.45);
+  --scroll-track: #0b0d10;
+  --scroll-thumb: #2a333d;
   --logo-filter: brightness(0) invert(1) opacity(0.92);
-  --btn-bg: #5aa9e6;
-  --btn-text: #06121f; /* 亮蓝底上用深色字（7.4:1），白字仅 2.5:1 */
-  --input-bg: #12253f;
+  --btn-bg: #3b82f6;
+  --btn-text: #0b0d10; /* 蓝底上用深色字（7:1），白字对比度不足 */
+  --input-bg: #1a2027;
 }
 
 /* ---------------------------------------------------------------------------
@@ -208,6 +217,53 @@ html.theme-transition *::after {
 .scroll-top {
   background-color: var(--header-bg);
   box-shadow: var(--shadow-sm);
+}
+
+/* 顶部导航毛玻璃：白模式 rgba(255,255,255,.9)，黑模式 rgba(11,13,16,.85) */
+.shunkai-head,
+.shunkai-header {
+  backdrop-filter: saturate(180%) blur(10px);
+  -webkit-backdrop-filter: saturate(180%) blur(10px);
+}
+
+:root .shunkai-head,
+:root .shunkai-header {
+  background-color: rgba(255, 255, 255, 0.9) !important;
+}
+
+:root[data-theme="night"] .shunkai-head,
+:root[data-theme="night"] .shunkai-header {
+  background-color: rgba(11, 13, 16, 0.85) !important;
+}
+
+/* 首页轮播 Hero 渐变遮罩：白模式由白到透明，黑模式由近黑到透明 */
+.swiper-banner .swiper-slide {
+  position: relative;
+}
+
+.swiper-banner .swiper-slide::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.2) 0%,
+    rgba(255, 255, 255, 0.95) 100%
+  );
+}
+
+:root[data-theme="night"] .swiper-banner .swiper-slide::after {
+  background: linear-gradient(
+    to bottom,
+    rgba(11, 13, 16, 0.2) 0%,
+    rgba(11, 13, 16, 0.95) 100%
+  );
+}
+
+/* 黑模式下图片适当降低亮度，避免刺眼 */
+:root[data-theme="night"] img {
+  filter: brightness(0.92);
 }
 
 /* el-menu 横向导航（global.css 里写死了黑底白字，这里按令牌覆盖） */
@@ -390,13 +446,14 @@ html.theme-transition *::after {
   color: var(--footer-text) !important;
 }
 
+/* 页脚固定深色背景（双模一致），内部文字统一使用浅色令牌 */
 .shunkai-footer .shunkai-footer-wrapper-item .font-bold {
   border-left-color: var(--accent) !important;
-  color: var(--text-strong) !important;
+  color: #ffffff !important;
 }
 
 .shunkai-footer .shunkai-footer-wrapper-item ul li p {
-  color: var(--text-muted) !important;
+  color: var(--footer-text) !important;
 }
 
 .shunkai-footer .shunkai-footer-wrapper-item ul li p:hover {
@@ -408,7 +465,7 @@ html.theme-transition *::after {
 }
 
 .shunkai-footer .shunkai-footer-page {
-  color: var(--text-muted) !important;
+  color: var(--footer-text) !important;
 }
 
 /* 页尾圆形入口图标：浅灰描边图标，hover 走品牌强调色
@@ -429,7 +486,7 @@ html.theme-transition *::after {
 
 /* 窄屏快速导航条 */
 .shunkai-footer .shunkai-footer-quicknav li span {
-  color: var(--text-muted);
+  color: var(--footer-text);
 }
 
 .shunkai-footer .shunkai-footer-quicknav li span:hover {

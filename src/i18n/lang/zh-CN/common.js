@@ -16,8 +16,8 @@ export default {
   total: "共 {total} 条",
   theme: {
     label: "主题",
-    day: "白天",
-    night: "黑夜",
+    day: "浅色",
+    night: "深色",
     auto: "跟随系统",
   },
   /** 页面/面包屑标题（与 router meta.titleKey 对应） */

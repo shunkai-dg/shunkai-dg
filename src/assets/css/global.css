@@ -211,8 +211,12 @@
   width: 50%;
 }
 
+.shunkai-footer-logo {
+  margin-bottom: 20px;
+}
+
 .shunkai-footer .shunkai-footer-logo img {
-  max-width: 160px;
+  max-width: 100px;
   height: auto;
   cursor: pointer;
 }

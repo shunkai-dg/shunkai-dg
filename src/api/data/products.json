@@ -2,20 +2,24 @@
   "products": [
     {
       "id": 1,
-      "is_top": 0,
-      "title": "ASK-1000 Active Noise Cancelling Bluetooth Headset",
-      "title_zh": "ASK-1000 主动降噪蓝牙耳机",
-      "sub_title": "Hybrid ANC, multipoint pairing, 40h playtime",
-      "sub_title_zh": "混合式主动降噪，多点连接，40 小时续航",
+      "is_top": 1,
+      "title": "Shunkai Hexagonal Nano Fiber Makeup Brush",
+      "title_zh": "顺凯六边形纳米纤维化妆刷",
+      "sub_title": "Patented hexagonal design, imported nano bristles, powder-saving",
+      "sub_title_zh": "专利六边形设计，采用进口纳米纤维毛，紧密均匀不吃粉",
       "cat_one": 1,
       "cat_two": 3,
       "cat_three": 9,
       "cat_four": 0,
-      "imgs": ["img_data/products/p1.svg", "img_data/products/p1-1.svg", "img_data/products/p1-2.svg"],
-      "descr": "<p>This active noise cancelling headset delivers <strong>hybrid ANC</strong> that reduces ambient noise up to <span style=\"background-color: #ffff00;\">35dB</span>. The <u>40-hour</u> playtime covers multi-day travel. It supports <em>multipoint</em> pairing across two devices.</p><ul><li>Hybrid ANC up to 35dB</li><li>Bluetooth 5.3, low latency</li><li>40h battery, USB-C fast charge</li></ul><blockquote>The flagship ANC series for business and travel users.</blockquote>",
-      "descr_zh": "<p>这款主动降噪耳机采用 <strong>混合式 ANC</strong> 架构，最高可降低 <span style=\"background-color: #ffff00;\">35dB</span> 环境噪声。<u>40 小时</u>续航可满足多日出差使用，并支持两台设备之间的<em>多点</em>连接。</p><ul><li>混合式 ANC，降噪深度达 35dB</li><li>蓝牙 5.3，低延迟</li><li>40 小时续航，USB-C 快充</li></ul><blockquote>面向商务与出行用户的旗舰降噪系列。</blockquote>",
-      "params": "<table><thead><tr><th>Spec</th><th>Value</th></tr></thead><tbody><tr><td>Driver</td><td>40mm dynamic</td></tr><tr><td>Codec</td><td>AAC, SBC</td></tr><tr><td>Battery</td><td>500mAh</td></tr></tbody></table><p><strong>Note:</strong> Charging time <s>4h</s> <u>2h</u> with fast charge adapter.</p>",
-      "params_zh": "<table><thead><tr><th>规格</th><th>参数</th></tr></thead><tbody><tr><td>单元</td><td>40mm 动圈</td></tr><tr><td>编解码</td><td>AAC、SBC</td></tr><tr><td>电池</td><td>500mAh</td></tr></tbody></table><p><strong>说明：</strong>搭配快充适配器时，充电时间由 <s>4 小时</s> 缩短至 <u>2 小时</u>。</p>"
+      "imgs": [
+        "img_data/products/p1.jpg",
+        "img_data/products/p2.jpg",
+        "img_data/products/p3.jpg"
+      ],
+      "descr": "<p>Manufactured by <strong>Dongguan Shunkai Plastic Co., Ltd.</strong>, this professional makeup brush features a unique <span style=\"background-color: #ffff00;\">patented hexagonal design</span>. The handle is filled with sparkling gold flakes, combining aesthetics with ergonomic grip.</p><ul><li>Imported nano fiber bristles for a soft touch</li><li>Dense and uniform bristles that <u>do not absorb</u> foundation or powder</li><li>Durable plastic handle with premium decorative elements</li></ul><blockquote>Patented product, samples and orders are highly welcomed.</blockquote>",
+      "descr_zh": "<p>这款专业化妆刷由<strong>东莞市顺凯塑胶有限公司</strong>生产，采用独特的<span style=\"background-color: #ffff00;\">专利六边形设计</span>。刷柄内注有闪耀的金箔/亮片，兼顾美观与符合人体工学的握持感。</p><ul><li>采用进口纳米纤维毛，触感柔软</li><li>刷毛紧密、均匀，<u>不吃粉</u>，节省化妆品</li><li>高品质塑胶刷柄，搭配精美内部装饰</li></ul><blockquote>顺凯专利产品，欢迎拿样与订购。</blockquote>",
+      "params": "<table><thead><tr><th>Spec</th><th>Value</th></tr></thead><tbody><tr><td>Bristle Material</td><td>Imported Nano Fiber</td></tr><tr><td>Handle Material</td><td>Plastic (Hexagonal with flakes)</td></tr><tr><td>Features</td><td>Dense, uniform, powder-saving</td></tr><tr><td>Patent</td><td>Shunkai Patented Product</td></tr><tr><td>Contact</td><td>Bell Zhong: 13712578616</td></tr></tbody></table><p><strong>Note:</strong> Customization and sampling are available for bulk orders.</p>",
+      "params_zh": "<table><thead><tr><th>规格</th><th>参数</th></tr></thead><tbody><tr><td>刷毛材质</td><td>进口纳米纤维毛</td></tr><tr><td>刷柄材质</td><td>塑胶（六边形含金箔亮片）</td></tr><tr><td>产品特点</td><td>刷毛紧密、均匀、不吃粉</td></tr><tr><td>专利情况</td><td>顺凯专利产品</td></tr><tr><td>联系方式</td><td>Bell 钟：13712578616</td></tr></tbody></table><p><strong>说明：</strong>支持批量拿样与订购定制。</p>"
     },
     {
       "id": 2,
@@ -28,7 +32,9 @@
       "cat_two": 3,
       "cat_three": 10,
       "cat_four": 28,
-      "imgs": ["img_data/products/p2.svg"],
+      "imgs": [
+        "img_data/products/p2.svg"
+      ],
       "descr": "<p>Engineered for <strong>noisy industrial environments</strong>, the ASK-250 uses a noise immune microphone and delivers crystal clear two-way communication.</p><ol><li>PTT one-touch transmit</li><li>IP54 dust and splash resistant</li><li>Wearable boom mic</li></ol><pre><code>PTT_MODES = [\"push\", \"voice\"]\nradio.connect(device=\"ASK-250\")</code></pre>",
       "descr_zh": "<p>ASK-250 专为<strong>高噪声工业环境</strong>打造，采用抗噪麦克风，双向对讲清晰稳定。</p><ol><li>PTT 一键发射</li><li>IP54 防尘防溅</li><li>可佩戴式麦克风杆</li></ol><pre><code>PTT_MODES = [\"push\", \"voice\"]\nradio.connect(device=\"ASK-250\")</code></pre>",
       "params": "<table><tbody><tr><td>Protection</td><td>IP54</td></tr><tr><td>Frequency</td><td>VHF/UHF</td></tr><tr><td>Mic</td><td>Noise-immune electret</td></tr></tbody></table>",
@@ -45,7 +51,9 @@
       "cat_two": 3,
       "cat_three": 10,
       "cat_four": 29,
-      "imgs": ["img_data/products/p3.svg"],
+      "imgs": [
+        "img_data/products/p3.svg"
+      ],
       "descr": "<p>The <strong>ASK-300</strong> is built for competitive gaming with <em>2.4GHz low-latency</em> connection and virtual surround sound.</p><ul><li>17ms ultra-low latency</li><li>42mm drivers</li><li>Detachable noise-cancelling mic</li></ul>",
       "descr_zh": "<p><strong>ASK-300</strong> 为竞技游戏而生，采用 <em>2.4GHz 低延迟</em>连接与虚拟环绕声。</p><ul><li>17ms 超低延迟</li><li>42mm 驱动单元</li><li>可拆卸降噪麦克风</li></ul>",
       "params": "<table><tbody><tr><td>Latency</td><td>17ms</td></tr><tr><td>Impedance</td><td>32Ω</td></tr><tr><td>RGB</td><td>Aura sync</td></tr></tbody></table>",
@@ -62,7 +70,9 @@
       "cat_two": 3,
       "cat_three": 9,
       "cat_four": 0,
-      "imgs": ["img_data/products/p4.svg"],
+      "imgs": [
+        "img_data/products/p4.svg"
+      ],
       "descr": "<p>True wireless earphones with <strong>touch control</strong> and <span style=\"color: #e03a3c;\">crystal clear</span> sound. <span style=\"background-color: #00ff00;\">IPX5</span> sweat resistant.</p>",
       "descr_zh": "<p>真无线耳机，支持<strong>触控操作</strong>，<span style=\"color: #e03a3c;\">音质通透</span>；<span style=\"background-color: #00ff00;\">IPX5</span> 级防汗。</p>",
       "params": "<table><tbody><tr><td>Driver</td><td>10mm</td></tr><tr><td>Playtime</td><td>6h + 24h case</td></tr><tr><td>Rating</td><td>IPX5</td></tr></tbody></table>",
@@ -79,7 +89,9 @@
       "cat_two": 3,
       "cat_three": 9,
       "cat_four": 0,
-      "imgs": ["img_data/products/p5.svg"],
+      "imgs": [
+        "img_data/products/p5.svg"
+      ],
       "descr": "<p>Wearable neckband with <strong>built-in AI assistant</strong> and a feather-light design at only <u>28g</u>.</p><blockquote>All-day comfort for calls and music.</blockquote>",
       "descr_zh": "<p>颈挂式穿戴耳机，内置 <strong>AI 语音助手</strong>，整机仅 <u>28g</u>，佩戴轻若无物。</p><blockquote>全天候舒适佩戴，通话与音乐兼顾。</blockquote>",
       "params": "<table><tbody><tr><td>Weight</td><td>28g</td></tr><tr><td>Battery</td><td>30h</td></tr><tr><td>Blooth</td><td>5.3</td></tr></tbody></table>",
@@ -87,7 +99,7 @@
     },
     {
       "id": 6,
-      "is_top": 1,
+      "is_top": 0,
       "title": "ASK-700 Smart Wearable Neckband",
       "title_zh": "ASK-700 智能穿戴颈挂式耳机",
       "sub_title": "AI assistant, 30h battery, lightweight",
@@ -96,7 +108,11 @@
       "cat_two": 3,
       "cat_three": 9,
       "cat_four": 0,
-      "imgs": ["img_data/uploads/1.png", "img_data/uploads/2.png", "img_data/uploads/3.png"],
+      "imgs": [
+        "img_data/uploads/1.png",
+        "img_data/uploads/2.png",
+        "img_data/uploads/3.png"
+      ],
       "descr": "<p>Wearable neckband with <strong>built-in AI assistant</strong> and a feather-light design at only <u>28g</u>.</p><blockquote>All-day comfort for calls and music.</blockquote>",
       "descr_zh": "<p>颈挂式穿戴耳机，内置 <strong>AI 语音助手</strong>，整机仅 <u>28g</u>，佩戴轻若无物。</p><blockquote>全天候舒适佩戴，通话与音乐兼顾。</blockquote>",
       "params": "<table><tbody><tr><td>Weight</td><td>28g</td></tr><tr><td>Battery</td><td>30h</td></tr><tr><td>Blooth</td><td>5.3</td></tr></tbody></table>",
@@ -113,7 +129,11 @@
       "cat_two": 3,
       "cat_three": 9,
       "cat_four": 0,
-      "imgs": ["img_data/uploads/1.png", "img_data/uploads/2.png", "img_data/uploads/3.png"],
+      "imgs": [
+        "img_data/uploads/1.png",
+        "img_data/uploads/2.png",
+        "img_data/uploads/3.png"
+      ],
       "descr": "<p>Wearable neckband with <strong>built-in AI assistant</strong> and a feather-light design at only <u>28g</u>.</p><blockquote>All-day comfort for calls and music.</blockquote>",
       "descr_zh": "<p>颈挂式穿戴耳机，内置 <strong>AI 语音助手</strong>，整机仅 <u>28g</u>，佩戴轻若无物。</p><blockquote>全天候舒适佩戴，通话与音乐兼顾。</blockquote>",
       "params": "<table><tbody><tr><td>Weight</td><td>28g</td></tr><tr><td>Battery</td><td>30h</td></tr><tr><td>Blooth</td><td>5.3</td></tr></tbody></table>",
@@ -130,7 +150,11 @@
       "cat_two": 3,
       "cat_three": 9,
       "cat_four": 0,
-      "imgs": ["img_data/uploads/1.png", "img_data/uploads/2.png", "img_data/uploads/3.png"],
+      "imgs": [
+        "img_data/uploads/1.png",
+        "img_data/uploads/2.png",
+        "img_data/uploads/3.png"
+      ],
       "descr": "<p>Wearable neckband with <strong>built-in AI assistant</strong> and a feather-light design at only <u>28g</u>.</p><blockquote>All-day comfort for calls and music.</blockquote>",
       "descr_zh": "<p>颈挂式穿戴耳机，内置 <strong>AI 语音助手</strong>，整机仅 <u>28g</u>，佩戴轻若无物。</p><blockquote>全天候舒适佩戴，通话与音乐兼顾。</blockquote>",
       "params": "<table><tbody><tr><td>Weight</td><td>28g</td></tr><tr><td>Battery</td><td>30h</td></tr><tr><td>Blooth</td><td>5.3</td></tr></tbody></table>",

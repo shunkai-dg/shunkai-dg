@@ -7,6 +7,6 @@ export default {
   contactPhone: "电话",
   scanQrcode: "微信扫码",
   scanChannels: "彩页扫码",
-  copyright: "© 2022 shunkai Inc .All rights reserved",
+  copyright: "© 2026 shunkai Inc .All rights reserved",
   slogan: "您的塑胶模具正确选择",
 };

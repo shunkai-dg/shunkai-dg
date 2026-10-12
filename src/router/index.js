@@ -14,18 +14,18 @@ VueRouter.prototype.push = function push(location) {
 const routes = [
   { path: "/", name: "home", component: () => import("@/views/home/Home.vue") },
   { path: "/home", redirect: "/" },
-  {
-    path: "/join-us",
-    name: "join_us",
-    component: () => import("@/views/join/JoinUs.vue"),
-    meta: { title: "Join Us", titleKey: "common.page.joinUs" },
-  },
-  {
-    path: "/join-us/details",
-    name: "join_us_details",
-    component: () => import("@/views/join/JoinUsDetail.vue"),
-    meta: { title: "Join Us Details", titleKey: "common.page.joinUsDetails" },
-  },
+  // {
+  //   path: "/join-us",
+  //   name: "join_us",
+  //   component: () => import("@/views/join/JoinUs.vue"),
+  //   meta: { title: "Join Us", titleKey: "common.page.joinUs" },
+  // },
+  // {
+  //   path: "/join-us/details",
+  //   name: "join_us_details",
+  //   component: () => import("@/views/join/JoinUsDetail.vue"),
+  //   meta: { title: "Join Us Details", titleKey: "common.page.joinUsDetails" },
+  // },
   {
     path: "/contact-us",
     name: "contact_us",
