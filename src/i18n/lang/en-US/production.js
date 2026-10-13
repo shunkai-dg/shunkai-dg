@@ -8,10 +8,9 @@ export default {
   },
   factory: {
     dongguan: {
-      size: "Factory size : 25000 ㎡",
-      address:
-        "Factory address: No.5 Puxin Road, Keyuancheng Industrial Park, Tangxia Town, Dongguan, Guangdong , China PRC. 523725",
-      capacity: "Total Capacity：800K/Month (Headphones+TWS Earphones)",
+      size: "Factory area: 2000 square meters",
+      address: "Dongguan Shunkai Plastic Co., Ltd. was established in March 2017. It consists of a department for mold design and development/molding production, a department for injection molding, and three departments for assembly and screen printing. ",
+      Capacity: "The main products produced include charging battery casings, charger casings, makeup brush handles, medical device supports, communication electronic products, jewelry boxes, etc.",
     },
     // thailand: {
     //   size: "Factory size: 50000 ㎡ （ Ground Size ）",

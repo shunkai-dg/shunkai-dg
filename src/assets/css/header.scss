@@ -1,4 +1,4 @@
-﻿/* ============================================================
+/* ============================================================
    Product Center 下拉分类菜单
    实际 DOM（HeaderContent/index.vue）：
      .subNav > .subNav_warp > .subnav-section（每个一级） >
@@ -269,6 +269,9 @@
 .shading-menu {
   .shading-center-menu {
     -webkit-overflow-scrolling: touch;
+    /* 抽屉内滚动不传导到背景页面（配合 html.is-scroll-locked 的页面锁） */
+    overscroll-behavior: contain;
+    touch-action: pan-y;
   }
 
   .shading-nav {

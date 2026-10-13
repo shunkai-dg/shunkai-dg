@@ -189,6 +189,7 @@
 import NavMenu from "@/components/NavMenu/index.vue";
 import ProductTreeMenu from "@/components/ProductTreeMenu/index.vue";
 import PreferenceSwitch from "@/components/PreferenceSwitch/index.vue";
+import scrollLock from "@/utils/scrollLock";
 import { navMenus, categoryStore } from "@/utils/navData";
 import logo from "@/assets/img/logo.png";
 import logo1 from "@/assets/img/logo1.png";
@@ -198,6 +199,7 @@ import listUrl from "@/assets/img/list-ul.png";
 export default {
   name: "HeaderContent",
   components: { NavMenu, ProductTreeMenu, PreferenceSwitch },
+  mixins: [scrollLock],
   data() {
     return {
       logo,
@@ -251,6 +253,14 @@ export default {
         this.activeTopId = groups[0].id;
       }
     },
+    // 抽屉开合 → 锁定/解除背景页面滚动（见 mixins/scrollLock）
+    isShading(open) {
+      if (open) {
+        this.lockScroll();
+      } else {
+        this.unlockScroll();
+      }
+    },
   },
   mounted() {
     window.addEventListener("scroll", this.scrollEvent);
@@ -261,6 +271,8 @@ export default {
     window.removeEventListener("scroll", this.scrollEvent);
     window.removeEventListener("resize", this.resizeEvent);
     document.removeEventListener("click", this.onDocumentClick);
+    // 抽屉开着时组件被销毁（如切路由）也要解锁，否则页面永久不能滚动
+    this.unlockScroll();
   },
   methods: {
     // 进入桌面导航（>768px）时自动收起移动端抽屉
