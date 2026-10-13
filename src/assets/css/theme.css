@@ -220,11 +220,11 @@ html.theme-transition *::after {
 }
 
 /* 顶部导航毛玻璃：白模式 rgba(255,255,255,.9)，黑模式 rgba(11,13,16,.85) */
-.shunkai-head,
+/* .shunkai-head,
 .shunkai-header {
   backdrop-filter: saturate(180%) blur(10px);
   -webkit-backdrop-filter: saturate(180%) blur(10px);
-}
+} */
 
 :root .shunkai-head,
 :root .shunkai-header {
