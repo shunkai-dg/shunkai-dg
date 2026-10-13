@@ -44,7 +44,8 @@ const messages = {
 export function detectSystemLocale() {
   const nav =
     (typeof navigator !== "undefined" &&
-      ((navigator.languages && navigator.languages[0]) || navigator.language)) ||
+      ((navigator.languages && navigator.languages[0]) ||
+        navigator.language)) ||
     "";
   return /^zh/i.test(nav) ? LOCALE_ZH : LOCALE_EN;
 }
@@ -84,7 +85,9 @@ export function readLocaleSetting() {
 }
 
 export function normalizeLocaleSetting(setting) {
-  return setting === LOCALE_AUTO || isValidLocale(setting) ? setting : LOCALE_AUTO;
+  return setting === LOCALE_AUTO || isValidLocale(setting)
+    ? setting
+    : LOCALE_AUTO;
 }
 
 const i18n = new VueI18n({

@@ -1,7 +1,7 @@
 ﻿<template>
   <div class="placeholder-page">
     <h2>{{ $route.name }}</h2>
-    <p>{{ $t('placeholder.message') }}</p>
+    <p>{{ $t("placeholder.message") }}</p>
   </div>
 </template>
 

@@ -126,11 +126,7 @@ export function setThemeMode(mode, options) {
 
 /** 系统主题变化监听：仅在「跟随系统」时自动跟随 */
 function bindSystemThemeListener() {
-  if (
-    mediaBound ||
-    typeof window === "undefined" ||
-    !window.matchMedia
-  ) {
+  if (mediaBound || typeof window === "undefined" || !window.matchMedia) {
     return;
   }
   mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");

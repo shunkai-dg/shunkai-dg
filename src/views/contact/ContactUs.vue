@@ -334,10 +334,9 @@ export default {
             this.submitting = false;
           });
       });
-    }, 
-
-    locationSuccess(point, AddressComponent, marker) {
     },
+
+    locationSuccess(point, AddressComponent, marker) {},
 
     handler({ BMap, map }) {
       this.center.lng = 114.10509065644203;

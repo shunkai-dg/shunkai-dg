@@ -77,7 +77,8 @@ export function applyDataLocale(locale) {
   registry.forEach((entry) => {
     const source = zh ? entry.zh : entry.en;
     entry.fields.forEach((field) => {
-      if (entry.view[field] !== source[field]) entry.view[field] = source[field];
+      if (entry.view[field] !== source[field])
+        entry.view[field] = source[field];
     });
   });
 }

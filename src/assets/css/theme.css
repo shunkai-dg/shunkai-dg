@@ -798,9 +798,17 @@ html[data-theme] .breadcrumb_bg {
 /* 富文本里由数据自带的内联高亮（如 <span style="background-color:#ffff00">35dB</span>）：
    高亮底色一律是浅色，夜间把文字压成深色，避免浅字压在亮块上 */
 :root[data-theme="night"] .new_detail_center [style*="background-color"],
-:root[data-theme="night"] .procuct_detail_info .desc [style*="background-color"],
-:root[data-theme="night"] .procuct_detail_info .params [style*="background-color"],
-:root[data-theme="night"] .join-detail-wrapper-text [style*="background-color"] {
+:root[data-theme="night"]
+  .procuct_detail_info
+  .desc
+  [style*="background-color"],
+:root[data-theme="night"]
+  .procuct_detail_info
+  .params
+  [style*="background-color"],
+:root[data-theme="night"]
+  .join-detail-wrapper-text
+  [style*="background-color"] {
   color: var(--brand-text-day) !important;
 }
 /* 首页 */

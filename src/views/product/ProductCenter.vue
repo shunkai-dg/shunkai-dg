@@ -23,7 +23,7 @@
                       class="product_center_l_item_btn"
                       @click="jump(item)"
                     >
-                      {{ $t('common.more') }}
+                      {{ $t("common.more") }}
                     </button>
                     <div class="product_center_l_item_img">
                       <img

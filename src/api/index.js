@@ -43,9 +43,7 @@ export function getImg(data = {}) {
 export function getInfoList(params = {}) {
   let list = localizedNews;
   // 按 top 倒序、sort 正序重新排序
-  list = list
-  .slice()
-  .sort((a, b) => {
+  list = list.slice().sort((a, b) => {
     const topDiff = (Number(b.top) || 0) - (Number(a.top) || 0);
     if (topDiff !== 0) return topDiff;
     return (Number(a.sort) || 0) - (Number(b.sort) || 0);
@@ -91,7 +89,7 @@ export function getProductList(params = {}) {
   // is_top 仅取前几条作为推荐
   if (params.is_top === 1) {
     list = list.filter((p) => p.is_top === 1);
-  }else if(params.is_top === 0){
+  } else if (params.is_top === 0) {
     list = list.slice(0, 4);
   }
   return ok(paginate(list, params));

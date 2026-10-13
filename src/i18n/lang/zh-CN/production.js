@@ -9,7 +9,8 @@ export default {
   factory: {
     dongguan: {
       size: "工厂面积：25000 ㎡",
-      address: "工厂地址：中国广东省东莞市塘厦镇科苑城工业园普新路 5 号，邮编 523725",
+      address:
+        "工厂地址：中国广东省东莞市塘厦镇科苑城工业园普新路 5 号，邮编 523725",
       capacity: "总产能：80 万只/月（头戴耳机+TWS 耳机）",
     },
     // thailand: {

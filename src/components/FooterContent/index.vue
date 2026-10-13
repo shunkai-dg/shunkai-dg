@@ -14,15 +14,25 @@
               <p>{{ $t("footer.scanQrcode") }}</p>
               <span v-if="info.wechat_id">{{ info.wechat_id }}</span>
             </div>
-            <button slot="reference" type="button" class="shunkai-footer-contact-btn"
-              :aria-label="$t('footer.contactWechat')" :title="$t('footer.contactWechat')">
+            <button
+              slot="reference"
+              type="button"
+              class="shunkai-footer-contact-btn"
+              :aria-label="$t('footer.contactWechat')"
+              :title="$t('footer.contactWechat')"
+            >
               <svg-icon icon-class="wechat" />
             </button>
           </el-popover>
 
           <!-- Facebook：点击跳转外链 -->
-          <button type="button" class="shunkai-footer-contact-btn" :aria-label="$t('footer.contactFacebook')"
-            :title="$t('footer.contactFacebook')" @click="openFacebook">
+          <button
+            type="button"
+            class="shunkai-footer-contact-btn"
+            :aria-label="$t('footer.contactFacebook')"
+            :title="$t('footer.contactFacebook')"
+            @click="openFacebook"
+          >
             <svg-icon icon-class="facebook" />
           </button>
 
@@ -32,8 +42,13 @@
               <img :src="channelsQrUrl" alt="channels" />
               <p>{{ $t("footer.scanChannels") }}</p>
             </div>
-            <button slot="reference" type="button" class="shunkai-footer-contact-btn"
-              :aria-label="$t('footer.contactChannels')" :title="$t('footer.contactChannels')">
+            <button
+              slot="reference"
+              type="button"
+              class="shunkai-footer-contact-btn"
+              :aria-label="$t('footer.contactChannels')"
+              :title="$t('footer.contactChannels')"
+            >
               <svg-icon icon-class="channels" />
             </button>
           </el-popover>
@@ -43,8 +58,13 @@
             <div class="shunkai-footer-pop shunkai-footer-pop--text">
               <span>{{ info.telephone }}</span>
             </div>
-            <button slot="reference" type="button" class="shunkai-footer-contact-btn"
-              :aria-label="$t('footer.contactPhone')" :title="$t('footer.contactPhone')">
+            <button
+              slot="reference"
+              type="button"
+              class="shunkai-footer-contact-btn"
+              :aria-label="$t('footer.contactPhone')"
+              :title="$t('footer.contactPhone')"
+            >
               <svg-icon icon-class="phone-icon" />
             </button>
           </el-popover>
@@ -53,7 +73,11 @@
 
       <!-- 导航：>750px 显示分组；<=750px 换成一行快速导航 -->
       <span class="shunkai-footer-wrapper">
-        <div class="shunkai-footer-wrapper-item" v-for="(g, gi) in groups" :key="gi">
+        <div
+          class="shunkai-footer-wrapper-item"
+          v-for="(g, gi) in groups"
+          :key="gi"
+        >
           <h4 class="content font-bold">{{ $label(g) }}</h4>
           <ul>
             <li v-for="(c, ci) in g.childer" :key="ci">
@@ -69,8 +93,11 @@
       </ul>
     </div>
     <div class="shunkai-footer-page">
-      <div class="shunkai-footer-page-l">{{ $t("footer.copyright") }}
-        <a href="https://beian.miit.gov.cn/" target="_blank">京ICP备XXXXXXXX号</a>
+      <div class="shunkai-footer-page-l">
+        {{ $t("footer.copyright") }}
+        <a href="https://beian.miit.gov.cn/" target="_blank"
+          >京ICP备XXXXXXXX号</a
+        >
       </div>
       <div class="shunkai-footer-page-r">{{ $t("footer.slogan") }}</div>
     </div>
@@ -90,7 +117,6 @@ import logo1 from "@/assets/img/logo1.png";
 // 1px 透明 gif：设置接口未就绪 / 未配置二维码时占位，避免请求 .../undefined
 const EMPTY_IMG =
   "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==";
-
 
 export default {
   name: "FooterContent",

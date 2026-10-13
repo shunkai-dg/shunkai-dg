@@ -2,8 +2,7 @@ export default {
   title: "联系我们",
   info: {
     chinaAddressTitle: "公司地址（中国）",
-    chinaAddress:
-      "东莞塘厦莲湖西路7号",
+    chinaAddress: "东莞塘厦莲湖西路7号",
     telephoneTitle: "电话",
     telephone: "+86 13712578616",
     mailboxTitle: "邮箱",

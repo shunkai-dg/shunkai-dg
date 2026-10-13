@@ -3,7 +3,11 @@
     <Breadcrumb class="breadcrumb_bg" />
     <div class="about_shunkai_warp">
       <ul class="about_shunkai_list">
-        <li v-for="(item, index) in list" :key="index" class="about_shunkai_item">
+        <li
+          v-for="(item, index) in list"
+          :key="index"
+          class="about_shunkai_item"
+        >
           <div class="about_shunkai_item_r">
             <p class="about_shunkai_item_tip">{{ item.introduction }}</p>
             <div class="about_shunkai_item_title">

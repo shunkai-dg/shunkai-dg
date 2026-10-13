@@ -10,23 +10,23 @@
         <div class="new_detail_center" v-html="getInfoDetail.content"></div>
         <div class="new_detail_page">
           <p>
-            {{ $t('news.detail.prev') }}
+            {{ $t("news.detail.prev") }}
             <span v-if="previous" class="text" @click="jump('previous')">{{
               previous.title
             }}</span>
-            <span v-else>{{ $t('common.noData') }}</span>
+            <span v-else>{{ $t("common.noData") }}</span>
           </p>
           <p>
-            {{ $t('news.detail.next') }}
+            {{ $t("news.detail.next") }}
             <span v-if="next" class="text" @click="jump('next')">{{
               next.title
             }}</span>
-            <span v-else>{{ $t('common.noData') }}</span>
+            <span v-else>{{ $t("common.noData") }}</span>
           </p>
         </div>
         <div class="divide_line"></div>
         <div class="new_detail_btn">
-          <button @click="jumpGo">{{ $t('news.detail.backToList') }}</button>
+          <button @click="jumpGo">{{ $t("news.detail.backToList") }}</button>
         </div>
       </div>
     </div>

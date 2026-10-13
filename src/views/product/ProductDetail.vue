@@ -124,7 +124,7 @@
                     <div class="desc" v-html="detailData.descr"></div>
                     <div class="params" v-html="detailData.params"></div>
                     <button class="procuct_detail_info_btn" @click="jump">
-                      {{ $t('product.detail.contact') }}
+                      {{ $t("product.detail.contact") }}
                     </button>
                   </div>
                 </el-col>
@@ -139,7 +139,7 @@
                     <div class="desc" v-html="detailData.descr"></div>
                     <div class="params" v-html="detailData.params"></div>
                     <button class="procuct_detail_info_btn" @click="jump">
-                      {{ $t('product.detail.contact') }}
+                      {{ $t("product.detail.contact") }}
                     </button>
                   </div>
                 </el-col>
@@ -582,7 +582,7 @@ export default {
   width: 100%;
   height: 100%;
   max-height: 400px;
-  object-fit: contain;   /* 此时才真正生效 */
+  object-fit: contain; /* 此时才真正生效 */
 }
 
 .procuct_detail .procuct_detail_content .procuct_detail_l .big {

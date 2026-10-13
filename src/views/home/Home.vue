@@ -25,8 +25,12 @@
             <div class="product_center_l_item_img">
               <p class="loop-item_title">{{ item.title }}</p>
               <p class="loop-item_desc">{{ item.sub_title }}</p>
-              <img class="loop-item_img" v-if="item.imgs && item.imgs[0]" :src="RESOURCE_BASE_URL + item.imgs[0]"
-                alt="" />
+              <img
+                class="loop-item_img"
+                v-if="item.imgs && item.imgs[0]"
+                :src="RESOURCE_BASE_URL + item.imgs[0]"
+                alt=""
+              />
               <button class="loop-item_btn" @click="jumpProductDetail(item)">
                 {{ $t("common.more") }}
               </button>
@@ -37,10 +41,20 @@
     </div>
     <!-- 3. 产品介绍区（硬编码数据，非接口） -->
     <div class="home_product">
-      <div class="product_item" v-for="item in productsIntroduce" :key="item.id">
+      <div
+        class="product_item"
+        v-for="item in productsIntroduce"
+        :key="item.id"
+      >
         <div class="product_bg">
-          <div class="product_bg_img product_bg_max_img" :style="{ backgroundImage: 'url(' + item.url + ')' }"></div>
-          <div class="product_bg_img product_bg_min_img" :style="{ backgroundImage: 'url(' + item.minUrl + ')' }"></div>
+          <div
+            class="product_bg_img product_bg_max_img"
+            :style="{ backgroundImage: 'url(' + item.url + ')' }"
+          ></div>
+          <div
+            class="product_bg_img product_bg_min_img"
+            :style="{ backgroundImage: 'url(' + item.minUrl + ')' }"
+          ></div>
           <div class="product_bg_color"></div>
         </div>
         <div class="product_wrapper">

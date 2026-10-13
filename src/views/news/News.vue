@@ -10,10 +10,12 @@
                 <img :src="item.cover" />
               </div>
               <div class="new_item_r">
-                <p class="new_item_news">{{ $t('news.title') }}</p>
+                <p class="new_item_news">{{ $t("news.title") }}</p>
                 <p class="new_item_r_tit">{{ item.title }}</p>
                 <p class="new_item_r_desc">{{ item.descr }}</p>
-                <button class="new_item_r_btn" @click="jump(item)">{{ $t('common.more') }}</button>
+                <button class="new_item_r_btn" @click="jump(item)">
+                  {{ $t("common.more") }}
+                </button>
               </div>
             </div>
           </li>

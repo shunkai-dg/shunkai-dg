@@ -227,8 +227,7 @@ export default {
     currentSubGroups() {
       const groups = this.topLevelGroups;
       if (!groups.length) return [];
-      const g =
-        groups.find((t) => t.id === this.activeTopId) || groups[0];
+      const g = groups.find((t) => t.id === this.activeTopId) || groups[0];
       return g.subGroups || [];
     },
     // 抽屉内产品分类树：一级 → 二级 subGroups → 三级/四级 childer

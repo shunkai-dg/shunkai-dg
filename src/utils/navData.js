@@ -4,11 +4,11 @@ import { getCategory } from "@/api";
 
 const icons = {
   consumerHeadphone: require("@/assets/img/navData1.png"),
-  consumerTWS:       require("@/assets/img/navData2.png"),
-  consumerConference:require("@/assets/img/navData3.png"),
+  consumerTWS: require("@/assets/img/navData2.png"),
+  consumerConference: require("@/assets/img/navData3.png"),
   industrialHeadphone: require("@/assets/img/navData4.png"),
-  industrialInEar:   require("@/assets/img/navData5.png"),
-  industrialOthers:  require("@/assets/img/navData6.png"),
+  industrialInEar: require("@/assets/img/navData5.png"),
+  industrialOthers: require("@/assets/img/navData6.png"),
 };
 // 二级分组按原静态树位置对应的图标（保证头部悬浮面板显示不变）
 const GROUP_ICONS = [
@@ -79,14 +79,14 @@ export const fast_navigation = {
       path: "/contact-us",
       name: "contact_us",
       id: "fast_navigation",
-      isMinNav: false,
+      // isMinNav: false,
       // childer: [
-        // {
-        //   title: "Join Us",
-        //   i18nKey: "header.nav.joinUs",
-        //   path: "/join-us",
-        //   name: "join_us",
-        // },
+      // {
+      //   title: "Join Us",
+      //   i18nKey: "header.nav.joinUs",
+      //   path: "/join-us",
+      //   name: "join_us",
+      // },
       // ],
     },
   ],

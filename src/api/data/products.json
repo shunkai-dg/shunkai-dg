@@ -32,9 +32,7 @@
       "cat_two": 3,
       "cat_three": 10,
       "cat_four": 28,
-      "imgs": [
-        "img_data/products/p2.svg"
-      ],
+      "imgs": ["img_data/products/p2.svg"],
       "descr": "<p>Engineered for <strong>noisy industrial environments</strong>, the ASK-250 uses a noise immune microphone and delivers crystal clear two-way communication.</p><ol><li>PTT one-touch transmit</li><li>IP54 dust and splash resistant</li><li>Wearable boom mic</li></ol><pre><code>PTT_MODES = [\"push\", \"voice\"]\nradio.connect(device=\"ASK-250\")</code></pre>",
       "descr_zh": "<p>ASK-250 专为<strong>高噪声工业环境</strong>打造，采用抗噪麦克风，双向对讲清晰稳定。</p><ol><li>PTT 一键发射</li><li>IP54 防尘防溅</li><li>可佩戴式麦克风杆</li></ol><pre><code>PTT_MODES = [\"push\", \"voice\"]\nradio.connect(device=\"ASK-250\")</code></pre>",
       "params": "<table><tbody><tr><td>Protection</td><td>IP54</td></tr><tr><td>Frequency</td><td>VHF/UHF</td></tr><tr><td>Mic</td><td>Noise-immune electret</td></tr></tbody></table>",
@@ -51,9 +49,7 @@
       "cat_two": 3,
       "cat_three": 10,
       "cat_four": 29,
-      "imgs": [
-        "img_data/products/p3.svg"
-      ],
+      "imgs": ["img_data/products/p3.svg"],
       "descr": "<p>The <strong>ASK-300</strong> is built for competitive gaming with <em>2.4GHz low-latency</em> connection and virtual surround sound.</p><ul><li>17ms ultra-low latency</li><li>42mm drivers</li><li>Detachable noise-cancelling mic</li></ul>",
       "descr_zh": "<p><strong>ASK-300</strong> 为竞技游戏而生，采用 <em>2.4GHz 低延迟</em>连接与虚拟环绕声。</p><ul><li>17ms 超低延迟</li><li>42mm 驱动单元</li><li>可拆卸降噪麦克风</li></ul>",
       "params": "<table><tbody><tr><td>Latency</td><td>17ms</td></tr><tr><td>Impedance</td><td>32Ω</td></tr><tr><td>RGB</td><td>Aura sync</td></tr></tbody></table>",
@@ -70,9 +66,7 @@
       "cat_two": 3,
       "cat_three": 9,
       "cat_four": 0,
-      "imgs": [
-        "img_data/products/p4.svg"
-      ],
+      "imgs": ["img_data/products/p4.svg"],
       "descr": "<p>True wireless earphones with <strong>touch control</strong> and <span style=\"color: #e03a3c;\">crystal clear</span> sound. <span style=\"background-color: #00ff00;\">IPX5</span> sweat resistant.</p>",
       "descr_zh": "<p>真无线耳机，支持<strong>触控操作</strong>，<span style=\"color: #e03a3c;\">音质通透</span>；<span style=\"background-color: #00ff00;\">IPX5</span> 级防汗。</p>",
       "params": "<table><tbody><tr><td>Driver</td><td>10mm</td></tr><tr><td>Playtime</td><td>6h + 24h case</td></tr><tr><td>Rating</td><td>IPX5</td></tr></tbody></table>",
@@ -89,9 +83,7 @@
       "cat_two": 3,
       "cat_three": 9,
       "cat_four": 0,
-      "imgs": [
-        "img_data/products/p5.svg"
-      ],
+      "imgs": ["img_data/products/p5.svg"],
       "descr": "<p>Wearable neckband with <strong>built-in AI assistant</strong> and a feather-light design at only <u>28g</u>.</p><blockquote>All-day comfort for calls and music.</blockquote>",
       "descr_zh": "<p>颈挂式穿戴耳机，内置 <strong>AI 语音助手</strong>，整机仅 <u>28g</u>，佩戴轻若无物。</p><blockquote>全天候舒适佩戴，通话与音乐兼顾。</blockquote>",
       "params": "<table><tbody><tr><td>Weight</td><td>28g</td></tr><tr><td>Battery</td><td>30h</td></tr><tr><td>Blooth</td><td>5.3</td></tr></tbody></table>",

@@ -1,12 +1,17 @@
 ﻿<template>
   <div>
     <div class="product-list">
-      <p>{{ $t('product.list.searchResult') }}</p>
+      <p>{{ $t("product.list.searchResult") }}</p>
     </div>
     <div class="product_center_list">
       <div class="container">
         <ul>
-          <li v-for="(item, index) in list" :key="index" class="product_center_l_item" @click="jumpProductDetail(item)">
+          <li
+            v-for="(item, index) in list"
+            :key="index"
+            class="product_center_l_item"
+            @click="jumpProductDetail(item)"
+          >
             <div class="product_center_l_item_wrapper">
               <div class="product_center_l_item_f">
                 <h4 class="product_center_l_item_title">{{ item.title }}</h4>
@@ -140,13 +145,19 @@ export default {
   position: relative;
 }
 
-.product_center_list .product_center_l_item .product_center_l_item_wrapper .product_center_l_item_title {
+.product_center_list
+  .product_center_l_item
+  .product_center_l_item_wrapper
+  .product_center_l_item_title {
   padding: 5px 0 0 0;
   font-size: 20px;
   line-height: 1.5;
 }
 
-.product_center_list .product_center_l_item .product_center_l_item_wrapper .product_center_l_item_desc {
+.product_center_list
+  .product_center_l_item
+  .product_center_l_item_wrapper
+  .product_center_l_item_desc {
   margin-top: 20px;
   padding-bottom: 5px;
   margin-top: 0;
@@ -156,7 +167,10 @@ export default {
   text-align: center;
 }
 
-.product_center_list .product_center_l_item .product_center_l_item_wrapper .product_center_l_item_img {
+.product_center_list
+  .product_center_l_item
+  .product_center_l_item_wrapper
+  .product_center_l_item_img {
   display: table;
   table-layout: fixed;
   width: 100%;
@@ -166,7 +180,11 @@ export default {
   justify-content: center;
 }
 
-.product_center_list .product_center_l_item .product_center_l_item_wrapper .product_center_l_item_img img {
+.product_center_list
+  .product_center_l_item
+  .product_center_l_item_wrapper
+  .product_center_l_item_img
+  img {
   height: auto;
   width: 100%;
   object-fit: contain;

@@ -9,7 +9,8 @@ export default {
   factory: {
     dongguan: {
       size: "Factory size : 25000 ㎡",
-      address: "Factory address: No.5 Puxin Road, Keyuancheng Industrial Park, Tangxia Town, Dongguan, Guangdong , China PRC. 523725",
+      address:
+        "Factory address: No.5 Puxin Road, Keyuancheng Industrial Park, Tangxia Town, Dongguan, Guangdong , China PRC. 523725",
       capacity: "Total Capacity：800K/Month (Headphones+TWS Earphones)",
     },
     // thailand: {

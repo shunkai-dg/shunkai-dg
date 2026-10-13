@@ -39,7 +39,6 @@ Vue.use(VueJsonp);
 // 语言：需在 Vue.use(ElementUI) 之后应用，以便同步 ElementUI 内置文案
 initLocale();
 
-
 // SvgIcon 全局注册 + svg sprite（symbolId: icon-[name]）
 const req = require.context("@/assets/icons/svg", false, /\.svg$/);
 req.keys().forEach(req);
@@ -55,6 +54,6 @@ new Vue({
 // 启动时加载分类树（头部/页脚/产品中心等消费 categoryStore）
 loadCategories().catch(() => {});
 
-Vue.use(BaiduMap, {ak: "iHQGprnI0bwcatMOA7R0Pk6FvcUG1ASy",});
+Vue.use(BaiduMap, { ak: "iHQGprnI0bwcatMOA7R0Pk6FvcUG1ASy" });
 // ak 沿用产物中硬编码的 key（规格文档第五节）
 // Vue.use(preview, { ak: "iHQGprnI0bwcatMOA7R0Pk6FvcUG1ASy" });

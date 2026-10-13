@@ -11,7 +11,7 @@
         <div class="r_d_conter_warp warp">
           <div class="r_d_conter_container container">
             <div class="shunkai-title">
-              <p>{{ $t('rd.development.title') }}</p>
+              <p>{{ $t("rd.development.title") }}</p>
             </div>
 
             <!-- 桌面端 -->
@@ -198,11 +198,17 @@
       </div>
     </div>
     <!-- 2. Equipments -->
-    <div v-if="equipment && equipment.length > 0" class="r_d_conter_equipment" :style="{ backgroundImage: `url(${bgEquip})` }">
+    <div
+      v-if="equipment && equipment.length > 0"
+      class="r_d_conter_equipment"
+      :style="{ backgroundImage: `url(${bgEquip})` }"
+    >
       <div class="img1">
         <div class="r_d_conter_warp warp">
           <div class="r_d_conter_container container">
-            <div class="shunkai-title"><p>{{ $t('rd.equipment.title') }}</p></div>
+            <div class="shunkai-title">
+              <p>{{ $t("rd.equipment.title") }}</p>
+            </div>
             <ul class="r_d_conter_equipment_list">
               <li v-for="(item, index) in equipment" :key="index">
                 <div class="r_d_conter_equipment_list_item">
@@ -218,11 +224,16 @@
       </div>
     </div>
     <!-- 3. Intellectual Property -->
-    <div class="r_d_conter_property" :style="{ backgroundImage: `url(${bgProperty})` }">
+    <div
+      class="r_d_conter_property"
+      :style="{ backgroundImage: `url(${bgProperty})` }"
+    >
       <div class="img1">
         <div class="warp">
           <div class="container">
-            <div class="shunkai-title"><p>{{ $t('rd.property.title') }}</p></div>
+            <div class="shunkai-title">
+              <p>{{ $t("rd.property.title") }}</p>
+            </div>
 
             <!-- 桌面端 -->
             <div class="r_d_conter_property_main">
@@ -234,7 +245,7 @@
                   :class="[activeIndex === index && 'property_tabs_btn_active']"
                   @click="tabs(index)"
                 >
-                  {{ $t('rd.property.tabs.' + item.key) }}
+                  {{ $t("rd.property.tabs." + item.key) }}
                 </button>
               </div>
 
@@ -300,7 +311,9 @@
       <div class="img1">
         <div class="r_d_conter_warp warp">
           <div class="r_d_conter_container container">
-            <div class="shunkai-title"><p>{{ $t('rd.qualification.title') }}</p></div>
+            <div class="shunkai-title">
+              <p>{{ $t("rd.qualification.title") }}</p>
+            </div>
             <ul class="r_d_conter_qualification_list">
               <li v-for="(item, index) in qualification" :key="index">
                 <div class="r_d_conter_qualification_list_item">
@@ -400,23 +413,23 @@ export default {
     },
     getImgData({ n, type }) {
       return getImg({ type }).then((res) => {
-      const data = res.data || [];
-      if (n) this[n] = data;
-      return data;
+        const data = res.data || [];
+        if (n) this[n] = data;
+        return data;
       });
     },
     getPropertyData() {
-    Promise.all(
-      PROPERTY_TABS.map(({ key, type }) =>
-        this.getImgData({ type }).then((list) => ({ key, list }))
-      )
-    ).then((data) => {
-      this.propertyData = data;
-    });
-  },
-  tabs(index) {
-    this.activeIndex = index;
-  },
+      Promise.all(
+        PROPERTY_TABS.map(({ key, type }) =>
+          this.getImgData({ type }).then((list) => ({ key, list })),
+        ),
+      ).then((data) => {
+        this.propertyData = data;
+      });
+    },
+    tabs(index) {
+      this.activeIndex = index;
+    },
     clickIcon(type) {
       const len = this.stepList.length;
       const px = (refName) => {
