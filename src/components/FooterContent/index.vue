@@ -95,9 +95,6 @@
     <div class="shunkai-footer-page">
       <div class="shunkai-footer-page-l">
         {{ $t("footer.copyright") }}
-        <a href="https://beian.miit.gov.cn/" target="_blank"
-          >京ICP备XXXXXXXX号</a
-        >
       </div>
       <div class="shunkai-footer-page-r">{{ $t("footer.slogan") }}</div>
     </div>

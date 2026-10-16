@@ -60,9 +60,43 @@ export function getInfoView(data = {}) {
   return ok(item);
 }
 
-// 提交联系（本地直接返回成功，不再请求外部）
+// Pageclip 写入配置：siteKey 是公开的写入令牌（只写、不读），表单名 Contact。
+// public/index.html 中已引入 https://s.pageclip.co/v1/pageclip.js，暴露 window.Pageclip。
+const PAGECLIP_SITE_KEY = "e3vqonw5pA6peER9ooUZEEwQtG9SYGjC";
+const PAGECLIP_FORM_NAME = "Contact";
+const PAGECLIP_ENDPOINT = `https://send.pageclip.co/${PAGECLIP_SITE_KEY}/${PAGECLIP_FORM_NAME}`;
+
+// 提交联系表单：数据写入 Pageclip，成功后保持原有 { code: 40000 } 约定
 export function setInfoContact(data) {
-  return Promise.resolve({ code: 40000, message: "success" });
+  const payload = {
+    name: data.name || "",
+    mobile: data.mobile || "",
+    email: data.email || "",
+    content: data.content || "",
+  };
+
+  // 优先使用官方 JS 库，它通过 XHR 以 JSON 提交
+  const pageclip = typeof window !== "undefined" && window.Pageclip;
+  if (pageclip && typeof pageclip.send === "function") {
+    return new Promise((resolve, reject) => {
+      pageclip.send(PAGECLIP_SITE_KEY, PAGECLIP_FORM_NAME, payload, (error) => {
+        if (error) reject(new Error(error.message || "Pageclip send failed"));
+        else resolve({ code: 40000, message: "success" });
+      });
+    });
+  }
+
+  // 兜底：若脚本被拦截/未加载，直接以表单编码 POST（无预检），并请求 JSON 响应
+  const body = new URLSearchParams();
+  Object.keys(payload).forEach((key) => body.append(key, payload[key]));
+  return fetch(PAGECLIP_ENDPOINT, {
+    method: "POST",
+    headers: { Accept: "application/json" },
+    body,
+  }).then((res) => {
+    if (!res.ok) throw new Error(`Pageclip request failed: ${res.status}`);
+    return { code: 40000, message: "success" };
+  });
 }
 
 // 产品列表（支持 keyword / cat_id / is_top）

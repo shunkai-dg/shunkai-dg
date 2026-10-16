@@ -7,6 +7,8 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
   <link rel="icon" href="/logo.png">
   <title>shunkai-dg.cn</title>
+  <!-- Pageclip：仅在使用其内置加载动画/成功提示时才需要，本项目保留了自己的提示弹窗 -->
+  <link rel="stylesheet" href="https://s.pageclip.co/v1/pageclip.css" media="screen">
   <script>
     /* 首屏前置脚本：在样式/脚本加载前确定「昼夜」主题与语言，
        避免先渲染浅色再跳深色（或反向）的闪烁。
@@ -58,5 +60,8 @@
     <strong>We're sorry but problem-feedback doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
   </noscript>
   <div id="app"></div>
+  <!-- Pageclip：提供 window.Pageclip，用于把表单数据提交到 Pageclip
+       https://s.pageclip.co/v1/pageclip.js -->
+  <script src="https://s.pageclip.co/v1/pageclip.js" charset="utf-8"></script>
 </body>
 </html>
