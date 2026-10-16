@@ -1,7 +1,8 @@
-﻿<template>
+<template>
   <div>
     <Breadcrumb class="breadcrumb_bg" />
     <div class="about_shunkai_warp">
+      <!-- 1. 工厂简介 + 生产能力（原「生产制造」页核心内容已合并到此） -->
       <ul class="about_shunkai_list">
         <li
           v-for="(item, index) in list"
@@ -14,6 +15,13 @@
               <p>{{ item.title }}</p>
             </div>
             <p class="about_shunkai_item_desc">{{ item.desc }}</p>
+            <!-- 第 2 段（生产能力）附工厂关键数据 -->
+            <ul v-if="item.stats" class="about_shunkai_item_stats">
+              <li v-for="(s, si) in item.stats" :key="si">
+                <strong>{{ s.value }}</strong>
+                <span>{{ s.label }}</span>
+              </li>
+            </ul>
           </div>
           <div class="about_shunkai_item_l">
             <img class="about_shunkai_item_img_max" :src="item.url" />
@@ -22,22 +30,27 @@
         </li>
       </ul>
 
-      <div class="about_shunkai_company_honor">
+      <!-- 2. 生产设备与产能（车间实拍，点击放大） -->
+      <div class="about_shunkai_equipment">
         <div class="container">
           <div class="shunkai-title">
-            <p>{{ $t("about.honor.title") }}</p>
+            <p>{{ $t("about.equipment.title") }}</p>
           </div>
+          <p class="about_shunkai_equipment_desc">
+            {{ $t("about.equipment.desc") }}
+          </p>
           <ul class="about_shunkai_company_honor_list">
-            <li v-for="(item, index) in company_honor" :key="index">
+            <li v-for="(item, index) in equipment" :key="index">
               <img
-                :src="item.img_path"
-                @click="openPreviewPicture(company_honor, index, 'img_path')"
+                :src="RESOURCE_BASE_URL + item.img_path"
+                @click="openPreviewPicture(equipment, index, 'img_path')"
               />
             </li>
           </ul>
         </div>
       </div>
 
+      <!-- 3. 资质认证（精简：营业执照 / 守合同重信用 / ISO9001 / RoHS 统一成一面资质墙） -->
       <div class="about_shunkai_certifications">
         <div class="container">
           <div class="shunkai-title">
@@ -46,7 +59,7 @@
           <ul class="about_shunkai_company_honor_list">
             <li v-for="(item, index) in certifications" :key="index">
               <img
-                :src="item.img_path"
+                :src="RESOURCE_BASE_URL + item.img_path"
                 @click="openPreviewPicture(certifications, index, 'img_path')"
               />
             </li>
@@ -54,6 +67,7 @@
         </div>
       </div>
 
+      <!-- 4. 服务优势 -->
       <div class="about_shunkai_service_advantage">
         <div class="img1">
           <div class="container">
@@ -102,6 +116,17 @@
           </div>
         </div>
       </div>
+
+      <!-- 5. 联系入口 -->
+      <div class="about_shunkai_contact">
+        <p class="about_shunkai_contact_title">
+          {{ $t("about.contact.title") }}
+        </p>
+        <p class="about_shunkai_contact_desc">{{ $t("about.contact.desc") }}</p>
+        <button class="about_shunkai_contact_btn" @click="jumpContact">
+          {{ $t("about.contact.button") }}
+        </button>
+      </div>
     </div>
 
     <ImagePreview
@@ -121,16 +146,17 @@ import Breadcrumb from "@/components/Breadcrumb";
 import ImagePreview from "@/components/ImagePreview";
 import { getImg } from "@/api/index";
 
-// 静态图（原 chunk 资源映射）
-import aboutImg1 from "@/assets/img/aboutImg1.png";
-import aboutMin1 from "@/assets/img/min1.png";
-import aboutImg2 from "@/assets/img/aboutImg2.png";
-import aboutMin2 from "@/assets/img/min2.png";
-import aboutImg3 from "@/assets/img/aboutImg3.png";
-import aboutMin3 from "@/assets/img/min3.png";
 import advImg1 from "@/assets/img/advImg1.png";
 import advImg2 from "@/assets/img/advImg2.png";
 import advImg3 from "@/assets/img/advImg3.png";
+import { RESOURCE_BASE_URL } from "@/utils/resource";
+
+// 车间实拍直接取 img_data 静态目录（构建时原样复制到 dist），
+// 与首页工厂实力区共用同一批图片，避免继续沿用音频时代的旧配图。
+const factoryImg = "img_data/factory/mould-workshop.jpg";
+const factorySmall = "img_data/equipment/injection-workshop.jpg";
+const capacityImg = "img_data/factory/injection-machines.jpg";
+const capacitySmall = "img_data/equipment/injection-line.jpg";
 
 export default {
   name: "Aboutshunkai",
@@ -141,27 +167,60 @@ export default {
       pictureVisible: false,
       k: "",
       activeIndex: 0,
-      company_honor: [],
+      // 资质墙：营业执照/守合同重信用（type 9）+ ISO9001/RoHS（type 14）
       certifications: [],
+      // 生产设备实拍（type 3）
+      equipment: [],
       advImg1,
       advImg2,
       advImg3,
       // 图文介绍的图片（文案见 computed.list，走 i18n）
+      // 第 1 段=工厂简介，第 2 段=生产能力（原生产制造页内容）
       introImgs: [
-        { url: aboutImg1, minUrl: aboutMin1 },
-        { url: aboutImg2, minUrl: aboutMin2 },
-        { url: aboutImg3, minUrl: aboutMin3 },
+        {
+          url: RESOURCE_BASE_URL + factoryImg,
+          minUrl: RESOURCE_BASE_URL + factorySmall,
+          key: "factory",
+          stats: false,
+        },
+        {
+          url: RESOURCE_BASE_URL + capacityImg,
+          minUrl: RESOURCE_BASE_URL + capacitySmall,
+          key: "capacity",
+          stats: true,
+        },
       ],
     };
   },
   computed: {
-    // 图文介绍：图片取静态资源，文案取 about.intro.item*（语言切换时自动更新）
+    // 资源前缀常量：放在 computed 而不是 data，避免模板里出现未定义变量
+    RESOURCE_BASE_URL() {
+      return RESOURCE_BASE_URL;
+    },
+    // 图文介绍：图片取静态资源，文案取 about.intro.*（语言切换时自动更新）
     list() {
-      return this.introImgs.map((image, index) => {
-        const item = "about.intro.item" + (index + 1);
+      return this.introImgs.map((image) => {
+        const item = "about.intro." + image.key;
+        const stats = image.stats
+          ? [
+              {
+                value: this.$t("about.intro.capacity.stats.area.value"),
+                label: this.$t("about.intro.capacity.stats.area.label"),
+              },
+              {
+                value: this.$t("about.intro.capacity.stats.machines.value"),
+                label: this.$t("about.intro.capacity.stats.machines.label"),
+              },
+              {
+                value: this.$t("about.intro.capacity.stats.mouldLife.value"),
+                label: this.$t("about.intro.capacity.stats.mouldLife.label"),
+              },
+            ]
+          : null;
         return {
           url: image.url,
           minUrl: image.minUrl,
+          stats,
           introduction: this.$t(item + ".introduction"),
           title: this.$t(item + ".title"),
           desc: this.$t(item + ".desc"),
@@ -170,14 +229,23 @@ export default {
     },
   },
   created() {
-    this.getImgData({ n: "company_honor", type: 13 });
-    this.getImgData({ n: "certifications", type: 14 });
+    this.getImgData({ n: "equipment", type: 3 });
+    this.getImgData({ n: "certifications", type: 9 });
+    this.getImgData({ n: "certCerts", type: 14, append: true });
   },
   methods: {
-    getImgData({ n, type }) {
+    getImgData({ n, type, append }) {
       getImg({ type }).then((res) => {
-        this[n] = res.data || [];
+        const data = res.data || [];
+        if (append) {
+          this[n] = (this[n] || []).concat(data);
+        } else {
+          this[n] = data;
+        }
       });
+    },
+    jumpContact() {
+      this.$router.push({ name: "contact_us" });
     },
     openPreviewPicture(list, index = 0, k) {
       this.pictureVisible = true;
@@ -207,7 +275,7 @@ $theme-blue: var(--accent);
 $bg-gray: var(--bg);
 
 /* =========================================================
- * 一、图文介绍
+ * 一、图文介绍（工厂简介 + 生产能力）
  *
  * 图片切换规则：
  *   .about_shunkai_item_img_max —— PC 端大图（默认显示）
@@ -222,6 +290,9 @@ $bg-gray: var(--bg);
   display: flex;
   flex-direction: column;
   width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
 .about_shunkai_item {
@@ -267,16 +338,17 @@ $bg-gray: var(--bg);
     font-size: 30px;
     font-weight: 700;
     line-height: 1;
+    color: var(--text-strong);
+  }
 
-    &::after {
-      content: "";
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 60px;
-      height: 2px;
-      background-color: $theme-blue;
-    }
+  .about_shunkai_item_title::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 60px;
+    height: 2px;
+    background-color: $theme-blue;
   }
 
   .about_shunkai_item_desc {
@@ -286,6 +358,41 @@ $bg-gray: var(--bg);
     font-style: normal;
     color: var(--text-muted);
     font-family: effra, sans-serif;
+  }
+
+  /* ---------- 关键数据（仅生产能力段） ---------- */
+  .about_shunkai_item_stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 18px 0 30px;
+    padding: 0;
+    list-style: none;
+
+    li {
+      flex: 1 1 120px;
+      min-width: 0;
+      padding: 12px 14px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    strong {
+      display: block;
+      font-size: 20px;
+      line-height: 1.2;
+      color: var(--accent-text);
+    }
+
+    span {
+      display: block;
+      margin-top: 4px;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
   }
 
   /* ---------- 图片区 ---------- */
@@ -312,14 +419,23 @@ $bg-gray: var(--bg);
 }
 
 /* =========================================================
- * 二、荣誉墙 / 认证
+ * 二、生产设备 / 资质墙
  * ======================================================= */
-.about_shunkai_company_honor {
+.about_shunkai_equipment {
   background: var(--surface);
 }
+
 .container ul {
   justify-content: center;
   list-style-type: none;
+}
+
+.about_shunkai_equipment_desc {
+  max-width: 900px;
+  margin-bottom: 20px;
+  color: var(--text-muted);
+  font-size: 14px;
+  line-height: 1.8;
 }
 
 .about_shunkai_certifications {
@@ -327,7 +443,7 @@ $bg-gray: var(--bg);
 }
 
 .about_shunkai_certifications,
-.about_shunkai_company_honor {
+.about_shunkai_equipment {
   width: 100%;
   padding: 60px 0;
 
@@ -335,6 +451,8 @@ $bg-gray: var(--bg);
     display: flex;
     flex: 1;
     flex-wrap: wrap;
+    padding: 0;
+    margin: 0;
 
     li {
       flex: 1 1 0;
@@ -354,6 +472,13 @@ $bg-gray: var(--bg);
       }
     }
   }
+}
+
+/* 车间实拍横竖比例不一，统一高度裁切，避免同一行高矮不齐（资质图不裁切） */
+.about_shunkai_equipment .about_shunkai_company_honor_list li img {
+  height: 220px;
+  object-fit: cover;
+  border-radius: 4px;
 }
 
 /* =========================================================
@@ -382,6 +507,9 @@ $bg-gray: var(--bg);
   ul {
     display: flex;
     flex-wrap: wrap;
+    padding: 0;
+    margin: 0;
+    list-style: none;
 
     li {
       flex: 1 1 0;
@@ -422,7 +550,46 @@ $bg-gray: var(--bg);
 }
 
 /* =========================================================
- * 四、通用标题
+ * 四、联系入口
+ * ======================================================= */
+.about_shunkai_contact {
+  padding: 50px 20px;
+  background: var(--bg-soft);
+  text-align: center;
+}
+
+.about_shunkai_contact_title {
+  font-size: 26px;
+  line-height: 1.4;
+  color: var(--text-strong);
+  margin-bottom: 10px;
+}
+
+.about_shunkai_contact_desc {
+  max-width: 720px;
+  margin: 0 auto 24px;
+  color: var(--text-muted);
+  font-size: 14px;
+  line-height: 1.9;
+}
+
+.about_shunkai_contact_btn {
+  font-size: 15px;
+  color: var(--btn-text);
+  background: var(--btn-bg);
+  border: 1px solid var(--btn-bg);
+  border-radius: 4px;
+  padding: 12px 40px;
+  cursor: pointer;
+}
+
+.about_shunkai_contact_btn:hover {
+  color: var(--text);
+  background: transparent;
+}
+
+/* =========================================================
+ * 五、通用标题
  * ======================================================= */
 .shunkai-title {
   position: relative;
@@ -433,20 +600,20 @@ $bg-gray: var(--bg);
   line-height: 56px;
   color: var(--text-strong);
   text-align: left;
+}
 
-  &::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 60px;
-    height: 2px;
-    background-color: $theme-blue;
-  }
+.shunkai-title::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 2px;
+  background-color: $theme-blue;
 }
 
 /* =========================================================
- * 五、移动端适配（≤ 768px）
+ * 六、移动端适配（≤ 768px）
  * ======================================================= */
 @media (max-width: $bp-mobile) {
   /* ---------- 图文介绍：纵向堆叠 + 切换小图 ---------- */
@@ -492,14 +659,14 @@ $bg-gray: var(--bg);
     padding: 0 20px;
   }
 
-  /* ---------- 荣誉墙 / 认证：一行两张 ---------- */
-  .about_shunkai_company_honor .about_shunkai_company_honor_list li,
+  /* ---------- 设备 / 资质：一行两张 ---------- */
+  .about_shunkai_equipment .about_shunkai_company_honor_list li,
   .about_shunkai_certifications .about_shunkai_company_honor_list li {
     flex: 0 0 50%;
     max-width: 50%;
   }
 
-  .about_shunkai_company_honor .container {
+  .about_shunkai_equipment .container {
     max-width: 100% !important;
   }
   .container ul {

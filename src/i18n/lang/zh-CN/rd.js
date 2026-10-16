@@ -1,19 +1,3 @@
-export default {
-  development: {
-    title: "产品研发历程",
-  },
-  equipment: {
-    title: "研发设备",
-  },
-  property: {
-    title: "知识产权",
-    tabs: {
-      globalPatent: "全球专利",
-      inventionPatent: "发明专利",
-      utilityModelPatent: "实用新型专利",
-    },
-  },
-  qualification: {
-    title: "公司资质",
-  },
-};
+// 已删除：研发中心页面按改造方案整体移除（P0 清场）。
+// 保留该空占位文件仅为避免构建缓存残留引用；可安全删除。
+export default {};

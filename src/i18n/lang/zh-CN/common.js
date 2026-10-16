@@ -23,19 +23,13 @@ export default {
   /** 页面/面包屑标题（与 router meta.titleKey 对应） */
   page: {
     home: "首页",
-    aboutshunkai: "关于 shunkai",
+    aboutshunkai: "关于顺凯",
     productCenter: "产品中心",
     productDetail: "产品详情",
     products: "产品",
-    rdCenter: "研发中心",
     news: "新闻中心",
     newsDetail: "新闻详情",
-    production: "生产制造",
-    joinUs: "加入我们",
-    joinUsDetails: "职位详情",
     contactUs: "联系我们",
-    consumerAudio: "消费类音频",
-    tws: "真无线耳机",
   },
   lang: {
     label: "语言",
@@ -44,7 +38,7 @@ export default {
     auto: "跟随系统",
   },
   brand: {
-    name: "shunkai",
-    slogan: "您无线产品的正确选择",
+    name: "东莞市顺凯塑胶有限公司",
+    slogan: "塑胶模具与塑胶件，一个厂内完成",
   },
 };

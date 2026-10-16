@@ -20,23 +20,8 @@
           {{ $label(c) }}
         </el-menu-item>
       </el-submenu>
-      <!-- Product Center：hover 展开产品分组面板 -->
-      <el-menu-item
-        v-else-if="n.isSubNav"
-        :key="'p' + i"
-        :index="n.title"
-        @mouseenter.native="$emit('subnav', n)"
-        @mouseleave.native="$emit('subnav-out')"
-      >
-        {{ $label(n) }}
-      </el-menu-item>
-      <!-- isNav 项（Home/Join Us）不在顶部导航渲染，与原产物一致 -->
-      <el-menu-item
-        v-else-if="!n.isNav"
-        :key="'i' + i"
-        :index="n.path"
-        @mouseenter.native="$emit('subnav-out')"
-      >
+      <!-- 其余导航项（含 Product Center）：直接跳转，不再悬浮展开多级面板 -->
+      <el-menu-item v-else :key="'i' + i" :index="n.path">
         {{ $label(n) }}
       </el-menu-item>
     </template>

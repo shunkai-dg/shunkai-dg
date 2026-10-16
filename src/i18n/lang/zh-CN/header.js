@@ -6,12 +6,9 @@ export default {
   themeLabel: "主题",
   nav: {
     home: "首页",
-    aboutshunkai: "关于 shunkai",
+    aboutshunkai: "关于顺凯",
     productCenter: "产品中心",
-    rdCenter: "研发中心",
     news: "新闻中心",
-    production: "生产制造",
-    joinUs: "加入我们",
     contactUs: "联系我们",
   },
 };

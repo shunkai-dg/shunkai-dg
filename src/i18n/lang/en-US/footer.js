@@ -6,7 +6,7 @@ export default {
   contactChannels: "Color Page",
   contactPhone: "Phone",
   scanQrcode: "Scan the WeChat QR code",
-  scanChannels: "Scan the QR code on the color page",
-  copyright: "© 2026 shunkai Inc .All rights reserved",
-  slogan: "Your plastic molds have been correctly selected.",
+  scanChannels: "Color Page Address",
+  copyright: "© 2025 Dongguan Shunkai Plastic Co., Ltd. All rights reserved",
+  slogan: "Your plastic moulds and parts, made in one factory",
 };

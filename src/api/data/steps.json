@@ -1,33 +1,33 @@
 {
   "steps": [
     {
-      "title": "Concept & Acoustic Research",
-      "title_zh": "概念与声学研究",
-      "year": "2008",
+      "title": "Mould Design Team Formed",
+      "title_zh": "组建模具设计团队",
+      "year": "2017",
       "imgs": ["img_data/steps/s1.svg"]
     },
     {
-      "title": "Product Architecture Design",
-      "title_zh": "产品架构设计",
-      "year": "2012",
+      "title": "Injection Workshop Started",
+      "title_zh": "注塑车间投产",
+      "year": "2018",
       "imgs": ["img_data/steps/s2.svg"]
     },
     {
-      "title": "TWS & ANC Prototype",
-      "title_zh": "TWS 与 ANC 原型机",
-      "year": "2016",
+      "title": "Assembly & Screen Printing Line",
+      "title_zh": "组装与丝印产线建成",
+      "year": "2020",
       "imgs": ["img_data/steps/s3.svg"]
     },
     {
-      "title": "Industrial Audio Lineup",
-      "title_zh": "工业音频产品线",
-      "year": "2019",
+      "title": "Cosmetics Packaging Focus",
+      "title_zh": "聚焦化妆品包装",
+      "year": "2022",
       "imgs": ["img_data/steps/s4.svg"]
     },
     {
-      "title": "Smart Wearables & AI",
-      "title_zh": "智能穿戴与 AI",
-      "year": "2023",
+      "title": "Own Mould Workshop & 16 Machines",
+      "title_zh": "自有模具车间与 16 台注塑机",
+      "year": "2025",
       "imgs": ["img_data/steps/s5.svg"]
     }
   ]

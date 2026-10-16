@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="800" viewBox="0 0 800 800">
+  <rect width="100%" height="100%" fill="#eef2f7"/>
+  <rect x="40" y="40" width="720" height="720" rx="18" fill="#ffffff" stroke="#d6dee6" stroke-width="3"/>
+  <rect x="255" y="190" width="290" height="240" rx="20" fill="#2b2f36"/>
+  <rect x="290" y="230" width="220" height="150" rx="10" fill="#f4f6f8"/>
+  <rect x="285" y="405" width="60" height="26" rx="6" fill="#c3ccd6"/>
+  <rect x="455" y="405" width="60" height="26" rx="6" fill="#c3ccd6"/>
+  <rect x="120" y="470" width="560" height="6" rx="3" fill="#d6dee6"/>
+  <text x="50%" y="552" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="bold" fill="#0b0d10">Charger Casing</text>
+  <text x="50%" y="604" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="26" fill="#0a5bd6">Precision Mould · High Gloss Finish</text>
+  <text x="50%" y="682" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="22" fill="#7a858f">Dongguan Shunkai Plastic Co., Ltd.</text>
+</svg>

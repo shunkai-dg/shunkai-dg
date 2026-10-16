@@ -3,5 +3,13 @@
   "channels_qrcode": "img_data/channels-qrcode.svg",
   "facebook": "https://www.facebook.com/",
   "wechat_id": "shunkai-dg",
-  "telephone": "+86 13712578616"
+  "telephone": "+86 13712578616",
+  "email": "sales@shunkai-dg.cn",
+  "address_en": "No.5 Puxin Road, Keyuancheng Industrial Park, Tangxia Town, Dongguan, Guangdong, PRC 523718",
+  "address_zh": "广东省东莞市塘厦镇科苑城工业园埔新路 5 号",
+  "map": {
+    "lng": 114.105091,
+    "lat": 22.820934,
+    "zoom": 17
+  }
 }

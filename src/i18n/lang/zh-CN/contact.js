@@ -2,14 +2,11 @@ export default {
   title: "联系我们",
   info: {
     chinaAddressTitle: "公司地址（中国）",
-    chinaAddress: "东莞塘厦莲湖西路7号",
+    chinaAddress: "广东省东莞市塘厦镇科苑城工业园埔新路 5 号（邮编 523718）",
     telephoneTitle: "电话",
     telephone: "+86 13712578616",
     mailboxTitle: "邮箱",
     mailbox: "sales@shunkai-dg.cn",
-    // singaporeAddressTitle: "公司地址（新加坡）",
-    // singaporeAddress:
-    //   "12 Tannery Road #10-01 HB Centre 1 Singapore 347722 ",
   },
   map: {
     tel: "电话：+86 13712578616",

@@ -1,20 +1,11 @@
 // 分类树由静态改为 API 动态：数据来自 getCategory（本地 JSON），运行时构树
+//
+// 塑胶模具小工厂版简化说明：
+//   - 产品中心已改为「顶部一级标签切换」（见 views/product/ProductCenter.vue），
+//     不再使用多级手风琴分类树，因此本文件不再维护分组图标 / 二级分组树。
+//   - 分类仍然按 parent_id 构树，仅供页脚分组、面包屑分类链使用。
 import Vue from "vue";
 import { getCategory } from "@/api";
-
-const icons = {
-  consumerHeadphone: require("@/assets/img/navData1.png"),
-  consumerTWS: require("@/assets/img/navData2.png"),
-  consumerConference: require("@/assets/img/navData3.png"),
-  industrialHeadphone: require("@/assets/img/navData4.png"),
-  industrialInEar: require("@/assets/img/navData5.png"),
-  industrialOthers: require("@/assets/img/navData6.png"),
-};
-// 二级分组按原静态树位置对应的图标（保证头部悬浮面板显示不变）
-const GROUP_ICONS = [
-  [icons.consumerHeadphone, icons.consumerTWS, icons.consumerConference],
-  [icons.industrialHeadphone, icons.industrialInEar, icons.industrialOthers],
-];
 
 export const fast_navigation = {
   title: "Fast navigation",
@@ -25,8 +16,6 @@ export const fast_navigation = {
       i18nKey: "header.nav.home",
       path: "/",
       name: "home",
-      isMinNav: false,
-      isNav: true,
       id: "fast_navigation",
     },
     {
@@ -40,14 +29,7 @@ export const fast_navigation = {
       title: "Product-Center",
       i18nKey: "header.nav.productCenter",
       path: "/product-center",
-      isSubNav: true,
-      id: "fast_navigation",
-    },
-    {
-      title: "R&D Center",
-      i18nKey: "header.nav.rdCenter",
-      path: "/r-d-center",
-      name: "r_d_center",
+      name: "product_center",
       id: "fast_navigation",
     },
     {
@@ -58,60 +40,19 @@ export const fast_navigation = {
       id: "fast_navigation",
     },
     {
-      title: "Production",
-      i18nKey: "header.nav.production",
-      path: "/production",
-      name: "production",
-      id: "fast_navigation",
-    },
-    // {
-    //   title: "Join Us",
-    //   i18nKey: "header.nav.joinUs",
-    //   path: "/join-us",
-    //   name: "join_us",
-    //   isMinNav: false,
-    //   isNav: true,
-    //   id: "fast_navigation",
-    // },
-    {
       title: "Contact Us",
       i18nKey: "header.nav.contactUs",
       path: "/contact-us",
       name: "contact_us",
       id: "fast_navigation",
-      // isMinNav: false,
-      // childer: [
-      // {
-      //   title: "Join Us",
-      //   i18nKey: "header.nav.joinUs",
-      //   path: "/join-us",
-      //   name: "join_us",
-      // },
-      // ],
     },
   ],
 };
 
-// 头部导航渲染顺序（原产物：isNav 项不在 el-menu 中显示）
+// 头部导航渲染顺序（与原产物一致：isNav 项不在顶部导航显示）
 export const navMenus = fast_navigation.childer;
 
-// 页尾「产品中心」：按一级分组，只取二级分类（各一级根节点的直接子级），
-// 三级及以下不下钻（分级递归平铺见上方 flatChildren / 组件内扁平列表）
-export function secondLevelGroups(roots) {
-  return (roots || [])
-    .map((root) => ({
-      title: root.title,
-      name: root.name || root.title,
-      childer: (root.subGroups || []).map((g) => ({
-        title: g.title,
-        name: g.name || g.title,
-        hierarchy: g.hierarchy != null ? g.hierarchy : g.id,
-      })),
-    }))
-    .filter((g) => g.childer.length);
-}
-
-// 动态分类数据：loaded 标记是否加载完成，roots 为一级分类树
+// 动态分类数据：loaded 标记是否加载完成，roots 为一级分类（化妆品外壳 / 电子产品外壳 / 其他）
 export const categoryStore = Vue.observable({ loaded: false, roots: [] });
 
 // 将平铺分类数据按 parent_id 构建为树，各级按 sort 升序
@@ -133,7 +74,7 @@ export function buildCategoryTree(list) {
     if (c.desc) byId[c.id].desc = c.desc;
     if (c.path) byId[c.id].path = c.path;
   });
-  // 挂接父子（childer 保持树结构，供悬浮面板/抽屉/面包屑使用）
+  // 挂接父子
   Object.values(byId).forEach((node) => {
     const parent = byId[node._parent];
     if (parent) {
@@ -147,31 +88,11 @@ export function buildCategoryTree(list) {
     nodes.forEach((n) => sortRec(n.childer));
   };
   sortRec(roots);
-  // 约定：一级根节点 children 即二级分组，挂到 subGroups 供头部悬浮面板使用
-  // 并按位置补原有图标、Headphone 补 (On-ear/Overear) 描述，一二级显示效果不变
-  roots.forEach((root, ri) => {
+  // 约定：一级根节点 childer 即二级分组，同时挂到 subGroups 供面包屑/页脚复用
+  roots.forEach((root) => {
     root.subGroups = root.childer;
-    root.subGroups.forEach((g, gi) => {
-      g.icon = (GROUP_ICONS[ri] || [])[gi];
-      if (!g.desc && g.title === "Headphone") g.desc = "(On-ear/Overear)";
-    });
   });
   return roots;
-}
-
-// 页脚平铺列表用：将某组节点平铺为叶子列表（保留嵌套层级）
-function flatChildren(items, fallback) {
-  return (items || []).map((t) => {
-    const item = {
-      title: t.title,
-      name: t.name || t.title,
-      hierarchy: t.hierarchy != null ? t.hierarchy : fallback,
-    };
-    if (t.path) item.path = t.path;
-    if (t.childer && t.childer.length)
-      item.childer = flatChildren(t.childer, t.hierarchy);
-    return item;
-  });
 }
 
 let _loading = null;

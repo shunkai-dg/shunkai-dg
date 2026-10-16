@@ -1,4 +1,4 @@
-﻿<template>
+<template>
   <div>
     <Breadcrumb />
     <div class="contact_us_warp warp">
@@ -236,8 +236,6 @@ export default {
             trigger: "blur",
           },
         ],
-        // 保持原有行为：同名字段 content 覆盖了上面的校验数组
-        content: "",
       };
     },
     tabs() {

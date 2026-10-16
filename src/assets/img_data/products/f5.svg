@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="800" viewBox="0 0 800 800">
+  <rect width="100%" height="100%" fill="#eef2f7"/>
+  <rect x="40" y="40" width="720" height="720" rx="18" fill="#ffffff" stroke="#d6dee6" stroke-width="3"/>
+  <rect x="235" y="290" width="330" height="52" rx="18" fill="#c9d3dd"/>
+  <rect x="255" y="342" width="34" height="120" rx="10" fill="#c9d3dd"/>
+  <rect x="511" y="342" width="34" height="120" rx="10" fill="#c9d3dd"/>
+  <rect x="289" y="330" width="242" height="26" rx="8" fill="#0a5bd6" fill-opacity="0.85"/>
+  <rect x="150" y="505" width="500" height="6" rx="3" fill="#d6dee6"/>
+  <text x="50%" y="580" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="bold" fill="#0b0d10">Medical Device Support</text>
+  <text x="50%" y="630" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="26" fill="#0a5bd6">Structural Part · Tighter Tolerance</text>
+  <text x="50%" y="694" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="22" fill="#7a858f">Dongguan Shunkai Plastic Co., Ltd.</text>
+</svg>

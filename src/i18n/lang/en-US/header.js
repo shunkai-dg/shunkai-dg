@@ -6,12 +6,9 @@ export default {
   themeLabel: "Theme",
   nav: {
     home: "Home",
-    aboutshunkai: "About shunkai",
+    aboutshunkai: "About Shunkai",
     productCenter: "Product Center",
-    rdCenter: "R&D Center",
     news: "News",
-    production: "Production",
-    joinUs: "Join Us",
     contactUs: "Contact Us",
   },
 };

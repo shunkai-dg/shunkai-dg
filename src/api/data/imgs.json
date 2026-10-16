@@ -1,46 +1,26 @@
 {
   "1": [
     { "img_path": "img_data/banner/b1.svg" },
-    { "img_path": "img_data/banner/图片1.png" },
-    { "img_path": "img_data/banner/图片2.png" }
+    { "img_path": "img_data/banner/factory-floor.png" },
+    { "img_path": "img_data/banner/plastic-parts.png" }
   ],
   "3": [
-    { "img_path": "img_data/equipment/图片1.jpg" },
-    { "img_path": "img_data/equipment/图片2.jpg" },
-    { "img_path": "img_data/equipment/图片3.jpg" },
-    { "img_path": "img_data/equipment/图片4.jpg" }
+    { "img_path": "img_data/equipment/mould-workshop-cnc.jpg" },
+    { "img_path": "img_data/equipment/mould-workshop-edm.jpg" },
+    { "img_path": "img_data/equipment/injection-line.jpg" },
+    { "img_path": "img_data/equipment/injection-workshop.jpg" }
   ],
   "9": [
     { "img_path": "img_data/qualification/q1.svg" },
     { "img_path": "img_data/qualification/q2.svg" }
-  ],
-  "13": [
-    { "img_path": "img_data/honor/h1.svg" },
-    { "img_path": "img_data/honor/h2.svg" }
   ],
   "14": [
     { "img_path": "img_data/certification/c1.svg" },
     { "img_path": "img_data/certification/c2.svg" }
   ],
   "15": [
-    { "img_path": "img_data/factory/图片1.jpg" },
-    { "img_path": "img_data/factory/图片2.jpg" },
-    { "img_path": "img_data/factory/图片3.jpg" }
-  ],
-  "16": [
-    { "img_path": "img_data/factory/thailand1.svg" },
-    { "img_path": "img_data/factory/thailand2.svg" }
-  ],
-  "21": [
-    { "img_path": "img_data/patent/global1.svg" },
-    { "img_path": "img_data/patent/global2.svg" }
-  ],
-  "22": [
-    { "img_path": "img_data/patent/invention1.svg" },
-    { "img_path": "img_data/patent/invention2.svg" }
-  ],
-  "23": [
-    { "img_path": "img_data/patent/utility1.svg" },
-    { "img_path": "img_data/patent/utility2.svg" }
+    { "img_path": "img_data/factory/mould-workshop.jpg" },
+    { "img_path": "img_data/factory/injection-machines.jpg" },
+    { "img_path": "img_data/factory/production-line.jpg" }
   ]
 }

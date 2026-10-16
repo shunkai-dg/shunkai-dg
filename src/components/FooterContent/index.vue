@@ -24,7 +24,6 @@
               <svg-icon icon-class="wechat" />
             </button>
           </el-popover>
-
           <!-- Facebook：点击跳转外链 -->
           <button
             type="button"
@@ -35,12 +34,14 @@
           >
             <svg-icon icon-class="facebook" />
           </button>
-
           <!-- 视频号：点击弹出二维码 -->
           <el-popover placement="top" width="160" trigger="click">
             <div class="shunkai-footer-pop">
               <img :src="channelsQrUrl" alt="channels" />
-              <p>{{ $t("footer.scanChannels") }}</p>
+              <a 
+              href="https://www.shunkai-dg.cn/doc/Company-profile-A.pdf" target="_blank" 
+              rel="noopener">
+              {{ $t("footer.scanChannels") }}</a>
             </div>
             <button
               slot="reference"
@@ -102,11 +103,7 @@
 </template>
 
 <script>
-import {
-  fast_navigation,
-  categoryStore,
-  secondLevelGroups,
-} from "@/utils/navData";
+import { fast_navigation, categoryStore } from "@/utils/navData";
 import { getSetting } from "@/api/index";
 import { RESOURCE_BASE_URL } from "@/utils/resource";
 import logo1 from "@/assets/img/logo1.png";
@@ -129,24 +126,26 @@ export default {
     });
   },
   computed: {
+    // 视频号二维码地址（未就绪时用透明图占位）
+    channelsQrUrl() {
+      return this.info && this.info.channels_qrcode
+        ? RESOURCE_BASE_URL + this.info.channels_qrcode
+        : EMPTY_IMG;
+    },
     // 微信二维码地址（未就绪时用透明图占位）
     qrUrl() {
       return this.info && this.info.qrcode
         ? RESOURCE_BASE_URL + this.info.qrcode
         : EMPTY_IMG;
     },
-    // 视频号二维码地址（未配置时回退微信二维码）
-    channelsQrUrl() {
-      const url = this.info && (this.info.channels_qrcode || this.info.qrcode);
-      return url ? RESOURCE_BASE_URL + url : EMPTY_IMG;
-    },
     // >750px 的页尾导航分组：
-    // 第 1 组快速导航；产品部分只保留二级分类（隐藏一级分组列，不下钻三四级）
+    // 第 1 组快速导航；第 2 组为产品三大分类（化妆品 / 电子 / 其他，仅一级）
     groups() {
-      const productItems = secondLevelGroups(categoryStore.roots).reduce(
-        (arr, g) => arr.concat(g.childer),
-        [],
-      );
+      const productItems = (categoryStore.roots || []).map((g) => ({
+        title: g.title,
+        name: g.name || g.title,
+        hierarchy: g.hierarchy,
+      }));
       const list = [
         {
           title: fast_navigation.title,

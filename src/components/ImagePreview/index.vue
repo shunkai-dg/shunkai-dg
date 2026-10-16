@@ -15,6 +15,7 @@ import ElImageViewer from "element-ui/packages/image/src/image-viewer.vue";
 // 备选（如上面报错，按顺序试）：
 // import ElImageViewer from 'element-ui/lib/image-viewer'
 // const ElImageViewer = require('element-ui/lib/image-viewer').default
+import { RESOURCE_BASE_URL } from "@/utils/resource";
 
 export default {
   name: "ImagePreview",
@@ -36,7 +37,9 @@ export default {
   created() {
     this.data = [];
     for (let i = 0; i < this.imgList.length; i++) {
-      this.data.push(this.imgList[i][this.k]);
+      // img_path 之类的字段是相对路径（img_data/...），必须补上资源前缀，
+      // 否则子目录部署或带查询参数访问时大图会 404
+      this.data.push(RESOURCE_BASE_URL + this.imgList[i][this.k]);
     }
     this.url = this.data[this.index];
   },

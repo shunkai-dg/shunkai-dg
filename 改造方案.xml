@@ -1,0 +1,158 @@
+<title>shunkai-dg 官网改造方案（塑胶模具小工厂版）</title>
+
+<callout emoji="✅" background-color="light-green" border-color="green">
+<p><b>核心结论：</b>在现有 Vue 2 模板基础上轻量裁剪改造，不重新开发。</p>
+<p><b>改造周期：</b>约 4-5 天</p>
+<p><b>保留能力：</b>中英双语、深浅主题、联系表单、百度地图、GitHub Pages 自动部署</p>
+<p><b>页面范围：</b>5 个核心页面（首页 / 关于 / 产品 / 新闻 / 联系）</p>
+</callout>
+
+<h1 seq="auto">现状基线</h1>
+
+<h2 seq="auto">现有项目概况</h2>
+<table>
+<colgroup><col width="180"/><col width="640"/></colgroup>
+<thead><tr><th background-color="light-gray"><p>维度</p></th><th background-color="light-gray"><p>现状</p></th></tr></thead>
+<tbody>
+<tr><td><p><b>技术栈</b></p></td><td><p>Vue 2.7 + vue-cli 4 + Vuex 3 + vue-router 3 + vue-i18n 8 + ElementUI 2 + BootstrapVue</p></td></tr>
+<tr><td><p><b>运行模式</b></p></td><td><p>纯前端 SPA，本地 JSON 数据模拟，无需后端</p></td></tr>
+<tr><td><p><b>原有页面</b></p></td><td><p>12 个页面、13 条路由（首页 / 关于 / 产品中心 / 产品详情 / 研发中心 / 生产制造 / 新闻 / 新闻详情 / 联系我们 / 加入我们等）</p></td></tr>
+<tr><td><p><b>原有功能</b></p></td><td><p>中英文双语、昼夜主题切换、产品多级分类树、百度地图、Pageclip 表单提交、GitHub Pages 自动部署</p></td></tr>
+<tr><td><p><b>原行业</b></p></td><td><p>无线音频 / 工业音频产品制造商（B2B 展示型官网）</p></td></tr>
+</tbody>
+</table>
+
+<h2 seq="auto">改造动因</h2>
+<ul>
+<li>行业从音频产品切换为<b>塑胶模具小工厂</b></li>
+<li>实际内容量远小于现有模板，硬套会导致网站空洞</li>
+<li>模板为"内容丰富的企业"设计（多级产品分类、研发中心、生产制造、专利页签等），与小工厂体量不匹配</li>
+</ul>
+
+<h1 seq="auto">改造范围</h1>
+
+<h2 seq="auto">保留不动（白捡的能力）</h2>
+<table>
+<colgroup><col width="200"/><col width="620"/></colgroup>
+<thead><tr><th background-color="light-gray"><p>模块</p></th><th background-color="light-gray"><p>说明</p></th></tr></thead>
+<tbody>
+<tr><td><p><b>技术栈与工程化</b></p></td><td><p>Vue 2.7 + vue-cli + GitHub Actions 自动部署</p></td></tr>
+<tr><td><p><b>Header / Footer</b></p></td><td><p>导航栏、页脚、二维码、电话入口、快速导航</p></td></tr>
+<tr><td><p><b>中英双语框架</b></p></td><td><p>i18n 体系、术语词典、数据层中英文切换</p></td></tr>
+<tr><td><p><b>昼夜主题</b></p></td><td><p>深浅模式切换、CSS 变量、localStorage 持久化</p></td></tr>
+<tr><td><p><b>联系表单</b></p></td><td><p>表单校验、Pageclip 提交、成功/失败弹窗</p></td></tr>
+<tr><td><p><b>百度地图</b></p></td><td><p>地图展示、标记、信息窗（坐标需更新）</p></td></tr>
+<tr><td><p><b>面包屑导航</b></p></td><td><p>层级导航、分类链、响应式适配</p></td></tr>
+<tr><td><p><b>图片预览组件</b></p></td><td><p>全屏图片放大、移动端滚动锁</p></td></tr>
+</tbody>
+</table>
+
+<h2 seq="auto">需要修改的模块</h2>
+<table>
+<colgroup><col width="160"/><col width="320"/><col width="340"/></colgroup>
+<thead><tr><th background-color="light-gray"><p>页面 / 模块</p></th><th background-color="light-gray"><p>改造内容</p></th><th background-color="light-gray"><p>改造后效果</p></th></tr></thead>
+<tbody>
+<tr><td><p><b>首页</b></p></td><td><p>更换 banner 图、明星产品、两段产品介绍</p></td><td><p>工厂主视觉 banner + 主打加工能力展示 + 工厂实力简介 + 联系入口</p></td></tr>
+<tr><td><p><b>产品中心</b></p></td><td><p>砍掉多级分类树，改为顶部三个分类标签</p></td><td><p>化妆品外壳 / 电子产品外壳 / 其他产品，点击标签切换列表</p></td></tr>
+<tr><td><p><b>产品详情</b></p></td><td><p>简化图库，保留基本详情结构</p></td><td><p>产品图片 + 描述 + 规格参数 + 联系我们按钮</p></td></tr>
+<tr><td><p><b>关于我们</b></p></td><td><p>合并生产制造内容（设备、产能），精简荣誉/资质</p></td><td><p>工厂简介 + 生产设备与产能 + 资质认证（精简版）</p></td></tr>
+<tr><td><p><b>数据层 JSON</b></p></td><td><p>产品数据换塑胶模具品类，分类数据改两大类</p></td><td><p>产品、分类、设置等 JSON 文件全部替换</p></td></tr>
+</tbody>
+</table>
+
+<h2 seq="auto">直接砍掉的模块</h2>
+<table>
+<colgroup><col width="200"/><col width="300"/><col width="320"/></colgroup>
+<thead><tr><th background-color="light-gray"><p>砍掉的模块</p></th><th background-color="light-gray"><p>处理方式</p></th><th background-color="light-gray"><p>原因</p></th></tr></thead>
+<tbody>
+<tr><td><p><b>研发中心页面</b></p></td><td><p>路由注释，文件保留或删除</p></td><td><p>小工厂无独立研发展示需求</p></td></tr>
+<tr><td><p><b>生产制造页面</b></p></td><td><p>核心内容合并到关于页，原页面删除</p></td><td><p>内容体量小，单独成页太单薄</p></td></tr>
+<tr><td><p><b>加入我们（JoinUs）</b></p></td><td><p>本来就没启用，直接删代码</p></td><td><p>无招聘需求，代码冗余</p></td></tr>
+<tr><td><p><b>产品多级分类树</b></p></td><td><p>简化为一级标签切换</p></td><td><p>模具产品不需要四级分类</p></td></tr>
+<tr><td><p><b>泰国工厂 tab</b></p></td><td><p>删除</p></td><td><p>只有东莞工厂</p></td></tr>
+<tr><td><p><b>专利页签（三类）</b></p></td><td><p>删除或精简为统一资质墙</p></td><td><p>无专利展示需求</p></td></tr>
+</tbody>
+</table>
+
+<h1 seq="auto">改造后信息架构</h1>
+
+<pre lang="text" caption="改造后站点地图"><code>shunkai-dg 塑胶模具官网（SPA · hash 路由）
+├── 首页 /
+│     ├─ Banner 轮播（工厂主视觉）
+│     ├─ 主打加工能力（精选产品/案例）
+│     └─ 工厂实力简介 + 联系入口
+├── 关于我们 /about-shunkai
+│     ├─ 工厂简介
+│     ├─ 生产设备与产能（原生产制造页合并）
+│     └─ 资质认证（精简版）
+├── 产品中心 /product-center
+│     ├─ 分类标签（化妆品 / 电子外壳 / 其他）
+│     ├─ 产品卡片列表（分页）
+│     └─ 产品详情 /product-center/detail
+├── 新闻中心 /news
+│     └─ 新闻列表 + 详情（保留结构，内容待填充）
+└── 联系我们 /contact-us
+      └─ 地图 + 询盘表单</code></pre>
+
+<h1 seq="auto">详细改造任务清单</h1>
+
+<h2 seq="auto">P0 · 快速清场（必做，第一阶段）</h2>
+<ol>
+<li>砍掉不需要的页面路由：研发中心、生产制造、加入我们</li>
+<li>清理对应的页面组件和 i18n 文案</li>
+<li>产品中心分类树简化：从多级手风琴改为顶部标签切换</li>
+<li>首页基础改造：更换 banner 图片结构和产品展示区</li>
+</ol>
+
+<h2 seq="auto">P1 · 核心改造（第二阶段）</h2>
+<ol>
+<li>首页完整改造：banner + 精选产品 + 工厂介绍 + 联系入口</li>
+<li>关于页改造：合并生产制造内容，精简资质展示</li>
+<li>产品详情页精简：保留图库放大镜，简化参数表</li>
+<li>数据层替换：产品 JSON、分类 JSON、设置 JSON 全部更新</li>
+</ol>
+
+<h2 seq="auto">P2 · 内容填充与测试（第三阶段）</h2>
+<ol>
+<li>中英双语文案填充（所有新页面）</li>
+<li>图片素材替换（banner、产品图、工厂图、资质图）</li>
+<li>百度地图坐标更新为新工厂地址</li>
+<li>响应式适配测试（移动端 / 平板 / 桌面）</li>
+<li>双语切换 + 主题切换全页面走查</li>
+<li>联系表单提交测试</li>
+</ol>
+
+<h1 seq="auto">工作量估算</h1>
+
+<table>
+<colgroup><col width="120"/><col width="400"/><col width="150"/><col width="150"/></colgroup>
+<thead><tr><th background-color="light-gray"><p>阶段</p></th><th background-color="light-gray"><p>任务</p></th><th background-color="light-gray"><p>预估时间</p></th><th background-color="light-gray"><p>优先级</p></th></tr></thead>
+<tbody>
+<tr><td><p><b>P0</b></p></td><td><p>砍页面路由 + 清理冗余组件 + 产品分类简化</p></td><td><p>1.5 天</p></td><td><p>最高</p></td></tr>
+<tr><td><p><b>P1</b></p></td><td><p>首页 + 关于页 + 产品页核心改造 + 数据层替换</p></td><td><p>2 天</p></td><td><p>高</p></td></tr>
+<tr><td><p><b>P2</b></p></td><td><p>文案图片填充 + 全量测试</p></td><td><p>1.5 天</p></td><td><p>中</p></td></tr>
+<tr><td><p><b>合计</b></p></td><td><p></p></td><td><p><b>约 5 天</b></p></td><td><p></p></td></tr>
+</tbody>
+</table>
+
+<h1 seq="auto">风险与注意事项</h1>
+
+<ul>
+<li><b>分类树依赖清理：</b>砍掉多级分类树后，需同步清理 Header 悬浮面板、Footer 产品分组、Breadcrumb 分类链的相关逻辑，避免遗留死代码</li>
+<li><b>新闻内容暂不填充：</b>新闻页面保留结构，初期内容为空时需做占位处理，避免页面空白</li>
+<li><b>双语同步：</b>所有新页面和新文案必须同时提供中英文版本，遵循现有 i18n 命名空间规范</li>
+<li><b>地图坐标更新：</b>百度地图 AK 和坐标需更新为塑胶模具工厂的实际地址</li>
+<li><b>主题适配：</b>新增区块需遵循现有 CSS 变量体系（--bg、--surface、--text 等），确保深浅模式都正常</li>
+</ul>
+
+<h1 seq="auto">验收标准</h1>
+
+<checkbox done="false">5 个核心页面（首页 / 关于 / 产品 / 新闻 / 联系）可正常访问</checkbox>
+<checkbox done="false">产品中心三个分类标签切换正常，列表分页正常</checkbox>
+<checkbox done="false">产品详情页图库、描述、参数展示正常，联系按钮跳转正常</checkbox>
+<checkbox done="false">中英双语切换全站生效（包括新页面文案）</checkbox>
+<checkbox done="false">深浅主题切换全站正常，无颜色异常或布局错乱</checkbox>
+<checkbox done="false">联系表单校验和 Pageclip 提交正常</checkbox>
+<checkbox done="false">百度地图坐标和信息窗正确显示</checkbox>
+<checkbox done="false">响应式适配正常（移动端单列、平板双列、桌面多列）</checkbox>
+<checkbox done="false">GitHub Pages 自动部署流程正常</checkbox>

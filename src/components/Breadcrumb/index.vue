@@ -85,7 +85,7 @@ export default {
           item.meta && item.meta.title && item.meta.breadcrumb !== false,
       );
 
-      // 5) 产品中心：按 query.hierarchy 追加分类链（如 Consumer Audio > TWS）
+      // 5) 产品中心：按 query.hierarchy 追加分类链（如 Cosmetics Packaging > Makeup Brush Handles）
       if (this.$route.name === "product_center") {
         const chain = findHierarchyPath(this.$route.query.hierarchy);
         levelList = levelList.concat(

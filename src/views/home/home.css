@@ -30,8 +30,37 @@
   color: #fff;
 }
 
+/* 轮播图：不同尺寸的素材统一按容器高度裁切填满，避免小图被拉伸成大片空白 */
+.swiper-banner,
+.swiper-banner .swiper-container,
+.swiper-banner .swiper {
+  height: 520px;
+}
+
+.swiper-banner .swiper-slide {
+  height: 520px;
+  overflow: hidden;
+}
+
 .swiper-banner img {
   width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+@media (max-width: 768px) {
+  .swiper-banner,
+  .swiper-banner .swiper-container,
+  .swiper-banner .swiper,
+  .swiper-banner .swiper-slide {
+    height: 300px;
+  }
+
+  /* 窄屏下把横幅完整放进画面，避免左右裁掉标题文案 */
+  .swiper-banner img {
+    object-fit: contain;
+  }
 }
 
 .swiper-banner .swiper-button-next img,
@@ -344,7 +373,16 @@
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   justify-content: center;
-  min-height: 100vh;
+  /* 原为 min-height:100vh，整屏高的背景图会把页面拉得很长；
+     小工厂版内容量小，改为 72vh 并限高，保证一屏内能看到文案与按钮 */
+  min-height: 72vh;
+}
+
+@media (min-width: 1200px) {
+  .home_product .product_item {
+    max-height: 760px;
+    min-height: 560px;
+  }
 }
 
 .home_product .product_item .product_bg .product_bg_color {

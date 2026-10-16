@@ -1,4 +1,4 @@
-﻿<template>
+<template>
   <div>
     <Breadcrumb />
     <div class="new_warp warp">
@@ -7,7 +7,7 @@
           <li v-for="(item, index) in dataList" :key="index" class="new_list">
             <div class="new_item">
               <div class="new_item_l">
-                <img :src="item.cover" />
+                <img :src="RESOURCE_BASE_URL + item.cover" :alt="item.title" />
               </div>
               <div class="new_item_r">
                 <p class="new_item_news">{{ $t("news.title") }}</p>
@@ -37,11 +37,13 @@
 <script>
 import Breadcrumb from "@/components/Breadcrumb";
 import { getInfoList } from "@/api/index";
+import { RESOURCE_BASE_URL } from "@/utils/resource";
 
 export default {
   components: { Breadcrumb },
   data() {
     return {
+      RESOURCE_BASE_URL,
       page: 1,
       limit: 3,
       total: 0,

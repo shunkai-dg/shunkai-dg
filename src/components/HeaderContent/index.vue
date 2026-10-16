@@ -24,8 +24,6 @@
             :active-menu="activeMenu"
             @select="handleSelect"
             @jump="jumpPage"
-            @subnav="mousemoveNav"
-            @subnav-out="mouseoutSubNav"
           />
         </div>
         <!-- 搜索 + 外观/语言切换：默认折叠为图标，点击展开输入框（全屏宽通用） -->
@@ -61,59 +59,7 @@
         </div>
       </div>
 
-      <!-- Product Center 悬浮分组面板：一级居中切换 → 二级三列 → 每列下扁平全部子项 -->
-      <transition name="subNav">
-        <div
-          class="subNav"
-          v-show="isSubNav"
-          @mouseenter="mousemoveSubNav"
-          @mouseleave="mouseoutSubNav"
-        >
-          <div class="subNav_warp">
-            <!-- 顶部：两个一级分类居中并排，点击切换下方二级列表 -->
-            <div class="subnav-top">
-              <span
-                v-for="g in topLevelGroups"
-                :key="g.id"
-                class="subnav-top-item"
-                :class="{ active: activeTopId === g.id }"
-                @click="selectTop(g)"
-                >{{ $tt(g.title) }}</span
-              >
-            </div>
-            <!-- 当前一级下的二级三列，每列含二级标题 + 全部子项列表（不做切换） -->
-            <div class="subnav-mid">
-              <div
-                class="subnav-col"
-                v-for="(sg, si) in currentSubGroups"
-                :key="si"
-              >
-                <div class="subnav-mid-item">
-                  <img v-if="sg.icon" :src="sg.icon" class="subnav-mid-icon" />
-                  <span class="subnav-mid-name">
-                    {{ $tt(sg.title) }}
-                    <span v-if="sg.desc" class="subnav-mid-desc">{{
-                      $tt(sg.desc)
-                    }}</span>
-                  </span>
-                </div>
-                <ul class="subnav-list" style="list-style-type: none">
-                  <li
-                    v-for="(leaf, li) in flattenLeaves(sg)"
-                    :key="li"
-                    :class="{ 'is-deep': leaf.deep }"
-                    @click="jumpLeaf(leaf)"
-                  >
-                    {{ $tt(leaf.title) }}
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </transition>
-
-      <!-- 移动端抽屉菜单（<750px）：导航列表 + 产品多级分类树 -->
+      <!-- 移动端抽屉菜单（<750px）：导航列表 + 产品三大分类标签 -->
       <transition name="shadingFade">
         <div v-if="isShading" class="shading-menu">
           <div class="shading-menu-container">
@@ -134,8 +80,8 @@
                   :key="i"
                   class="shading-nav-item"
                 >
-                  <!-- Product Center：产品列用列表树展示多级分类 -->
-                  <template v-if="n.isSubNav">
+                  <!-- Product Center：抽屉内直接列出三大分类，点击进入分类列表 -->
+                  <template v-if="n.name === 'product_center'">
                     <div class="shading-nav-link" @click="toggleProduct">
                       <span>{{ $label(n) }}</span>
                       <i
@@ -143,32 +89,13 @@
                         :class="{ 'is-open': productOpen }"
                       ></i>
                     </div>
-                    <div v-show="productOpen" class="shading-nav-product">
-                      <product-tree-menu
-                        :nodes="productTree"
-                        @select="jumpMune"
-                      />
-                    </div>
-                  </template>
-                  <!-- 带子项的导航（如 Contact Us） -->
-                  <template v-else-if="n.childer && n.childer.length">
-                    <div class="shading-nav-link">
-                      <span class="shading-nav-name" @click="jumpNav(n)">{{
-                        $label(n)
-                      }}</span>
-                      <i
-                        class="el-icon-arrow-down"
-                        :class="{ 'is-open': subOpen[i] }"
-                        @click.stop="toggleSub(i)"
-                      ></i>
-                    </div>
-                    <ul v-show="subOpen[i]" class="shading-nav-sub">
+                    <ul v-show="productOpen" class="shading-nav-sub">
                       <li
-                        v-for="(c, ci) in n.childer"
-                        :key="ci"
-                        @click="jumpNav(c)"
+                        v-for="c in productCategories"
+                        :key="c.id"
+                        @click="jumpCategory(c)"
                       >
-                        {{ $label(c) }}
+                        {{ $tt(c.title) }}
                       </li>
                     </ul>
                   </template>
@@ -187,7 +114,6 @@
 
 <script>
 import NavMenu from "@/components/NavMenu/index.vue";
-import ProductTreeMenu from "@/components/ProductTreeMenu/index.vue";
 import PreferenceSwitch from "@/components/PreferenceSwitch/index.vue";
 import scrollLock from "@/utils/scrollLock";
 import { navMenus, categoryStore } from "@/utils/navData";
@@ -195,10 +121,9 @@ import logo from "@/assets/img/logo.png";
 import logo1 from "@/assets/img/logo1.png";
 import listUrl from "@/assets/img/list-ul.png";
 
-// 反推来源：app.js 71c2/6ded/2cae（HeaderContent 模块）
 export default {
   name: "HeaderContent",
-  components: { NavMenu, ProductTreeMenu, PreferenceSwitch },
+  components: { NavMenu, PreferenceSwitch },
   mixins: [scrollLock],
   data() {
     return {
@@ -209,49 +134,22 @@ export default {
       keyword: "",
       activeMenu: this.$route.path,
       scrollEventTop: false,
-      isSubNav: false,
-      subNavTimer: null,
-      activeTopId: null,
       // 移动端抽屉
       isShading: false,
       productOpen: true,
-      subOpen: {},
       // 搜索折叠展开
       searchOpen: false,
     };
   },
   computed: {
-    // 一级分类（动态 categoryStore.roots，居中并排，点击切换）
-    topLevelGroups() {
+    // 产品三大分类（化妆品外壳 / 电子产品外壳 / 其他），来自 categoryStore
+    productCategories() {
       return categoryStore.roots;
-    },
-    // 当前选中一级分类下的二级分组；首次打开尚未选中时回退到第一个一级分类
-    currentSubGroups() {
-      const groups = this.topLevelGroups;
-      if (!groups.length) return [];
-      const g = groups.find((t) => t.id === this.activeTopId) || groups[0];
-      return g.subGroups || [];
-    },
-    // 抽屉内产品分类树：一级 → 二级 subGroups → 三级/四级 childer
-    productTree() {
-      return categoryStore.roots.map((g) => ({
-        title: g.title,
-        name: g.name,
-        hierarchy: g.hierarchy,
-        childer: g.subGroups,
-      }));
     },
   },
   watch: {
     $route(to) {
       this.activeMenu = to.path;
-    },
-    // 分类树（响应式）加载完成后，若尚未选中一级分类，则默认选中第一个，
-    // 展示该一级分类下的全部二/三/四级数据
-    topLevelGroups(groups) {
-      if (groups.length && this.activeTopId == null) {
-        this.activeTopId = groups[0].id;
-      }
     },
     // 抽屉开合 → 锁定/解除背景页面滚动（见 mixins/scrollLock）
     isShading(open) {
@@ -298,28 +196,22 @@ export default {
         });
       }
     },
-    // 抽屉导航：展开/收起产品分类树
+    // 抽屉导航：展开/收起产品分类
     toggleProduct() {
       this.productOpen = !this.productOpen;
     },
-    // 抽屉导航：展开/收起带子项的导航
-    toggleSub(i) {
-      this.$set(this.subOpen, i, !this.subOpen[i]);
-    },
-    // 抽屉产品树点击：跳转产品中心
-    jumpMune(item) {
+    // 抽屉内点击产品分类：跳产品中心并选中该标签
+    jumpCategory(c) {
       this.isShading = false;
       this.$router.push({
         name: "product_center",
-        query: { name: item.name || item.title, hierarchy: item.hierarchy },
+        query: { name: c.name || c.title, hierarchy: c.hierarchy },
       });
     },
     // 抽屉导航点击：按 name / path 跳转
     jumpNav(n) {
       this.isShading = false;
-      if (n.isSubNav) {
-        this.$router.push({ name: "product_center" });
-      } else if (n.name) {
+      if (n.name) {
         this.$router.push({ name: n.name });
       } else if (n.path) {
         this.$router.push({ path: n.path });
@@ -337,82 +229,11 @@ export default {
       this.$router.push({ path });
     },
     jumpPage(n) {
-      if (n.isSubNav) {
-        this.$router.push({
-          name: "product_center",
-          query: { name: n.name, hierarchy: n.hierarchy },
-        });
-      } else if (n.name) {
+      if (n.name) {
         this.$router.push({ name: n.name });
+      } else if (n.path) {
+        this.$router.push({ path: n.path });
       }
-    },
-    // 切换一级分类：更新 activeTopId
-    selectTop(g) {
-      this.activeTopId = g.id;
-    },
-    // 扁平化某二级分类下全部子项（不分级别），四级项标记 deep 供缩进
-    flattenLeaves(sg) {
-      if (!sg || !sg.childer) return [];
-      const out = [];
-      const walk = (arr, fb, deep) => {
-        arr.forEach((t) => {
-          out.push({
-            title: t.title,
-            name: t.name || t.title,
-            hierarchy: t.hierarchy != null ? t.hierarchy : fb,
-            path: t.path,
-            deep,
-          });
-          if (t.childer && t.childer.length) {
-            walk(t.childer, t.hierarchy != null ? t.hierarchy : fb, true);
-          }
-        });
-      };
-      walk(sg.childer, sg.hierarchy, false);
-      return out;
-    },
-    // 点击叶子项：跳转产品页
-    jumpLeaf(leaf) {
-      if (leaf.path) {
-        this.$router.push({ path: leaf.path });
-      } else {
-        this.$router.push({
-          name: "product_center",
-          query: { name: leaf.name, hierarchy: leaf.hierarchy },
-        });
-      }
-      this.clearSubNavTimer();
-      this.isSubNav = false;
-    },
-    mousemoveNav(n) {
-      if (n.isSubNav) {
-        this.clearSubNavTimer();
-        this.isSubNav = true;
-      } else {
-        this.hideSubNavDelayed();
-      }
-    },
-    mousemoveSubNav() {
-      this.clearSubNavTimer();
-      this.isSubNav = true;
-    },
-    mouseoutSubNav() {
-      this.hideSubNavDelayed();
-    },
-    // 清掉已挂起的隐藏定时器——每次把 isSubNav 置 true 前必须调用，
-    // 否则陈旧的 200ms 隐藏回调会在光标仍停留在菜单/面板上时把面板关掉
-    clearSubNavTimer() {
-      if (this.subNavTimer) {
-        clearTimeout(this.subNavTimer);
-        this.subNavTimer = null;
-      }
-    },
-    hideSubNavDelayed() {
-      this.clearSubNavTimer();
-      this.subNavTimer = setTimeout(() => {
-        this.isSubNav = false;
-        this.subNavTimer = null;
-      }, 200);
     },
     search() {
       this.searchOpen = false;

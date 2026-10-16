@@ -6,57 +6,39 @@
  *
  * termStore 是 Vue.observable：模板里 {{ $tt(text) }} 会读取 termStore.locale，
  * 因此切换语言时依赖它的组件会自动重渲染。
+ *
+ * 塑胶模具小工厂版：词表已按新的三大分类（化妆品外壳 / 电子产品外壳 / 其他）
+ * 与对应二级分类重写，旧的音频类词条全部移除。
  */
 import Vue from "vue";
 
 export const termStore = Vue.observable({ locale: "en-US" });
 
-/** 产品分类（category.json 中的 title / desc） */
+/** 产品分类（category.json 中的 title / desc）与零散术语 */
 const ZH_TERMS = {
-  "Consumer Audio": "消费类音频",
-  "Industrial Audio": "工业类音频",
+  // ---- 一级分类 ----
+  "Cosmetics Packaging": "化妆品外壳",
+  "Electronics Packaging": "电子产品外壳",
+  "Other Plastic Products": "其他塑胶产品",
 
-  Headphone: "头戴式耳机",
-  TWS: "真无线耳机",
-  "Conference Audio": "会议音频",
+  // ---- 化妆品外壳 ----
+  "Makeup Brush Handles": "化妆刷柄",
+  "Cosmetic Jars & Caps": "膏霜瓶与盖",
+  "Powder Puffs & Trays": "粉扑与粉盘",
 
-  "BT HIFI Headphones": "蓝牙高保真耳机",
-  "Wireless ANC headphones": "无线主动降噪耳机",
-  "Gaming Headphones": "游戏耳机",
-  "USB Audio Headphones (SUPPORT TEAMS)": "USB 音频耳机（支持 Teams）",
-  "FF/FB ANC headphones": "前馈/反馈式主动降噪耳机",
-  "Hybrid ANC headphones": "混合式主动降噪耳机",
-  "2.4G/5.8G Gaming Headphones": "2.4G/5.8G 游戏耳机",
-  "BT+2.4G ULL Gaming Headphones": "蓝牙+2.4G 超低延迟游戏耳机",
+  // ---- 电子产品外壳 ----
+  "Power Bank Housings": "充电宝外壳",
+  "Charger Casings": "充电器外壳",
+  "Communication Devices": "通讯电子外壳",
 
-  "TWS HIFI Audio": "真无线高保真音频",
-  "Hybrid ANC": "混合降噪",
-  "TWS Hearing Enhancement": "真无线辅听耳机",
-  "Dynamic spk version": "动圈单元版本",
-  "Balanced armature + Dynamic spk version": "动铁+动圈单元版本",
+  // ---- 其他塑胶产品 ----
+  "Jewellery Boxes": "珠宝盒",
+  "Medical Device Parts": "医疗器械配件",
+  "Custom Moulded Parts": "来图定制件",
 
-  "With XMOS/Advanced 6 Mics": "搭载 XMOS/高端六麦",
-
-  "In-ear Earphones": "入耳式耳机",
-  Others: "其他",
-  "Communications Headphones (With Mic Rod)": "通讯耳机（带麦克风杆）",
-  "Special type headphones": "特种耳机",
-  "Protection Headphones （NRR & SNR）": "防护耳机（NRR & SNR）",
-  "ANC & ENC Headphones （Carbon Fiber ）": "ANC & ENC 耳机（碳纤维）",
-  "Helmet headphones": "头盔耳机",
-
-  "Protection in-ear Earphone （NRR & SNR）": "防护入耳式耳机（NRR & SNR）",
-  "Protection TWS Earphone（NRR & SNR）": "防护真无线耳机（NRR & SNR）",
-  "ANC & ENC in-ear Earphones（With Mic Rod）":
-    "ANC & ENC 入耳式耳机（带麦克风杆）",
-  "In-ear Earphones with ambient sound for hunting": "狩猎用环境音入耳式耳机",
-
-  "DECT headphones": "DECT 耳机",
-  "PTT function earbuds": "PTT 对讲耳机",
-
-  "(On-ear/Overear)": "（贴耳式/包耳式）",
-
+  // ---- 通用术语 ----
   "Fast navigation": "快速导航",
+  "Product Center": "产品中心",
   "Product-Center": "产品中心",
 };
 

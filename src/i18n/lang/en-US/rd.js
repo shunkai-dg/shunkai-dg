@@ -1,19 +1,3 @@
-export default {
-  development: {
-    title: "Products development footprint",
-  },
-  equipment: {
-    title: "Equipments",
-  },
-  property: {
-    title: "Intellectual Property",
-    tabs: {
-      globalPatent: "Global Patent",
-      inventionPatent: "Invention Patent",
-      utilityModelPatent: "Utility Model Patent",
-    },
-  },
-  qualification: {
-    title: "Company Qualification",
-  },
-};
+// 已删除：研发中心页面按改造方案整体移除（P0 清场）。
+// 保留该空占位文件仅为避免构建缓存残留引用；可安全删除。
+export default {};

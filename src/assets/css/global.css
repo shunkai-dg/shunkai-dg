@@ -669,6 +669,8 @@ ul {
     display: none;
   }
 
+  /* 首页「我们做什么」在移动端改为单排横向滑动，见 views/home/home.css
+     （此处保留原产物隐藏规则，由 .home-container .loop-container 更高特异性覆盖） */
   .loop-container {
     display: none !important;
     list-style-type: none;

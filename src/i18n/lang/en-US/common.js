@@ -23,19 +23,13 @@ export default {
   /** Page / breadcrumb titles (mapped from router meta.titleKey) */
   page: {
     home: "Home",
-    aboutshunkai: "About shunkai",
+    aboutshunkai: "About Shunkai",
     productCenter: "Product Center",
     productDetail: "Product Detail",
     products: "Products",
-    rdCenter: "R&D Center",
     news: "News",
     newsDetail: "News Detail",
-    production: "Production",
-    joinUs: "Join Us",
-    joinUsDetails: "Join Us Details",
     contactUs: "Contact Us",
-    consumerAudio: "Consumer Audio",
-    tws: "TWS",
   },
   lang: {
     label: "Language",
@@ -44,7 +38,7 @@ export default {
     auto: "Follow system",
   },
   brand: {
-    name: "shunkai",
-    slogan: "Your right choice for wireless products",
+    name: "Dongguan Shunkai Plastic",
+    slogan: "Your plastic moulds and parts, made in one factory",
   },
 };

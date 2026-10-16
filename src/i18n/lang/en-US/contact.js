@@ -3,14 +3,11 @@ export default {
   info: {
     chinaAddressTitle: "Company Address（China）",
     chinaAddress:
-      "No.5 Puxin Road, Keyuancheng Industrial Park，Tangxia Town, Dongguan, Guangdong, PRC 523718",
+      "No.5 Puxin Road, Keyuancheng Industrial Park, Tangxia Town, Dongguan, Guangdong, PRC 523718",
     telephoneTitle: "Telephone",
     telephone: "+86 13712578616",
     mailboxTitle: "Mailbox",
     mailbox: "sales@shunkai-dg.cn",
-    // singaporeAddressTitle: "Company Address（Singapore）",
-    // singaporeAddress:
-    //   "12 Tannery Road #10-01 HB Centre 1 Singapore 347722 ",
   },
   map: {
     tel: "Tel:+86 13712578616",

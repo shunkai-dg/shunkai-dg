@@ -1,149 +1,84 @@
 <template>
   <div>
-    <el-breadcrumb
-      class="app-breadcrumb breadcrumb"
-      separator-class="el-icon-arrow-right"
-    >
-      <transition-group name="breadcrumb">
-        <el-breadcrumb-item v-for="(item, index) in levelList" :key="item.path">
-          <span
-            v-if="
-              item.redirect === 'noRedirect' || index === levelList.length - 1
-            "
-            class="no-redirect"
-            >{{ breadcrumbTitle(item) }}</span
-          >
-          <a v-else class="parent" @click.prevent="handleLink(item)">{{
-            breadcrumbTitle(item)
-          }}</a>
-        </el-breadcrumb-item>
-      </transition-group>
-    </el-breadcrumb>
+    <Breadcrumb />
+
     <div class="procuct_detail">
-      <div>
-        <div class="container">
-          <div class="procuct_detail_content">
-            <div class="procuct_detail_l">
-              <div class="arrow-normal">
-                <div ref="small" class="arrow-normal-swiper">
-                  <div
-                    id="small"
-                    @mouseover="over"
-                    @mouseout="out"
-                    @mousemove="move"
-                  >
-                    <div id="float" />
-                    <div
-                      v-for="(img, index) in detailData && detailData.imgs"
-                      v-show="currentIndex === index"
-                      :key="index"
-                      style="height: 100%"
-                    >
-                      <img
-                        ref="imgs"
-                        id="smallimg"
-                        :src="RESOURCE_BASE_URL + img"
-                      />
-                    </div>
-                  </div>
-                  <div class="swiper-button-prev" @click="clickIcon('prev')">
-                    <svg-icon :icon-class="currentIndex === 0 ? '2' : '1'" />
-                  </div>
-                  <div class="swiper-button-next" @click="clickIcon('next')">
-                    <svg-icon
-                      :icon-class="
-                        currentIndex ===
-                        (detailData.imgs && detailData.imgs.length - 1)
-                          ? '4'
-                          : '3'
-                      "
-                    />
-                  </div>
-                </div>
-                <div slot="pagination" class="swiper-pagination">
-                  <div class="arrow_prev" @click="prev">
-                    <svg-icon
-                      :icon-class="
-                        imgHover === count ||
-                        (detailData.imgs && detailData.imgs.length < count)
-                          ? '2'
-                          : '1'
-                      "
-                    />
-                  </div>
-                  <div class="arrow_next" @click="next">
-                    <svg-icon
-                      :icon-class="
-                        imgHover ===
-                          (detailData.imgs && detailData.imgs.length) ||
-                        (detailData.imgs && detailData.imgs.length < count)
-                          ? '4'
-                          : '3'
-                      "
-                    />
-                  </div>
-                  <div ref="spec_items" class="spec_items">
-                    <ul :style="styleSpec">
-                      <li
-                        v-for="(img, index) in detailData.imgs"
-                        :key="index"
-                        ref="my_pagination_clickable"
-                        class="swiper-pagination_list my-pagination-clickable"
-                      >
-                        <span
-                          ref="swiper_pagination_item"
-                          class="swiper-pagination_item"
-                        >
-                          <img
-                            ref="imgs"
-                            :src="RESOURCE_BASE_URL + img"
-                            @click="changeImg(index)"
-                          />
-                        </span>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
+      <div class="container">
+        <div class="procuct_detail_content">
+          <!-- 左：图库（主图带放大镜，下方缩略图可切换 / 左右翻页） -->
+          <div class="procuct_detail_l">
+            <div class="gallery">
+              <div
+                id="small"
+                class="gallery_main"
+                @mouseover="over"
+                @mouseout="out"
+                @mousemove="move"
+              >
+                <div id="float" />
+                <img
+                  id="smallimg"
+                  :src="RESOURCE_BASE_URL + currentImg"
+                  :alt="detailData.title"
+                />
               </div>
-              <div ref="big" id="big">
+              <!-- 放大镜预览窗（仅桌面端显示） -->
+              <div id="big">
                 <img
                   ref="bigImg"
                   :style="{ left: styles.imgx + 'px', top: styles.imgY + 'px' }"
-                  :src="pic"
+                  :src="RESOURCE_BASE_URL + currentImg"
+                  alt=""
                 />
               </div>
             </div>
-            <div class="procuct_detail_r">
-              <el-row class="procuct_detail_r_max" :gutter="24">
-                <el-col :span="2"> </el-col>
-                <el-col :span="22">
-                  <div class="procuct_detail_info">
-                    <div class="title">{{ detailData.title }}</div>
-                    <div class="sub_title">{{ detailData.sub_title }}</div>
-                    <el-divider />
-                    <div class="desc" v-html="detailData.descr"></div>
-                    <div class="params" v-html="detailData.params"></div>
-                    <button class="procuct_detail_info_btn" @click="jump">
-                      {{ $t("product.detail.contact") }}
-                    </button>
-                  </div>
-                </el-col>
-                <el-col :span="2"> </el-col>
-              </el-row>
-              <el-row class="procuct_detail_r_min" :gutter="24">
-                <el-col :span="24">
-                  <div class="procuct_detail_info">
-                    <div class="title">{{ detailData.title }}</div>
-                    <div class="sub_title">{{ detailData.sub_title }}</div>
-                    <el-divider />
-                    <div class="desc" v-html="detailData.descr"></div>
-                    <div class="params" v-html="detailData.params"></div>
-                    <button class="procuct_detail_info_btn" @click="jump">
-                      {{ $t("product.detail.contact") }}
-                    </button>
-                  </div>
-                </el-col>
-              </el-row>
+
+            <div v-if="imgs.length > 1" class="gallery_thumbs">
+              <button
+                class="gallery_arrow gallery_arrow--prev"
+                :disabled="thumbStart === 0"
+                @click="scrollThumb(-1)"
+              >
+                <i class="el-icon-arrow-left"></i>
+              </button>
+              <div class="gallery_thumbs_view">
+                <ul
+                  :style="{
+                    transform: 'translateX(-' + thumbStart * (100 / thumbPerView) + '%)',
+                  }"
+                >
+                  <li
+                    v-for="(img, index) in imgs"
+                    :key="index"
+                    :style="{ flexBasis: 100 / thumbPerView + '%' }"
+                    :class="{ 'is-active': currentIndex === index }"
+                    @click="changeImg(index)"
+                  >
+                    <img :src="RESOURCE_BASE_URL + img" alt="" />
+                  </li>
+                </ul>
+              </div>
+              <button
+                class="gallery_arrow gallery_arrow--next"
+                :disabled="thumbStart + thumbPerView >= imgs.length"
+                @click="scrollThumb(1)"
+              >
+                <i class="el-icon-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- 右：产品信息（标题 / 副标题 / 描述 / 规格参数 / 联系按钮） -->
+          <div class="procuct_detail_r">
+            <div class="procuct_detail_info">
+              <div class="title">{{ detailData.title }}</div>
+              <div class="sub_title">{{ detailData.sub_title }}</div>
+              <el-divider />
+              <div class="desc" v-html="detailData.descr"></div>
+              <div class="params" v-html="detailData.params"></div>
+              <button class="procuct_detail_info_btn" @click="jump">
+                {{ $t("product.detail.contact") }}
+              </button>
             </div>
           </div>
         </div>
@@ -153,11 +88,8 @@
 </template>
 
 <script>
-import pathToRegexp from "path-to-regexp";
-import { mapGetters } from "vuex";
 import { getProductDetail } from "@/api/index";
 import { RESOURCE_BASE_URL } from "@/utils/resource";
-import { findHierarchyPath, categoryStore } from "@/utils/navData";
 import Breadcrumb from "@/components/Breadcrumb";
 
 export default {
@@ -165,255 +97,54 @@ export default {
   data() {
     return {
       RESOURCE_BASE_URL,
-      levelList: [],
-      pic: "",
-      currentIndex: 0,
-      prevIcon: false,
-      nextIcon: true,
-      base: "",
-      screenWidth: "",
-      styles: { top: "", left: "", imgx: "", imgy: "" },
-      styleSpec: {
-        width: "",
-        position: "absolute",
-        top: "0px",
-        left: "0px",
-        display: "flex",
-      },
-      imgHover: 5,
-      count: 0,
-      imgHoverIndex: 0,
-      path: [],
       detailData: {},
+      currentIndex: 0,
+      // 缩略图窗口起始下标（一屏张数见 thumbPerView）
+      thumbStart: 0,
+      // 窄屏一屏三张，其余四张（与下方 CSS 断点保持一致）
+      thumbPerView: 4,
+      styles: { imgx: "0px", imgY: "0px" },
     };
   },
   computed: {
-    ...mapGetters(["routersList", "breadcrumbListDetail"]),
+    imgs() {
+      return (this.detailData && this.detailData.imgs) || [];
+    },
+    currentImg() {
+      return this.imgs[this.currentIndex] || "";
+    },
   },
   watch: {
-    screenWidth: {
-      handler() {
-        this.getClientWidth();
-      },
-      immediate: true,
-    },
-    "categoryStore.loaded"() {
-      this.getBreadcrumb();
+    // 语言切换 / 数据到位后保持下标合法
+    imgs() {
+      if (this.currentIndex > this.imgs.length - 1) this.currentIndex = 0;
+      this.thumbStart = 0;
     },
   },
   created() {
-    this.getBreadcrumb();
     this.getFeachList();
+    this.updateThumbPerView();
   },
   mounted() {
-    this.getClientWidth();
-    window.onresize = () => {
-      this.screenWidth = document.body.clientWidth;
-    };
+    window.addEventListener("resize", this.updateThumbPerView);
+  },
+  beforeDestroy() {
+    window.removeEventListener("resize", this.updateThumbPerView);
   },
   methods: {
-    getClientWidth() {
-      this.screenWidth = document.body.clientWidth;
-      const e = document.body.clientWidth;
-      const r = document.getElementsByClassName("my-pagination-clickable");
-      const n = document.getElementsByClassName("swiper-pagination_item");
-      if (e <= 1512 && e > 768) {
-        this.base = 94;
-        this.imgHover = 5;
-        this.count = 5;
-        this.styleSpec.left = "0px";
-        for (let i = 0; i < r.length; i++) {
-          n[i].style.width = "74px";
-          n[i].style.height = "56px";
-        }
-      } else if (e > 1513) {
-        this.styleSpec.left = "0px";
-        setTimeout(() => {
-          this.$refs.spec_items.style.width = "600px";
-          for (let i = 0; i < r.length; i++) {
-            r[i].style.marginLeft = "14px";
-            r[i].style.marginRight = "14px";
-            n[i].style.width = "87px";
-            r[i].style.height = "76px";
-          }
-          this.base = 109;
-          this.imgHover = 5;
-          this.count = 5;
-        }, 200);
-      } else {
-        this.styleSpec.left = "0px";
-        this.imgHover = 4;
-        this.count = 4;
-        this.base = 90;
+    // 缩略图一屏张数：与样式中的断点（≤768px 三张）保持一致
+    updateThumbPerView() {
+      const next = window.innerWidth <= 768 ? 3 : 4;
+      if (next !== this.thumbPerView) {
+        this.thumbPerView = next;
+        this.thumbStart = 0;
       }
-    },
-    prev() {
-      if (!this.detailData.imgs || !this.detailData.imgs.length) return;
-      if (this.imgHover === this.count) {
-        this.imgHover = this.count;
-        this.imgHoverIndex = 0;
-        if (this.detailData.imgs.length === this.imgHover) {
-          this.styleSpec.left = "0px";
-        } else {
-          this.styleSpec.left = "-" + this.imgHoverIndex * this.base + "px";
-        }
-      } else {
-        --this.imgHover;
-        --this.imgHoverIndex;
-        if (this.imgHover < this.count || this.imgHover === this.count) {
-          this.styleSpec.left = "0px";
-        } else if (this.imgHover > this.count) {
-          this.styleSpec.left = "-" + this.imgHoverIndex * this.base + "px";
-        }
-      }
-    },
-    next() {
-      if (!this.detailData.imgs || !this.detailData.imgs.length) return;
-      if (this.imgHover === this.detailData.imgs.length) {
-        this.imgHover = this.detailData.imgs.length;
-        this.imgHoverIndex = 0;
-      } else if (this.detailData.imgs.length > this.imgHover) {
-        ++this.imgHover;
-        ++this.imgHoverIndex;
-        if (this.imgHover < this.count) {
-          this.styleSpec.left = "0px";
-        } else if (this.imgHover > this.count) {
-          this.styleSpec.left = "-" + this.imgHoverIndex * this.base + "px";
-        }
-      }
-    },
-    over() {
-      const t = document.getElementById("float");
-      const e = document.getElementById("big");
-      t.style.visibility = "visible";
-      e.style.visibility = "visible";
-      e.style.display = "block";
-      this.pic = RESOURCE_BASE_URL + this.detailData.imgs[this.currentIndex];
-    },
-    out() {
-      const t = document.getElementById("float");
-      const e = document.getElementById("big");
-      t.style.visibility = "hidden";
-      e.style.display = "none";
-    },
-    move(e) {
-      const clientHeight = this.getClientHeight();
-      const r = document.getElementById("float");
-      const n = document.getElementById("small");
-      const i = document.getElementById("big");
-      const o = i.getElementsByTagName("img")[0];
-      const a = n.clientWidth - r.offsetWidth - 0;
-      const s = n.clientHeight - r.offsetHeight - 0;
-      const c = o.clientWidth - i.offsetWidth;
-      const l = o.clientHeight - i.offsetHeight;
-      let u = e.clientX - n.offsetLeft - (r.offsetWidth + 90);
-      let f = e.clientY - n.offsetTop - (r.offsetHeight + 50);
-      f += clientHeight;
-      if (u < 0) u = 0;
-      if (f < 0) f = 0;
-      if (u > a) u = a;
-      if (f > s) f = s;
-      const d = u / a;
-      const p = f / s;
-      r.style.left = u + "px";
-      r.style.top = f + "px";
-      o.style.left = -d * c + "px";
-      o.style.top = -p * l + "px";
-    },
-    getClientHeight() {
-      let t = 0;
-      if (document.documentElement && document.documentElement.scrollTop) {
-        t = document.documentElement.scrollTop;
-      } else if (document.body) {
-        t = document.body.scrollTop;
-      }
-      return t;
-    },
-    getBreadcrumb() {
-      let matched = this.$route.matched.filter(
-        (item) => item.meta && item.meta.title,
-      );
-      const breadcrumbList = this.$route.matched.filter(
-        (item) => item.meta && item.meta.title,
-      );
-      if (!matched.length) {
-        this.levelList = breadcrumbList;
-        return;
-      }
-      const routes = this.$router.options.routes;
-      const parentPath = matched[0].path.substring(
-        0,
-        matched[0].path.lastIndexOf("/"),
-      );
-      for (let i = 0; i < routes.length; i++) {
-        if (routes[i].path === parentPath) {
-          matched = [routes[i]];
-        }
-      }
-      const first = matched[0];
-      if (!this.isDashboard(first)) {
-        // 根节点文案存 i18n key，模板经 breadcrumbTitle 渲染，保证语言切换响应
-        matched = [
-          { path: "/", meta: { title: "product.detail.home", i18n: true } },
-        ].concat(matched);
-      }
-      // 分类链：基于 subGroups 完整树解析（组级如 TWS/hierarchy=4 也能命中）
-      this.path = findHierarchyPath(this.$route.query.hierarchy).map((n) => ({
-        path: "/product-center_" + n.name,
-        meta: { title: n.title },
-        hierarchy: n.hierarchy,
-      }));
-      matched = matched.filter(
-        (item) =>
-          item.meta && item.meta.title && item.meta.breadcrumb !== false,
-      );
-      matched = matched.concat(this.path);
-      this.levelList = matched.concat(breadcrumbList);
-    },
-    isDashboard(route) {
-      const name = route && route.name;
-      if (!name) return false;
-      return name.trim().toLocaleLowerCase() === "Home".toLocaleLowerCase();
-    },
-    /**
-     * 面包屑标题：
-     * - meta.i18n 标记的节点按 i18n key 解析（本页根节点用法）
-     * - router meta.titleKey 走 vue-i18n（产品中心/产品详情等路由标题）
-     * - 其余（分类树标题）走术语词典，查不到原样回退英文
-     * 全部在渲染期解析，语言切换即时生效。
-     */
-    breadcrumbTitle(item) {
-      const meta = (item && item.meta) || {};
-      if (meta.i18n && meta.title) return this.$t(meta.title);
-      if (meta.titleKey) return this.$t(meta.titleKey);
-      return this.$tt(meta.title);
-    },
-    handleLink(item) {
-      const { redirect, path, meta, hierarchy } = item;
-      let target = path;
-      if (target.indexOf("_") !== -1) {
-        target = target.substring(0, target.indexOf("_"));
-      }
-      if (redirect) {
-        this.$router.push(redirect);
-      } else if (target === "/product-center") {
-        this.$router.push({
-          name: "product_center",
-          query: { name: meta.title, hierarchy },
-        });
-      } else {
-        this.$router.push(this.pathCompile(target));
-      }
-    },
-    pathCompile(path) {
-      const { params } = this.$route;
-      const toPath = pathToRegexp.compile(path);
-      return toPath(params);
     },
     getFeachList() {
-      const query = this.$route.query;
-      getProductDetail({ id: query.id }).then((res) => {
-        this.detailData = res.data;
+      getProductDetail({ id: this.$route.query.id }).then((res) => {
+        this.detailData = res.data || {};
+        this.currentIndex = 0;
+        this.thumbStart = 0;
       });
     },
     jump() {
@@ -422,422 +153,309 @@ export default {
     changeImg(index) {
       this.currentIndex = index;
     },
-    clickIcon(type) {
-      if (!this.detailData.imgs || !this.detailData.imgs.length) return;
-      if (type === "next") {
-        this.currentIndex++;
-        if (this.currentIndex > this.detailData.imgs.length - 1) {
-          this.currentIndex = this.detailData.imgs.length - 1;
-        }
-      } else if (type === "prev") {
-        if (this.currentIndex === 0) {
-          this.currentIndex = 0;
-        } else {
-          this.currentIndex--;
-        }
-      }
+    // 缩略图翻页：一屏 thumbPerView 张
+    scrollThumb(step) {
+      const max = Math.max(0, this.imgs.length - this.thumbPerView);
+      this.thumbStart = Math.min(max, Math.max(0, this.thumbStart + step));
+    },
+    // ---- 放大镜：hover 显示预览窗，按鼠标位置平移大图 ----
+    over() {
+      if (!this.currentImg) return;
+      const t = document.getElementById("float");
+      const e = document.getElementById("big");
+      if (!t || !e) return;
+      t.style.visibility = "visible";
+      e.style.visibility = "visible";
+      e.style.display = "block";
+    },
+    out() {
+      const t = document.getElementById("float");
+      const e = document.getElementById("big");
+      if (!t || !e) return;
+      t.style.visibility = "hidden";
+      e.style.visibility = "hidden";
+      e.style.display = "none";
+    },
+    move(e) {
+      const r = document.getElementById("float");
+      const n = document.getElementById("small");
+      const i = document.getElementById("big");
+      if (!r || !n || !i) return;
+      const o = i.getElementsByTagName("img")[0];
+      if (!o) return;
+      const a = n.clientWidth - r.offsetWidth;
+      const s = n.clientHeight - r.offsetHeight;
+      const c = o.clientWidth - i.offsetWidth;
+      const l = o.clientHeight - i.offsetHeight;
+      const rect = n.getBoundingClientRect();
+      let u = e.clientX - rect.left - r.offsetWidth / 2;
+      let f = e.clientY - rect.top - r.offsetHeight / 2;
+      if (u < 0) u = 0;
+      if (f < 0) f = 0;
+      if (u > a) u = a;
+      if (f > s) f = s;
+      r.style.left = u + "px";
+      r.style.top = f + "px";
+      this.styles.imgx = -(a > 0 ? (u / a) * c : 0) + "px";
+      this.styles.imgY = -(s > 0 ? (f / s) * l : 0) + "px";
     },
   },
 };
 </script>
 
 <style scoped>
-/* 来自 chunk-3740ee3e.ac2d095d.css，已去掉公共 breadcrumb 部分 */
-@media (max-width: 768px) {
-  .procuct_detail .procuct_detail_content {
-    display: initial !important;
-    margin-top: 60px !important;
-  }
-  .procuct_detail .procuct_detail_content .procuct_detail_l,
-  .procuct_detail .procuct_detail_content .procuct_detail_r {
-    width: 100% !important;
-  }
-  .procuct_detail
-    .procuct_detail_content
-    .procuct_detail_r
-    .procuct_detail_r_max {
-    display: none;
-  }
-  .procuct_detail .procuct_detail_content .procuct_detail_r .el-col {
-    padding: 0 !important;
-  }
-  .spec_items {
-    width: 358px !important;
-  }
-  #big {
-    display: none !important;
-  }
-  #float {
-    visibility: hidden !important;
-  }
+/* =========================================================
+ * 产品详情（简化版：图库 + 描述 + 参数 + 联系按钮）
+ * ======================================================= */
+.procuct_detail {
+  padding-bottom: 80px;
+  background: var(--bg);
 }
-@media (min-width: 768px) {
-  .procuct_detail .procuct_detail_r_max {
-    display: block;
-  }
-  .procuct_detail .procuct_detail_r_min {
-    display: none;
-  }
-  #big,
-  #float {
-    display: block;
-  }
-}
-@media (min-width: 1513px) {
-  .procuct_detail .container {
-    max-width: 1500px !important;
-  }
-}
-#big {
-  display: none;
-}
-#float {
-  visibility: hidden;
-}
-.procuct_detail .swiper-container {
-  z-index: 0;
-}
-.procuct_detail .swiper-wrapper {
-  padding: 0 56px;
-}
+
 .procuct_detail .container {
   max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+  box-sizing: border-box;
 }
-.procuct_detail .procuct_detail_content {
+
+.procuct_detail_content {
   display: flex;
-  margin-top: 77px;
-  padding-bottom: 60px;
+  align-items: flex-start;
+  gap: 40px;
+  margin-top: 60px;
 }
-.procuct_detail .procuct_detail_content .procuct_detail_l {
+
+/* ---------------- 左：图库 ---------------- */
+.procuct_detail_l {
   width: 45%;
   position: relative;
 }
-.procuct_detail .procuct_detail_content .procuct_detail_l .swiper-button-next,
-.procuct_detail .procuct_detail_content .procuct_detail_l .swiper-button-prev {
-  z-index: 1;
-}
-.procuct_detail .procuct_detail_content .procuct_detail_l .arrow-normal {
+
+.gallery {
   position: relative;
 }
-.procuct_detail
-  .procuct_detail_content
-  .procuct_detail_l
-  .arrow-normal
-  .arrow-normal-swiper {
+
+.gallery_main {
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 400px;
   background: var(--surface);
-  height: 100%;
-}
-.procuct_detail
-  .procuct_detail_content
-  .procuct_detail_l
-  .arrow-normal
-  .swiper-button-next:after,
-.procuct_detail
-  .procuct_detail_content
-  .procuct_detail_l
-  .arrow-normal
-  .swiper-button-prev:after {
-  content: "";
-}
-.procuct_detail
-  .procuct_detail_content
-  .procuct_detail_l
-  .arrow-normal
-  .swiper-button-next {
-  right: 20px;
-}
-.procuct_detail
-  .procuct_detail_content
-  .procuct_detail_l
-  .arrow-normal
-  .swiper-button-prev {
-  left: 30px;
-}
-.procuct_detail
-  .procuct_detail_content
-  .procuct_detail_l
-  .arrow-normal
-  .svg-icon {
-  width: 24px;
-  height: 24px;
-}
-.procuct_detail .procuct_detail_content .procuct_detail_l .arrow-normal .mask {
-  width: 200px;
-  height: 200px;
-  background: var(--accent-soft);
-  position: absolute;
-  top: 0;
-  left: 0;
-  cursor: move;
-}
-.procuct_detail .procuct_detail_content .procuct_detail_l .arrow-normal img {
-  width: 100%;
-  height: auto;
-  object-fit: contain;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
 }
 
 #smallimg {
   display: block;
   width: 100%;
   height: 100%;
-  max-height: 400px;
-  object-fit: contain; /* 此时才真正生效 */
+  object-fit: contain;
 }
 
-.procuct_detail .procuct_detail_content .procuct_detail_l .big {
-  width: 600px;
-  height: 600px;
-  position: absolute;
-  top: 0;
-  right: -124%;
-  overflow: hidden;
-  background: #8b4513;
-  z-index: 1;
-}
-.procuct_detail .procuct_detail_content .procuct_detail_l .big img {
+#float {
   position: absolute;
   top: 0;
   left: 0;
-  width: 800px;
-  height: 800px;
+  width: 220px;
+  height: 220px;
+  background: var(--accent-soft);
+  border: 1px solid var(--border-strong);
+  opacity: 0.6;
+  cursor: crosshair;
+  visibility: hidden;
+  pointer-events: none;
 }
-.procuct_detail .procuct_detail_content .procuct_detail_l .swiper-pagination {
-  margin-top: 20px;
-  position: static;
+
+#big {
+  position: absolute;
+  top: 0;
+  left: 102%;
+  width: 420px;
+  height: 420px;
+  overflow: hidden;
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: 6px;
+  z-index: 5;
+  display: none;
+}
+
+#big img {
+  position: absolute;
+  width: 900px;
+  height: 900px;
+  object-fit: contain;
+}
+
+/* ---------------- 缩略图 ---------------- */
+.gallery_thumbs {
+  display: flex;
+  align-items: center;
+  margin-top: 16px;
   background: var(--bg-soft);
-  z-index: 0;
-  position: relative;
-  width: 100%;
-  height: 84px;
+  border-radius: 6px;
+  padding: 8px;
 }
-.procuct_detail
-  .procuct_detail_content
-  .procuct_detail_l
-  .swiper-pagination
-  .spec_items {
-  width: 450px;
-  height: 100%;
-  margin: 0 auto;
-  position: relative;
+
+.gallery_thumbs_view {
+  flex: 1;
   overflow: hidden;
 }
-.procuct_detail
-  .procuct_detail_content
-  .procuct_detail_l
-  .swiper-pagination
-  .arrow_prev {
-  left: 0;
+
+.gallery_thumbs_view ul {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  width: 100%;
+  transition: transform 0.25s ease;
 }
-.procuct_detail
-  .procuct_detail_content
-  .procuct_detail_l
-  .swiper-pagination
-  .arrow_next {
-  right: 0;
+
+.gallery_thumbs_view li {
+  flex: 0 0 25%;
+  box-sizing: border-box;
+  padding: 0 6px;
 }
-.procuct_detail
-  .procuct_detail_content
-  .procuct_detail_l
-  .swiper-pagination
-  .arrow_next,
-.procuct_detail
-  .procuct_detail_content
-  .procuct_detail_l
-  .swiper-pagination
-  .arrow_prev {
-  width: 27px;
-  position: absolute;
+
+.gallery_thumbs_view li img {
+  display: block;
+  width: 100%;
+  height: 72px;
+  object-fit: contain;
+  background: var(--surface);
+  border: 2px solid var(--border);
+  border-radius: 4px;
   cursor: pointer;
-  top: 50%;
-  margin-top: -20px;
+  box-sizing: border-box;
+}
+
+.gallery_thumbs_view li.is-active img {
+  border-color: var(--accent);
+}
+
+.gallery_arrow {
+  width: 28px;
+  height: 28px;
+  flex: 0 0 auto;
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 999;
-}
-.procuct_detail
-  .procuct_detail_content
-  .procuct_detail_l
-  .swiper-pagination
-  .arrow_next
-  i,
-.procuct_detail
-  .procuct_detail_content
-  .procuct_detail_l
-  .swiper-pagination
-  .arrow_prev
-  i {
-  font-size: 35px;
-  font-weight: 800;
   color: var(--text-muted);
-}
-.procuct_detail
-  .procuct_detail_content
-  .procuct_detail_l
-  .swiper-pagination
-  .swiper-pagination_list {
-  border: 2px solid var(--border);
-  margin: 0 6px;
+  background: transparent;
+  border: 0;
   cursor: pointer;
 }
-.procuct_detail
-  .procuct_detail_content
-  .procuct_detail_l
-  .swiper-pagination
-  .my-pagination-clickable {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+
+.gallery_arrow:disabled {
+  color: var(--text-faint);
+  cursor: default;
 }
-.procuct_detail
-  .procuct_detail_content
-  .procuct_detail_l
-  .swiper-pagination
-  .swiper-pagination_item {
-  display: flex;
-  justify-content: center;
-  padding: 4px 10px;
-  width: 74px;
-  height: 56px;
+
+.gallery_arrow:hover:not(:disabled) {
+  color: var(--accent-text);
 }
-.procuct_detail
-  .procuct_detail_content
-  .procuct_detail_l
-  .swiper-pagination
-  .swiper-pagination_item
-  img {
-  width: 100%;
-  height: auto !important;
-  object-fit: cover;
-}
-.procuct_detail .procuct_detail_content .procuct_detail_r {
+
+/* ---------------- 右：产品信息 ---------------- */
+.procuct_detail_r {
   flex: 1;
+  min-width: 0;
 }
-.procuct_detail .procuct_detail_content .procuct_detail_r .procuct_detail_info {
-  padding: 0 15px;
+
+.procuct_detail_info {
+  padding: 0 5px;
 }
-.procuct_detail
-  .procuct_detail_content
-  .procuct_detail_r
-  .procuct_detail_info
-  .title {
+
+.procuct_detail_info .title {
   text-align: left;
   color: var(--text);
-  font-size: 29px;
+  font-size: 28px;
   line-height: 1.5;
 }
-.procuct_detail
-  .procuct_detail_content
-  .procuct_detail_r
-  .procuct_detail_info
-  .sub_title {
+
+.procuct_detail_info .sub_title {
   text-align: left;
-  color: var(--text-strong);
+  color: var(--text-muted);
   font-size: 16px;
-  line-height: 1.5;
+  line-height: 1.6;
 }
-.procuct_detail
-  .procuct_detail_content
-  .procuct_detail_r
-  .procuct_detail_info
-  .el-divider--horizontal {
-  margin: 10px 0;
+
+.procuct_detail_info .el-divider--horizontal {
+  margin: 14px 0;
 }
-.procuct_detail
-  .procuct_detail_content
-  .procuct_detail_r
-  .procuct_detail_info
-  .desc {
+
+.procuct_detail_info .desc {
   padding: 5px 0;
   font-size: 15px;
+  line-height: 1.8;
   text-align: left;
+  color: var(--text);
 }
-.procuct_detail
-  .procuct_detail_content
-  .procuct_detail_r
-  .procuct_detail_info
-  .params {
+
+.procuct_detail_info .params {
   margin-top: 15px;
   padding: 5px 0;
   text-align: left;
+  overflow-x: auto;
 }
-.procuct_detail
-  .procuct_detail_content
-  .procuct_detail_r
-  .procuct_detail_info
-  .params
-  p {
-  box-sizing: inherit;
-  margin: 12px 0 8px;
-  overflow-wrap: break-word;
-  color: var(--text);
-  font-family: Microsoft YaHei;
-  font-size: 15px;
-  line-height: 1.8;
-  /* 文字背景色等富文本内联样式放行，由 rich-content.css 统一控制 */
-  background: transparent !important;
-}
-.procuct_detail
-  .procuct_detail_content
-  .procuct_detail_r
-  .procuct_detail_info
-  .procuct_detail_info_btn {
+
+.procuct_detail_info .procuct_detail_info_btn {
   margin-top: 34px;
   font-size: 16px;
   color: var(--btn-text);
   background: var(--btn-bg);
   border: 1px solid var(--btn-bg);
   border-radius: 4px;
-  padding: 8px 40px;
+  padding: 10px 40px;
+  cursor: pointer;
 }
-.procuct_detail
-  .procuct_detail_content
-  .procuct_detail_r
-  .procuct_detail_info
-  .procuct_detail_info_btn:hover {
+
+.procuct_detail_info .procuct_detail_info_btn:hover {
   color: var(--text);
   background: transparent;
 }
-.procuct_detail .procuct_detail_content .procuct_detail_r p,
-.procuct_detail .procuct_detail_content .procuct_detail_r span {
-  background: transparent !important;
+
+/* =========================================================
+ * 响应式：≤992px 单列；≤768px 关闭放大镜
+ * ======================================================= */
+@media (max-width: 992px) {
+  .procuct_detail_content {
+    flex-direction: column;
+    gap: 24px;
+    margin-top: 40px;
+  }
+
+  .procuct_detail_l {
+    width: 100%;
+  }
+
+  .gallery_main {
+    height: 320px;
+  }
+
+  #big,
+  #float {
+    display: none;
+  }
 }
-#float {
-  width: 300px;
-  height: 300px;
-  background: rgba(213, 236, 90, 0.7);
-  opacity: 0.5;
-  cursor: move;
-}
-#big,
-#float {
-  position: absolute;
-  border: 1px solid var(--border-strong);
-}
-#big {
-  top: 0;
-  left: 102%;
-  width: 500px;
-  height: 500px;
-  overflow: hidden;
-  background: var(--surface);
-  z-index: 1;
-  visibility: hidden;
-}
-#small {
-  height: 400px;
-  position: relative;
-  z-index: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-#big img {
-  position: absolute;
-  z-index: 5;
-  width: 800px;
-  height: 800px;
-  object-fit: contain;
+
+@media (max-width: 768px) {
+  .gallery_main {
+    height: 260px;
+  }
+
+  .gallery_thumbs_view li {
+    flex: 0 0 33.3333%;
+  }
+
+  .procuct_detail_info .title {
+    font-size: 22px;
+  }
+
+  .procuct_detail_info .procuct_detail_info_btn {
+    width: 100%;
+  }
 }
 </style>

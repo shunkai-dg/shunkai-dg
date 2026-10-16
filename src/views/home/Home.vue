@@ -1,10 +1,10 @@
 <template>
   <div class="home">
-    <!-- 1. 轮播 banner：reRender 开关配合 activated 强制重建 swiper -->
+    <!-- 1. 轮播 banner：工厂主视觉（图集来自 imgs.json type=1） -->
     <div class="swiper-banner" v-if="reRender">
       <swiper class="swiper" ref="mySwiper" :options="swiperOpenBanner">
         <swiper-slide v-for="(item, index) in dataList" :key="index">
-          <img :src="item.img_path" alt="" />
+          <img :src="RESOURCE_BASE_URL + item.img_path" alt="" />
         </swiper-slide>
         <div class="swiper-button-prev" slot="button-prev">
           <img :src="swiperLeft" alt="prev" />
@@ -15,10 +15,11 @@
         <div class="swiper-pagination" slot="pagination"></div>
       </swiper>
     </div>
-    <!-- 2. Star products 区：桌面端四列；移动端（<750px）单排横向滑动 -->
+
+    <!-- 2. 主打加工能力：精选产品/案例（is_top=1） -->
     <div class="home-container">
       <h2 class="home-container_title">{{ $t("home.starProducts") }}</h2>
-      <p class="home-container_desc">{{ productsData.desc }}</p>
+      <p class="home-container_desc">{{ $t("home.starProductsDesc") }}</p>
       <ul class="loop-container">
         <li class="loop-item" v-for="item in productsData.list" :key="item.id">
           <div class="loop-item__wrapper">
@@ -39,13 +40,10 @@
         </li>
       </ul>
     </div>
-    <!-- 3. 产品介绍区（硬编码数据，非接口） -->
+
+    <!-- 3. 两段加工能力介绍（图片 + 文案，文案走 i18n） -->
     <div class="home_product">
-      <div
-        class="product_item"
-        v-for="item in productsIntroduce"
-        :key="item.id"
-      >
+      <div class="product_item" v-for="item in productsIntroduce" :key="item.id">
         <div class="product_bg">
           <div
             class="product_bg_img product_bg_max_img"
@@ -77,6 +75,47 @@
         </div>
       </div>
     </div>
+
+    <!-- 4. 工厂实力简介（车间实拍 + 关键数据） -->
+    <div class="home_factory">
+      <div class="home_factory_inner">
+        <p class="home_factory_eyebrow">{{ $t("home.factory.eyebrow") }}</p>
+        <h2 class="home_factory_title">{{ $t("home.factory.title") }}</h2>
+        <p class="home_factory_desc">{{ $t("home.factory.desc") }}</p>
+
+        <ul class="home_factory_stats">
+          <li v-for="(s, i) in factoryStats" :key="i">
+            <strong>{{ s.value }}</strong>
+            <span>{{ s.label }}</span>
+          </li>
+        </ul>
+
+        <ul class="home_factory_gallery">
+          <li v-for="(img, i) in factoryImgs" :key="i">
+            <img
+              :src="RESOURCE_BASE_URL + img.img_path"
+              :alt="$t('home.factory.title')"
+            />
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 5. 联系入口 -->
+    <div class="home_contact">
+      <div class="home_contact_inner">
+        <h2 class="home_contact_title">{{ $t("home.contact.title") }}</h2>
+        <p class="home_contact_desc">{{ $t("home.contact.desc") }}</p>
+        <div class="home_contact_actions">
+          <button class="home_contact_btn" @click="jumpContact">
+            {{ $t("home.contact.button") }}
+          </button>
+          <a class="home_contact_tel" :href="'tel:' + telephone">
+            <i class="el-icon-phone-outline"></i>{{ telephone }}
+          </a>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -84,15 +123,14 @@
 import "./home.css";
 // v4.1.1 的 ESM 导出为 PascalCase（Swiper/SwiperSlide），Vue 会自动匹配 <swiper> 标签
 import { Swiper, SwiperSlide } from "vue-awesome-swiper";
-import { getImg, getProductList } from "@/api/index";
+import { getImg, getProductList, getSetting } from "@/api/index";
 import { RESOURCE_BASE_URL } from "@/utils/resource";
 
 import swiperLeft from "@/assets/img/swiperLeft.png";
 import swiperRight from "@/assets/img/swiperRight.png";
-import product1 from "@/assets/img/product1.png";
-import productMin1 from "@/assets/img/product-min1.png";
-import product2 from "@/assets/img/product2.png";
-import productMin2 from "@/assets/img/product-min2.png";
+// 主打加工能力介绍配图：直接取车间实拍（img_data 为静态目录，构建时原样复制到 dist）
+const factoryMain = "img_data/factory/mould-workshop.jpg";
+const factorySmall = "img_data/equipment/production-line.jpg";
 
 export default {
   name: "Home",
@@ -104,28 +142,25 @@ export default {
       swiperLeft,
       swiperRight,
       dataList: [],
-      productsData: { desc: "", list: [] },
-      // 硬编码产品介绍：图片与分类 id 常驻 data，文案走 i18n（computed productsIntroduce）
+      telePhoneFallback: "+86 13712578616",
+      setting: {},
+      productsData: { list: [] },
+      factoryImgs: [],
+      // 硬编码加工能力介绍：图片与外链分类 id 常驻 data，文案走 i18n（computed productsIntroduce）
       introImgs: [
         {
-          id: 17,
-          cat_four: 29,
+          id: 101,
           cat_one: 1,
-          cat_three: 10,
-          cat_two: 3,
-          url: product1,
-          minUrl: productMin1,
-          key: "cdSound",
+          url: RESOURCE_BASE_URL + factoryMain,
+          minUrl: RESOURCE_BASE_URL + factorySmall,
+          key: "cosmetics",
         },
         {
-          id: 16,
-          cat_four: 29,
-          cat_one: 1,
-          cat_three: 10,
-          cat_two: 3,
-          url: product2,
-          minUrl: productMin2,
-          key: "nc07",
+          id: 201,
+          cat_one: 2,
+          url: RESOURCE_BASE_URL + factorySmall,
+          minUrl: RESOURCE_BASE_URL + factoryMain,
+          key: "electronics",
         },
       ],
       swiperOpenBanner: {
@@ -148,7 +183,10 @@ export default {
     swiper() {
       return this.$refs.mySwiper && this.$refs.mySwiper.swiper;
     },
-    // 硬编码产品介绍：文案随语言切换即时更新（图片/分类 id 保持原值）
+    telephone() {
+      return this.setting.telephone || this.telePhoneFallback;
+    },
+    // 加工能力介绍：文案随语言切换即时更新（图片/分类 id 保持原值）
     productsIntroduce() {
       return this.introImgs.map((item) => ({
         ...item,
@@ -156,11 +194,31 @@ export default {
         desc: this.$t("home.intro." + item.key + ".desc"),
       }));
     },
+    // 工厂关键数据
+    factoryStats() {
+      return [
+        {
+          value: this.$t("home.factory.stats.area.value"),
+          label: this.$t("home.factory.stats.area.label"),
+        },
+        {
+          value: this.$t("home.factory.stats.machines.value"),
+          label: this.$t("home.factory.stats.machines.label"),
+        },
+        {
+          value: this.$t("home.factory.stats.mouldLife.value"),
+          label: this.$t("home.factory.stats.mouldLife.label"),
+        },
+      ];
+    },
   },
   created() {
-    // 原产物：先 getImg 再 getProductTopList
     this.getImg({ n: "dataList", type: 1 });
+    this.getImg({ n: "factoryImgs", type: 15 });
     this.getProductTopList();
+    getSetting().then((res) => {
+      this.setting = (res && res.data) || {};
+    });
   },
   activated() {
     // keep-alive 下强制重建 swiper
@@ -176,7 +234,7 @@ export default {
       });
     },
     getImg({ n, type }) {
-      getImg({ type: "1" }).then((res) => {
+      getImg({ type: String(type) }).then((res) => {
         this[n] = res.data || [];
       });
     },
@@ -185,10 +243,12 @@ export default {
         name: "product_center_detail",
         query: {
           id: item.id,
-          hierarchy:
-            item.cat_four || item.cat_three || item.cat_two || item.cat_one,
+          hierarchy: item.cat_four || item.cat_three || item.cat_two || item.cat_one,
         },
       });
+    },
+    jumpContact() {
+      this.$router.push({ name: "contact_us" });
     },
   },
 };

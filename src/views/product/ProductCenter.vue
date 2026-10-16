@@ -1,9 +1,22 @@
-﻿<template>
+<template>
   <div>
     <Breadcrumb />
     <div class="product_center">
       <div>
         <div class="container">
+          <!-- 一级分类标签（化妆品外壳 / 电子产品外壳 / 其他产品），点击切换列表 -->
+          <ul class="product_tabs">
+            <li
+              v-for="c in categoryTabs"
+              :key="c.id"
+              class="product_tabs_item"
+              :class="{ 'is-active': isActiveTab(c) }"
+              @click="selectTab(c)"
+            >
+              {{ $tt(c.title) }}
+            </li>
+          </ul>
+
           <div class="product_center_row">
             <div class="product_center_l">
               <ul v-if="list && list.length > 0">
@@ -34,6 +47,9 @@
                   </div>
                 </li>
               </ul>
+              <p v-else class="product_center_empty">
+                {{ $t("common.noData") }}
+              </p>
               <el-pagination
                 v-show="list && list.length"
                 background
@@ -43,18 +59,6 @@
                 :total="total"
                 @current-change="handleCurrentChange"
               />
-            </div>
-            <div class="product_center_r">
-              <div class="product_center_menu">
-                <div class="ptree">
-                  <product-tree-menu
-                    :nodes="productTree"
-                    :level="0"
-                    :active-hierarchy="$route.query.hierarchy"
-                    @select="jumpMune"
-                  />
-                </div>
-              </div>
             </div>
           </div>
         </div>
@@ -66,13 +70,12 @@
 <script>
 import { mapGetters } from "vuex";
 import Breadcrumb from "@/components/Breadcrumb";
-import ProductTreeMenu from "@/components/ProductTreeMenu/index.vue";
 import { getProductList } from "@/api/index";
 import { RESOURCE_BASE_URL } from "@/utils/resource";
 import { categoryStore } from "@/utils/navData";
 
 export default {
-  components: { Breadcrumb, ProductTreeMenu },
+  components: { Breadcrumb },
   data() {
     return {
       RESOURCE_BASE_URL,
@@ -84,20 +87,29 @@ export default {
   },
   computed: {
     ...mapGetters(["routersList"]),
-    // 完整层级树：一级 → 二级 subGroups → 三级/四级 childer
-    productTree() {
-      return categoryStore.roots.map((g) => ({
-        title: g.title,
-        name: g.name,
-        hierarchy: g.hierarchy,
-        childer: g.subGroups,
-      }));
+    // 顶部标签：categoryStore 的一级分类
+    categoryTabs() {
+      return categoryStore.roots;
+    },
+    // 当前选中的分类 id（默认第一个分类）
+    activeCatId() {
+      const id = Number(this.$route.query.hierarchy);
+      if (id) return id;
+      const first = this.categoryTabs[0];
+      return first ? Number(first.id) : 0;
     },
   },
   watch: {
-    // SPA 无刷新：仅在本页内切换分类时重新拉列表，保留组件实例与树展开状态
+    // SPA 无刷新：本页内切换分类时重新拉列表
     $route(to) {
       if (to.name === "product_center") {
+        this.page = 1;
+        this.getFeachList();
+      }
+    },
+    // 分类数据异步就绪后，若 URL 未带分类则按默认分类拉一次
+    categoryTabs(tabs) {
+      if (tabs.length && !Number(this.$route.query.hierarchy)) {
         this.page = 1;
         this.getFeachList();
       }
@@ -110,11 +122,22 @@ export default {
     this.$store.dispatch("getBreadcrumb", this.routersList);
   },
   methods: {
+    isActiveTab(c) {
+      return Number(c.id) === Number(this.activeCatId);
+    },
+    // 点击标签：写入 query，列表由 watch $route 触发刷新
+    selectTab(c) {
+      if (this.isActiveTab(c)) return;
+      this.$router.push({
+        name: "product_center",
+        query: { name: c.name || c.title, hierarchy: c.id },
+      });
+    },
     getFeachList(extra) {
       getProductList({
         page: this.page,
         limit: this.limit,
-        cat_id: this.$route.query.hierarchy || 0,
+        cat_id: this.activeCatId || 0,
         ...extra,
       }).then((res) => {
         this.list = res.data.list;
@@ -125,18 +148,12 @@ export default {
       this.page = page;
       this.getFeachList();
     },
-    jumpMune(item) {
-      this.$router.push({
-        name: "product_center",
-        query: { name: item.name || item.title, hierarchy: item.hierarchy },
-      });
-    },
     jump(item) {
       this.$router.push({
         name: "product_center_detail",
         query: {
           id: item.id,
-          hierarchy: this.$route.query.hierarchy,
+          hierarchy: this.activeCatId,
           page: this.page,
           limit: this.limit,
         },
@@ -147,75 +164,193 @@ export default {
 </script>
 
 <style scoped>
-/* 来自 chunk-18f6d912.e796d06a.css，已去掉公共 breadcrumb 部分 */
-@media (min-width: 1200px) {
-  .product_center_l_item_img {
-    height: 200px !important;
-  }
-}
-@media (min-width: 768px) {
-  .product_center_l_item_img {
-    height: 200px !important;
-  }
-}
-@media (max-width: 576px) {
-  .product_center_l_item_img {
-    height: 80px !important;
-  }
-}
-@media (max-width: 768px) {
-  .product_center {
-    padding-bottom: 140px !important;
-  }
-  .product_center_r {
-    display: none;
-  }
-  .product_center_l {
-    width: 100% !important;
-    padding-right: 0 !important;
-  }
-  .product_center_l .product_center_l_item {
-    width: 50% !important;
-  }
-}
-@media (min-width: 1513px) {
-  .product_center .container {
-    max-width: 1500px !important;
-  }
-}
+/* 来自 chunk-18f6d912.e796d06a.css，已按「顶部标签」改造重写 */
 .product_center {
   padding-bottom: 180px;
 }
-.product_center .container {
-  padding: 0 !important;
+
+/* ---------------- 顶部一级分类标签 ---------------- */
+.product_tabs {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 30px 0 10px;
+  padding: 0;
+  list-style: none;
+  gap: 12px;
 }
+
+.product_tabs_item {
+  padding: 10px 28px;
+  font-size: 15px;
+  line-height: 1.4;
+  color: var(--text-muted);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  cursor: pointer;
+  transition:
+    color 0.2s ease,
+    background-color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.product_tabs_item:hover {
+  color: var(--accent-text);
+  border-color: var(--accent);
+}
+
+.product_tabs_item.is-active {
+  color: var(--btn-text);
+  background: var(--btn-bg);
+  border-color: var(--btn-bg);
+}
+
+.product_center .container {
+  padding: 0 15px !important;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
 .product_center .container .product_center_row {
-  margin-top: 30px !important;
   display: flex;
   flex-direction: row;
   position: relative;
+  margin-top: 20px !important;
 }
-.product_center .container .product_center_l.el-col {
-  padding-right: 22px !important;
-}
+
 .product_center .container .product_center_l {
-  width: 75%;
-  padding-right: 12px;
+  width: 100%;
   position: relative;
 }
+
+.product_center .container .product_center_l ul {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+.product_center .container .product_center_l .product_center_empty {
+  padding: 60px 0;
+  text-align: center;
+  color: var(--text-muted);
+}
+
+.product_center .container .product_center_l .product_center_l_item {
+  width: 33.33%;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.product_center
+  .container
+  .product_center_l
+  .product_center_l_item
+  .product_center_l_item_wrapper {
+  padding: 20px;
+  background: var(--surface-2);
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.product_center
+  .container
+  .product_center_l
+  .product_center_l_item
+  .product_center_l_item_wrapper
+  .product_center_l_item_title {
+  padding: 5px 0 0 0;
+  font-size: 18px;
+  line-height: 1.5;
+  text-align: left;
+  color: var(--text);
+}
+
+.product_center
+  .container
+  .product_center_l
+  .product_center_l_item
+  .product_center_l_item_wrapper
+  .product_center_l_item_desc {
+  text-align: left;
+  padding-bottom: 5px;
+  line-height: 1.5;
+  color: var(--text-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.product_center
+  .container
+  .product_center_l
+  .product_center_l_item
+  .product_center_l_item_wrapper
+  .product_center_l_item_btn {
+  margin: 10px 15px 25px 0 !important;
+  font-size: 12px;
+  color: var(--text-muted);
+  background: transparent;
+  border: 1px solid var(--btn-bg);
+  border-radius: 0;
+  padding: 6px 20px;
+  display: block;
+  cursor: pointer;
+}
+
+.product_center
+  .container
+  .product_center_l
+  .product_center_l_item
+  .product_center_l_item_wrapper
+  .product_center_l_item_btn:hover {
+  color: var(--btn-text);
+  background: var(--btn-bg);
+}
+
+.product_center
+  .container
+  .product_center_l
+  .product_center_l_item
+  .product_center_l_item_wrapper
+  .product_center_l_item_img {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+}
+
+.product_center
+  .container
+  .product_center_l
+  .product_center_l_item
+  .product_center_l_item_wrapper
+  .product_center_l_item_img
+  img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* ---------------- 分页 ---------------- */
 .product_center .container .product_center_l .el-pagination {
   text-align: center;
   display: flex;
   justify-content: center;
-  position: absolute;
-  bottom: -40px;
-  left: 0;
-  right: 0;
+  margin-top: 40px;
 }
+
 .product_center .container .product_center_l .el-pagination .btn-next:disabled,
 .product_center .container .product_center_l .el-pagination .btn-prev:disabled {
   background: var(--surface);
 }
+
 .product_center
   .container
   .product_center_l
@@ -230,127 +365,61 @@ export default {
   i {
   color: var(--text-faint);
 }
+
 .product_center .container .product_center_l .el-pagination button {
   width: 28px;
   height: 28px;
 }
+
 .product_center .container .product_center_l .el-pagination button .el-icon {
   font-size: 16px;
 }
+
 .product_center .container .product_center_l .el-pagination .active,
 .product_center .container .product_center_l .el-pagination .el-pager li:hover {
   color: var(--btn-text) !important;
   background-color: var(--btn-bg) !important;
 }
-.product_center .container .product_center_l ul {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  margin: 0;
-  list-style-type: none;
+
+/* ---------------- 响应式：平板两列 / 手机单列 ---------------- */
+@media (min-width: 1513px) {
+  .product_center .container {
+    max-width: 1500px;
+  }
 }
-.product_center .container .product_center_l .product_center_l_item {
-  width: 33.33%;
-  padding: 10px;
+
+@media (max-width: 768px) {
+  .product_center {
+    padding-bottom: 100px;
+  }
+  .product_center .container .product_center_l .product_center_l_item {
+    width: 50%;
+  }
+  .product_center
+    .container
+    .product_center_l
+    .product_center_l_item
+    .product_center_l_item_wrapper
+    .product_center_l_item_img {
+    height: 140px;
+  }
 }
-.product_center
-  .container
-  .product_center_l
-  .product_center_l_item
-  .product_center_l_item_wrapper {
-  padding: 20px;
-  background: var(--surface-2);
-  height: 100%;
-}
-.product_center
-  .container
-  .product_center_l
-  .product_center_l_item
-  .product_center_l_item_wrapper
-  .product_center_l_item_title {
-  padding: 5px 0 0 0;
-  font-size: 20px;
-  line-height: 1.5;
-  text-align: left;
-}
-.product_center
-  .container
-  .product_center_l
-  .product_center_l_item
-  .product_center_l_item_wrapper
-  .product_center_l_item_desc {
-  text-align: left;
-  padding-bottom: 5px;
-  line-height: 1.5;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 1;
-}
-.product_center
-  .container
-  .product_center_l
-  .product_center_l_item
-  .product_center_l_item_wrapper
-  .product_center_l_item_btn {
-  margin-top: 10px !important;
-  margin-bottom: 25px !important;
-  font-size: 12px;
-  color: var(--text-muted);
-  background: transparent;
-  margin: 0 15px 0 0;
-  border: 1px solid var(--btn-bg);
-  border-radius: 0;
-  padding: 6px 20px;
-  display: block;
-}
-.product_center
-  .container
-  .product_center_l
-  .product_center_l_item
-  .product_center_l_item_wrapper
-  .product_center_l_item_img {
-  display: table;
-  table-layout: fixed;
-  width: 100%;
-  vertical-align: middle;
-  text-align: center;
-  display: flex;
-  justify-content: center;
-}
-.product_center
-  .container
-  .product_center_l
-  .product_center_l_item
-  .product_center_l_item_wrapper
-  .product_center_l_item_img
-  img {
-  width: 100%;
-  height: auto;
-  object-fit: contain;
-}
-.product_center .container .product_center_r {
-  width: 25%;
-  padding: 10px 0 !important;
-  position: absolute;
-  right: 0;
-  height: 100%;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  overflow: hidden;
-  overflow: scroll;
-}
-.product_center .container .product_center_r .product_center_menu {
-  overflow: scroll;
-  overflow-x: hidden;
-  background: var(--surface);
-}
-.product_center .container .product_center_r .product_center_menu .ptree {
-  background: var(--surface);
-  padding: 8px 0;
-}
-.empty-tip {
-  width: 100%;
+
+@media (max-width: 576px) {
+  .product_tabs_item {
+    padding: 8px 14px;
+    font-size: 13px;
+  }
+  .product_center .container .product_center_l .product_center_l_item {
+    width: 100%;
+  }
+  .product_center
+    .container
+    .product_center_l
+    .product_center_l_item
+    .product_center_l_item_wrapper
+    .product_center_l_item_img {
+    height: 180px;
+  }
 }
 </style>
